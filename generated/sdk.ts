@@ -1207,6 +1207,88 @@ export type Jsonb_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['jsonb']['input']>>;
 };
 
+/** columns and relationships of "models" */
+export type Models = {
+  __typename?: 'models';
+  description: Scalars['String']['output'];
+  is_active: Scalars['Boolean']['output'];
+  label: Scalars['String']['output'];
+  /** An array relationship */
+  pipeline_models: Array<Pipeline_Models>;
+  provider: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  sort_order: Scalars['Int']['output'];
+};
+
+
+/** columns and relationships of "models" */
+export type ModelsPipeline_ModelsArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Models_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Models_Order_By>>;
+  where?: InputMaybe<Pipeline_Models_Bool_Exp>;
+};
+
+/** Boolean expression to filter rows from the table "models". All fields are combined with a logical 'AND'. */
+export type Models_Bool_Exp = {
+  _and?: InputMaybe<Array<Models_Bool_Exp>>;
+  _not?: InputMaybe<Models_Bool_Exp>;
+  _or?: InputMaybe<Array<Models_Bool_Exp>>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  is_active?: InputMaybe<Boolean_Comparison_Exp>;
+  label?: InputMaybe<String_Comparison_Exp>;
+  pipeline_models?: InputMaybe<Pipeline_Models_Bool_Exp>;
+  provider?: InputMaybe<String_Comparison_Exp>;
+  slug?: InputMaybe<String_Comparison_Exp>;
+  sort_order?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "models". */
+export type Models_Order_By = {
+  description?: InputMaybe<Order_By>;
+  is_active?: InputMaybe<Order_By>;
+  label?: InputMaybe<Order_By>;
+  pipeline_models_aggregate?: InputMaybe<Pipeline_Models_Aggregate_Order_By>;
+  provider?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "models" */
+export enum Models_Select_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  IsActive = 'is_active',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  Provider = 'provider',
+  /** column name */
+  Slug = 'slug',
+  /** column name */
+  SortOrder = 'sort_order'
+}
+
+/** Streaming cursor of the table "models" */
+export type Models_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Models_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Models_Stream_Cursor_Value_Input = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  is_active?: InputMaybe<Scalars['Boolean']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  sort_order?: InputMaybe<Scalars['Int']['input']>;
+};
+
 export type Multipart_Part_Input = {
   ETag: Scalars['String']['input'];
   PartNumber: Scalars['Int']['input'];
@@ -1791,6 +1873,137 @@ export type Personal_Access_Tokens_Stream_Cursor_Value_Input = {
   scopes?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
+/** columns and relationships of "pipeline_models" */
+export type Pipeline_Models = {
+  __typename?: 'pipeline_models';
+  /** An object relationship */
+  model: Models;
+  model_slug: Scalars['String']['output'];
+  pipeline_slug: Scalars['String']['output'];
+  sort_order: Scalars['Int']['output'];
+};
+
+/** order by aggregate values of table "pipeline_models" */
+export type Pipeline_Models_Aggregate_Order_By = {
+  avg?: InputMaybe<Pipeline_Models_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Pipeline_Models_Max_Order_By>;
+  min?: InputMaybe<Pipeline_Models_Min_Order_By>;
+  stddev?: InputMaybe<Pipeline_Models_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Pipeline_Models_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Pipeline_Models_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Pipeline_Models_Sum_Order_By>;
+  var_pop?: InputMaybe<Pipeline_Models_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Pipeline_Models_Var_Samp_Order_By>;
+  variance?: InputMaybe<Pipeline_Models_Variance_Order_By>;
+};
+
+/** order by avg() on columns of table "pipeline_models" */
+export type Pipeline_Models_Avg_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "pipeline_models". All fields are combined with a logical 'AND'. */
+export type Pipeline_Models_Bool_Exp = {
+  _and?: InputMaybe<Array<Pipeline_Models_Bool_Exp>>;
+  _not?: InputMaybe<Pipeline_Models_Bool_Exp>;
+  _or?: InputMaybe<Array<Pipeline_Models_Bool_Exp>>;
+  model?: InputMaybe<Models_Bool_Exp>;
+  model_slug?: InputMaybe<String_Comparison_Exp>;
+  pipeline_slug?: InputMaybe<String_Comparison_Exp>;
+  sort_order?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** order by max() on columns of table "pipeline_models" */
+export type Pipeline_Models_Max_Order_By = {
+  model_slug?: InputMaybe<Order_By>;
+  pipeline_slug?: InputMaybe<Order_By>;
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "pipeline_models" */
+export type Pipeline_Models_Min_Order_By = {
+  model_slug?: InputMaybe<Order_By>;
+  pipeline_slug?: InputMaybe<Order_By>;
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "pipeline_models". */
+export type Pipeline_Models_Order_By = {
+  model?: InputMaybe<Models_Order_By>;
+  model_slug?: InputMaybe<Order_By>;
+  pipeline_slug?: InputMaybe<Order_By>;
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "pipeline_models" */
+export enum Pipeline_Models_Select_Column {
+  /** column name */
+  ModelSlug = 'model_slug',
+  /** column name */
+  PipelineSlug = 'pipeline_slug',
+  /** column name */
+  SortOrder = 'sort_order'
+}
+
+/** order by stddev() on columns of table "pipeline_models" */
+export type Pipeline_Models_Stddev_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "pipeline_models" */
+export type Pipeline_Models_Stddev_Pop_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "pipeline_models" */
+export type Pipeline_Models_Stddev_Samp_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "pipeline_models" */
+export type Pipeline_Models_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Pipeline_Models_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Pipeline_Models_Stream_Cursor_Value_Input = {
+  model_slug?: InputMaybe<Scalars['String']['input']>;
+  pipeline_slug?: InputMaybe<Scalars['String']['input']>;
+  sort_order?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** order by sum() on columns of table "pipeline_models" */
+export type Pipeline_Models_Sum_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** order by var_pop() on columns of table "pipeline_models" */
+export type Pipeline_Models_Var_Pop_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "pipeline_models" */
+export type Pipeline_Models_Var_Samp_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "pipeline_models" */
+export type Pipeline_Models_Variance_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+export type Pipeline_Pricing_Row = {
+  __typename?: 'pipeline_pricing_row';
+  from_mc: Scalars['Int']['output'];
+  metered: Scalars['Boolean']['output'];
+  slug: Scalars['String']['output'];
+  to_mc?: Maybe<Scalars['Int']['output']>;
+};
+
 /** columns and relationships of "pipeline_runs" */
 export type Pipeline_Runs = {
   __typename?: 'pipeline_runs';
@@ -2055,7 +2268,6 @@ export type Pipelines = {
   name: Scalars['String']['output'];
   output_schema: Scalars['jsonb']['output'];
   preview_url?: Maybe<Scalars['String']['output']>;
-  pricing: Scalars['jsonb']['output'];
   providers: Array<Scalars['String']['output']>;
   seo_content?: Maybe<Scalars['String']['output']>;
   seo_faq?: Maybe<Scalars['jsonb']['output']>;
@@ -2080,12 +2292,6 @@ export type PipelinesInput_SchemaArgs = {
 
 /** columns and relationships of "pipelines" */
 export type PipelinesOutput_SchemaArgs = {
-  path?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** columns and relationships of "pipelines" */
-export type PipelinesPricingArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2118,7 +2324,6 @@ export type Pipelines_Bool_Exp = {
   name?: InputMaybe<String_Comparison_Exp>;
   output_schema?: InputMaybe<Jsonb_Comparison_Exp>;
   preview_url?: InputMaybe<String_Comparison_Exp>;
-  pricing?: InputMaybe<Jsonb_Comparison_Exp>;
   providers?: InputMaybe<String_Array_Comparison_Exp>;
   seo_content?: InputMaybe<String_Comparison_Exp>;
   seo_faq?: InputMaybe<Jsonb_Comparison_Exp>;
@@ -2142,7 +2347,6 @@ export type Pipelines_Order_By = {
   name?: InputMaybe<Order_By>;
   output_schema?: InputMaybe<Order_By>;
   preview_url?: InputMaybe<Order_By>;
-  pricing?: InputMaybe<Order_By>;
   providers?: InputMaybe<Order_By>;
   seo_content?: InputMaybe<Order_By>;
   seo_faq?: InputMaybe<Order_By>;
@@ -2178,8 +2382,6 @@ export enum Pipelines_Select_Column {
   OutputSchema = 'output_schema',
   /** column name */
   PreviewUrl = 'preview_url',
-  /** column name */
-  Pricing = 'pricing',
   /** column name */
   Providers = 'providers',
   /** column name */
@@ -2219,7 +2421,6 @@ export type Pipelines_Stream_Cursor_Value_Input = {
   name?: InputMaybe<Scalars['String']['input']>;
   output_schema?: InputMaybe<Scalars['jsonb']['input']>;
   preview_url?: InputMaybe<Scalars['String']['input']>;
-  pricing?: InputMaybe<Scalars['jsonb']['input']>;
   providers?: InputMaybe<Array<Scalars['String']['input']>>;
   seo_content?: InputMaybe<Scalars['String']['input']>;
   seo_faq?: InputMaybe<Scalars['jsonb']['input']>;
@@ -2584,7 +2785,7 @@ export type Query_Root = {
   credit_packs_by_pk?: Maybe<Credit_Packs>;
   /** Get currently authenticated user from JWT claims */
   current_user: Current_User_Output;
-  /** Read-only credit cost preview for a pipeline+input — used by CLI --estimate and FE cost previews */
+  /** Read-only credit cost preview for a pipeline+input — used by CLI --estimate and FE cost previews (public pipeline pages show per-model prices to logged-out visitors) */
   estimate_pipeline_cost?: Maybe<Estimate_Pipeline_Cost_Output>;
   /** fetch data from the table: "executions_visibility" */
   executions_visibility: Array<Executions_Visibility>;
@@ -2594,6 +2795,10 @@ export type Query_Root = {
   get_credit_history: Array<Credit_History_Entry>;
   /** Get affiliate referral stats and referred users */
   get_my_referrals: Get_My_Referrals_Output;
+  /** fetch data from the table: "models" */
+  models: Array<Models>;
+  /** fetch data from the table: "models" using primary key columns */
+  models_by_pk?: Maybe<Models>;
   /** fetch data from the table: "notifications" */
   notifications: Array<Notifications>;
   /** fetch aggregated fields from the table: "notifications" */
@@ -2604,6 +2809,12 @@ export type Query_Root = {
   personal_access_tokens: Array<Personal_Access_Tokens>;
   /** fetch data from the table: "personal_access_tokens" using primary key columns */
   personal_access_tokens_by_pk?: Maybe<Personal_Access_Tokens>;
+  /** An array relationship */
+  pipeline_models: Array<Pipeline_Models>;
+  /** fetch data from the table: "pipeline_models" using primary key columns */
+  pipeline_models_by_pk?: Maybe<Pipeline_Models>;
+  /** Derived pipeline pricing (from DB wholesale) — FE cost-display read model replacing pipelines.pricing */
+  pipeline_pricing: Array<Pipeline_Pricing_Row>;
   /** fetch data from the table: "pipeline_runs" */
   pipeline_runs: Array<Pipeline_Runs>;
   /** fetch aggregated fields from the table: "pipeline_runs" */
@@ -2723,6 +2934,20 @@ export type Query_RootExecutions_VisibilityArgs = {
 };
 
 
+export type Query_RootModelsArgs = {
+  distinct_on?: InputMaybe<Array<Models_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Models_Order_By>>;
+  where?: InputMaybe<Models_Bool_Exp>;
+};
+
+
+export type Query_RootModels_By_PkArgs = {
+  slug: Scalars['String']['input'];
+};
+
+
 export type Query_RootNotificationsArgs = {
   distinct_on?: InputMaybe<Array<Notifications_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2757,6 +2982,21 @@ export type Query_RootPersonal_Access_TokensArgs = {
 
 export type Query_RootPersonal_Access_Tokens_By_PkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootPipeline_ModelsArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Models_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Models_Order_By>>;
+  where?: InputMaybe<Pipeline_Models_Bool_Exp>;
+};
+
+
+export type Query_RootPipeline_Models_By_PkArgs = {
+  model_slug: Scalars['String']['input'];
+  pipeline_slug: Scalars['String']['input'];
 };
 
 
@@ -2937,6 +3177,12 @@ export type Subscription_Root = {
   executions_visibility: Array<Executions_Visibility>;
   /** fetch data from the table in a streaming manner: "executions_visibility" */
   executions_visibility_stream: Array<Executions_Visibility>;
+  /** fetch data from the table: "models" */
+  models: Array<Models>;
+  /** fetch data from the table: "models" using primary key columns */
+  models_by_pk?: Maybe<Models>;
+  /** fetch data from the table in a streaming manner: "models" */
+  models_stream: Array<Models>;
   /** fetch data from the table: "notifications" */
   notifications: Array<Notifications>;
   /** fetch aggregated fields from the table: "notifications" */
@@ -2951,6 +3197,12 @@ export type Subscription_Root = {
   personal_access_tokens_by_pk?: Maybe<Personal_Access_Tokens>;
   /** fetch data from the table in a streaming manner: "personal_access_tokens" */
   personal_access_tokens_stream: Array<Personal_Access_Tokens>;
+  /** An array relationship */
+  pipeline_models: Array<Pipeline_Models>;
+  /** fetch data from the table: "pipeline_models" using primary key columns */
+  pipeline_models_by_pk?: Maybe<Pipeline_Models>;
+  /** fetch data from the table in a streaming manner: "pipeline_models" */
+  pipeline_models_stream: Array<Pipeline_Models>;
   /** fetch data from the table: "pipeline_runs" */
   pipeline_runs: Array<Pipeline_Runs>;
   /** fetch aggregated fields from the table: "pipeline_runs" */
@@ -3116,6 +3368,27 @@ export type Subscription_RootExecutions_Visibility_StreamArgs = {
 };
 
 
+export type Subscription_RootModelsArgs = {
+  distinct_on?: InputMaybe<Array<Models_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Models_Order_By>>;
+  where?: InputMaybe<Models_Bool_Exp>;
+};
+
+
+export type Subscription_RootModels_By_PkArgs = {
+  slug: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootModels_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Models_Stream_Cursor_Input>>;
+  where?: InputMaybe<Models_Bool_Exp>;
+};
+
+
 export type Subscription_RootNotificationsArgs = {
   distinct_on?: InputMaybe<Array<Notifications_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -3164,6 +3437,28 @@ export type Subscription_RootPersonal_Access_Tokens_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Personal_Access_Tokens_Stream_Cursor_Input>>;
   where?: InputMaybe<Personal_Access_Tokens_Bool_Exp>;
+};
+
+
+export type Subscription_RootPipeline_ModelsArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Models_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Models_Order_By>>;
+  where?: InputMaybe<Pipeline_Models_Bool_Exp>;
+};
+
+
+export type Subscription_RootPipeline_Models_By_PkArgs = {
+  model_slug: Scalars['String']['input'];
+  pipeline_slug: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootPipeline_Models_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Pipeline_Models_Stream_Cursor_Input>>;
+  where?: InputMaybe<Pipeline_Models_Bool_Exp>;
 };
 
 
@@ -3709,7 +4004,7 @@ export type MarkAllNotificationsReadMutation = { __typename?: 'mutation_root', u
 export type GetPipelinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPipelinesQuery = { __typename?: 'query_root', pipelines: Array<{ __typename?: 'pipelines', id: any, slug: string, name: string, description?: string | null, category: string, icon_url?: string | null, preview_url?: string | null, providers: Array<string>, models: Array<string>, input_schema: any, ui_schema: any, output_schema: any, seo_content?: string | null, seo_faq?: any | null, tags: Array<string>, hints: any, pricing: any, cancellable: boolean }> };
+export type GetPipelinesQuery = { __typename?: 'query_root', pipelines: Array<{ __typename?: 'pipelines', id: any, slug: string, name: string, description?: string | null, category: string, icon_url?: string | null, preview_url?: string | null, providers: Array<string>, models: Array<string>, input_schema: any, ui_schema: any, output_schema: any, seo_content?: string | null, seo_faq?: any | null, tags: Array<string>, hints: any, cancellable: boolean }> };
 
 export type GetPipelinesListQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -3717,14 +4012,7 @@ export type GetPipelinesListQueryVariables = Exact<{
 }>;
 
 
-export type GetPipelinesListQuery = { __typename?: 'query_root', pipelines: Array<{ __typename?: 'pipelines', id: any, slug: string, name: string, description?: string | null, category: string, icon_url?: string | null, preview_url?: string | null, providers: Array<string>, models: Array<string>, tags: Array<string>, hints: any, pricing: any, cancellable: boolean }> };
-
-export type GetPipelinesPricingQueryVariables = Exact<{
-  slugs: Array<Scalars['String']['input']> | Scalars['String']['input'];
-}>;
-
-
-export type GetPipelinesPricingQuery = { __typename?: 'query_root', pipelines: Array<{ __typename?: 'pipelines', slug: string, pricing: any }> };
+export type GetPipelinesListQuery = { __typename?: 'query_root', pipelines: Array<{ __typename?: 'pipelines', id: any, slug: string, name: string, description?: string | null, category: string, icon_url?: string | null, preview_url?: string | null, providers: Array<string>, models: Array<string>, tags: Array<string>, hints: any, cancellable: boolean }> };
 
 export type EstimatePipelineCostQueryVariables = Exact<{
   pipeline_slug: Scalars['String']['input'];
@@ -3733,6 +4021,18 @@ export type EstimatePipelineCostQueryVariables = Exact<{
 
 
 export type EstimatePipelineCostQuery = { __typename?: 'query_root', estimate_pipeline_cost?: { __typename?: 'estimate_pipeline_cost_output', pipeline_slug: string, reservation_mc: number, estimated_mc: number, is_metered: boolean } | null };
+
+export type PipelineModelsQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type PipelineModelsQuery = { __typename?: 'query_root', pipeline_models: Array<{ __typename?: 'pipeline_models', model_slug: string, model: { __typename?: 'models', slug: string, label: string, description: string } }> };
+
+export type PipelinePricingQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PipelinePricingQuery = { __typename?: 'query_root', pipeline_pricing: Array<{ __typename?: 'pipeline_pricing_row', slug: string, from_mc: number, to_mc?: number | null, metered: boolean }> };
 
 export type RunPipelineMutationVariables = Exact<{
   pipeline_slug: Scalars['String']['input'];
@@ -4279,7 +4579,6 @@ export const GetPipelinesDocument = gql`
     seo_faq
     tags
     hints
-    pricing
     cancellable
   }
 }
@@ -4303,16 +4602,7 @@ export const GetPipelinesListDocument = gql`
     models
     tags
     hints
-    pricing
     cancellable
-  }
-}
-    `;
-export const GetPipelinesPricingDocument = gql`
-    query GetPipelinesPricing($slugs: [String!]!) {
-  pipelines(where: {slug: {_in: $slugs}}) {
-    slug
-    pricing
   }
 }
     `;
@@ -4323,6 +4613,31 @@ export const EstimatePipelineCostDocument = gql`
     reservation_mc
     estimated_mc
     is_metered
+  }
+}
+    `;
+export const PipelineModelsDocument = gql`
+    query PipelineModels($slug: String!) {
+  pipeline_models(
+    where: {pipeline_slug: {_eq: $slug}}
+    order_by: {sort_order: asc}
+  ) {
+    model_slug
+    model {
+      slug
+      label
+      description
+    }
+  }
+}
+    `;
+export const PipelinePricingDocument = gql`
+    query PipelinePricing {
+  pipeline_pricing {
+    slug
+    from_mc
+    to_mc
+    metered
   }
 }
     `;
@@ -4778,11 +5093,14 @@ export function getSdk<C>(requester: Requester<C>) {
     GetPipelinesList(variables?: GetPipelinesListQueryVariables, options?: C): Promise<GetPipelinesListQuery> {
       return requester<GetPipelinesListQuery, GetPipelinesListQueryVariables>(GetPipelinesListDocument, variables, options) as Promise<GetPipelinesListQuery>;
     },
-    GetPipelinesPricing(variables: GetPipelinesPricingQueryVariables, options?: C): Promise<GetPipelinesPricingQuery> {
-      return requester<GetPipelinesPricingQuery, GetPipelinesPricingQueryVariables>(GetPipelinesPricingDocument, variables, options) as Promise<GetPipelinesPricingQuery>;
-    },
     EstimatePipelineCost(variables: EstimatePipelineCostQueryVariables, options?: C): Promise<EstimatePipelineCostQuery> {
       return requester<EstimatePipelineCostQuery, EstimatePipelineCostQueryVariables>(EstimatePipelineCostDocument, variables, options) as Promise<EstimatePipelineCostQuery>;
+    },
+    PipelineModels(variables: PipelineModelsQueryVariables, options?: C): Promise<PipelineModelsQuery> {
+      return requester<PipelineModelsQuery, PipelineModelsQueryVariables>(PipelineModelsDocument, variables, options) as Promise<PipelineModelsQuery>;
+    },
+    PipelinePricing(variables?: PipelinePricingQueryVariables, options?: C): Promise<PipelinePricingQuery> {
+      return requester<PipelinePricingQuery, PipelinePricingQueryVariables>(PipelinePricingDocument, variables, options) as Promise<PipelinePricingQuery>;
     },
     RunPipeline(variables: RunPipelineMutationVariables, options?: C): Promise<RunPipelineMutation> {
       return requester<RunPipelineMutation, RunPipelineMutationVariables>(RunPipelineDocument, variables, options) as Promise<RunPipelineMutation>;
