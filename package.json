@@ -1,6 +1,6 @@
 {
   "name": "@pipe2-ai/sdk",
-  "version": "2026.07.1",
+  "version": "2026.07.2",
   "type": "module",
   "main": "./dist/src/index.js",
   "types": "./dist/src/index.d.ts",

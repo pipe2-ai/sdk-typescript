@@ -669,10 +669,10 @@ export type Auth_Flow = {
 
 export type Auth_Result = {
   __typename?: 'auth_result';
+  affiliate_id?: Maybe<Scalars['String']['output']>;
   message: Scalars['String']['output'];
   success: Scalars['Boolean']['output'];
   token?: Maybe<Scalars['String']['output']>;
-  whop_affiliate_id?: Maybe<Scalars['String']['output']>;
 };
 
 /** Boolean expression to compare columns of type "bigint". All fields are combined with logical 'AND'. */
@@ -775,6 +775,12 @@ export type Create_Asset_Output = {
   url: Scalars['String']['output'];
 };
 
+export type Create_Checkout_Session_Output = {
+  __typename?: 'create_checkout_session_output';
+  success: Scalars['Boolean']['output'];
+  url: Scalars['String']['output'];
+};
+
 export type Create_Personal_Access_Token_Output = {
   __typename?: 'create_personal_access_token_output';
   expires_at: Scalars['String']['output'];
@@ -802,6 +808,85 @@ export type Credit_History_Entry = {
   reservation_mc?: Maybe<Scalars['Int']['output']>;
   status?: Maybe<Scalars['String']['output']>;
   type: Scalars['String']['output'];
+};
+
+/** columns and relationships of "credit_pack_translations" */
+export type Credit_Pack_Translations = {
+  __typename?: 'credit_pack_translations';
+  credit_pack_id: Scalars['uuid']['output'];
+  locale: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+/** order by aggregate values of table "credit_pack_translations" */
+export type Credit_Pack_Translations_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Credit_Pack_Translations_Max_Order_By>;
+  min?: InputMaybe<Credit_Pack_Translations_Min_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "credit_pack_translations". All fields are combined with a logical 'AND'. */
+export type Credit_Pack_Translations_Bool_Exp = {
+  _and?: InputMaybe<Array<Credit_Pack_Translations_Bool_Exp>>;
+  _not?: InputMaybe<Credit_Pack_Translations_Bool_Exp>;
+  _or?: InputMaybe<Array<Credit_Pack_Translations_Bool_Exp>>;
+  credit_pack_id?: InputMaybe<Uuid_Comparison_Exp>;
+  locale?: InputMaybe<String_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** order by max() on columns of table "credit_pack_translations" */
+export type Credit_Pack_Translations_Max_Order_By = {
+  credit_pack_id?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "credit_pack_translations" */
+export type Credit_Pack_Translations_Min_Order_By = {
+  credit_pack_id?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "credit_pack_translations". */
+export type Credit_Pack_Translations_Order_By = {
+  credit_pack_id?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "credit_pack_translations" */
+export enum Credit_Pack_Translations_Select_Column {
+  /** column name */
+  CreditPackId = 'credit_pack_id',
+  /** column name */
+  Locale = 'locale',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** Streaming cursor of the table "credit_pack_translations" */
+export type Credit_Pack_Translations_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Credit_Pack_Translations_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Credit_Pack_Translations_Stream_Cursor_Value_Input = {
+  credit_pack_id?: InputMaybe<Scalars['uuid']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
 /** columns and relationships of "credit_pack_versions" */
@@ -997,7 +1082,19 @@ export type Credit_Packs = {
   slug: Scalars['String']['output'];
   sort_order: Scalars['Int']['output'];
   /** An array relationship */
+  translations: Array<Credit_Pack_Translations>;
+  /** An array relationship */
   versions: Array<Credit_Pack_Versions>;
+};
+
+
+/** columns and relationships of "credit_packs" */
+export type Credit_PacksTranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Credit_Pack_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Credit_Pack_Translations_Order_By>>;
+  where?: InputMaybe<Credit_Pack_Translations_Bool_Exp>;
 };
 
 
@@ -1019,6 +1116,7 @@ export type Credit_Packs_Bool_Exp = {
   name?: InputMaybe<String_Comparison_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
   sort_order?: InputMaybe<Int_Comparison_Exp>;
+  translations?: InputMaybe<Credit_Pack_Translations_Bool_Exp>;
   versions?: InputMaybe<Credit_Pack_Versions_Bool_Exp>;
 };
 
@@ -1028,6 +1126,7 @@ export type Credit_Packs_Order_By = {
   name?: InputMaybe<Order_By>;
   slug?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
+  translations_aggregate?: InputMaybe<Credit_Pack_Translations_Aggregate_Order_By>;
   versions_aggregate?: InputMaybe<Credit_Pack_Versions_Aggregate_Order_By>;
 };
 
@@ -1091,10 +1190,15 @@ export type Ensure_Affiliate_Output = {
 
 export type Estimate_Pipeline_Cost_Output = {
   __typename?: 'estimate_pipeline_cost_output';
+  engine_caps?: Maybe<Scalars['jsonb']['output']>;
   estimated_mc: Scalars['Int']['output'];
+  incompatible_models?: Maybe<Scalars['jsonb']['output']>;
   is_metered: Scalars['Boolean']['output'];
   pipeline_slug: Scalars['String']['output'];
   reservation_mc: Scalars['Int']['output'];
+  routed_model?: Maybe<Scalars['String']['output']>;
+  routed_reason_code?: Maybe<Scalars['String']['output']>;
+  routed_reason_params?: Maybe<Scalars['jsonb']['output']>;
 };
 
 /** columns and relationships of "executions_visibility" */
@@ -1207,6 +1311,151 @@ export type Jsonb_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['jsonb']['input']>>;
 };
 
+/** columns and relationships of "locales" */
+export type Locales = {
+  __typename?: 'locales';
+  code: Scalars['String']['output'];
+  dir: Scalars['String']['output'];
+  label: Scalars['String']['output'];
+  native_name: Scalars['String']['output'];
+  sort_order: Scalars['Int']['output'];
+};
+
+/** Boolean expression to filter rows from the table "locales". All fields are combined with a logical 'AND'. */
+export type Locales_Bool_Exp = {
+  _and?: InputMaybe<Array<Locales_Bool_Exp>>;
+  _not?: InputMaybe<Locales_Bool_Exp>;
+  _or?: InputMaybe<Array<Locales_Bool_Exp>>;
+  code?: InputMaybe<String_Comparison_Exp>;
+  dir?: InputMaybe<String_Comparison_Exp>;
+  label?: InputMaybe<String_Comparison_Exp>;
+  native_name?: InputMaybe<String_Comparison_Exp>;
+  sort_order?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "locales". */
+export type Locales_Order_By = {
+  code?: InputMaybe<Order_By>;
+  dir?: InputMaybe<Order_By>;
+  label?: InputMaybe<Order_By>;
+  native_name?: InputMaybe<Order_By>;
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "locales" */
+export enum Locales_Select_Column {
+  /** column name */
+  Code = 'code',
+  /** column name */
+  Dir = 'dir',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  NativeName = 'native_name',
+  /** column name */
+  SortOrder = 'sort_order'
+}
+
+/** Streaming cursor of the table "locales" */
+export type Locales_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Locales_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Locales_Stream_Cursor_Value_Input = {
+  code?: InputMaybe<Scalars['String']['input']>;
+  dir?: InputMaybe<Scalars['String']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  native_name?: InputMaybe<Scalars['String']['input']>;
+  sort_order?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** columns and relationships of "model_translations" */
+export type Model_Translations = {
+  __typename?: 'model_translations';
+  description?: Maybe<Scalars['String']['output']>;
+  locale: Scalars['String']['output'];
+  /** An object relationship */
+  model: Models;
+  model_slug: Scalars['String']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+/** order by aggregate values of table "model_translations" */
+export type Model_Translations_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Model_Translations_Max_Order_By>;
+  min?: InputMaybe<Model_Translations_Min_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "model_translations". All fields are combined with a logical 'AND'. */
+export type Model_Translations_Bool_Exp = {
+  _and?: InputMaybe<Array<Model_Translations_Bool_Exp>>;
+  _not?: InputMaybe<Model_Translations_Bool_Exp>;
+  _or?: InputMaybe<Array<Model_Translations_Bool_Exp>>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  locale?: InputMaybe<String_Comparison_Exp>;
+  model?: InputMaybe<Models_Bool_Exp>;
+  model_slug?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** order by max() on columns of table "model_translations" */
+export type Model_Translations_Max_Order_By = {
+  description?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  model_slug?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "model_translations" */
+export type Model_Translations_Min_Order_By = {
+  description?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  model_slug?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "model_translations". */
+export type Model_Translations_Order_By = {
+  description?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  model?: InputMaybe<Models_Order_By>;
+  model_slug?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "model_translations" */
+export enum Model_Translations_Select_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Locale = 'locale',
+  /** column name */
+  ModelSlug = 'model_slug',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** Streaming cursor of the table "model_translations" */
+export type Model_Translations_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Model_Translations_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Model_Translations_Stream_Cursor_Value_Input = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  model_slug?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
 /** columns and relationships of "models" */
 export type Models = {
   __typename?: 'models';
@@ -1218,6 +1467,8 @@ export type Models = {
   provider: Scalars['String']['output'];
   slug: Scalars['String']['output'];
   sort_order: Scalars['Int']['output'];
+  /** An array relationship */
+  translations: Array<Model_Translations>;
 };
 
 
@@ -1228,6 +1479,16 @@ export type ModelsPipeline_ModelsArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Pipeline_Models_Order_By>>;
   where?: InputMaybe<Pipeline_Models_Bool_Exp>;
+};
+
+
+/** columns and relationships of "models" */
+export type ModelsTranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Model_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Model_Translations_Order_By>>;
+  where?: InputMaybe<Model_Translations_Bool_Exp>;
 };
 
 /** Boolean expression to filter rows from the table "models". All fields are combined with a logical 'AND'. */
@@ -1242,6 +1503,7 @@ export type Models_Bool_Exp = {
   provider?: InputMaybe<String_Comparison_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
   sort_order?: InputMaybe<Int_Comparison_Exp>;
+  translations?: InputMaybe<Model_Translations_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "models". */
@@ -1253,6 +1515,7 @@ export type Models_Order_By = {
   provider?: InputMaybe<Order_By>;
   slug?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
+  translations_aggregate?: InputMaybe<Model_Translations_Aggregate_Order_By>;
 };
 
 /** select columns of table "models" */
@@ -1303,67 +1566,65 @@ export type Multipart_Part_Url = {
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
-  /** Cancel an in-progress multipart upload (cleanup) */
+  /** Cancel an in-progress multi-part upload */
   abort_multipart_upload: Abort_Multipart_Upload_Output;
   /** Add a new primary affiliate code */
   add_affiliate_code: Add_Affiliate_Code_Output;
-  /** Cancel a pending scheduled account deletion during the grace period. */
+  /** Cancel a scheduled account deletion during the grace period. */
   cancel_account_deletion: Cancel_Account_Deletion_Output;
   /** Cancel a running pipeline and refund credits */
   cancel_pipeline_run?: Maybe<Cancel_Pipeline_Run_Output>;
-  /** Cancel the user's subscription at the end of the current billing period */
+  /** Cancel your subscription at the end of the current billing period */
   cancel_subscription: Cancel_Subscription_Output;
-  /** Persist the user's avatar URL after a successful upload */
+  /** Update your profile picture */
   change_avatar: Change_Avatar_Output;
-  /** Update the current user's display name */
+  /** Update your display name */
   change_name: Change_Name_Output;
-  /** Change the current user's password via Kratos settings flow */
+  /** Change your password */
   change_password: Change_Password_Output;
-  /** Finalize a multipart upload and register the asset row */
+  /** Finalize a multi-part upload and register the asset */
   complete_multipart_upload: Create_Asset_Output;
-  /** Validate a deletion JWT and schedule the account for deletion (token-authed, anonymous-allowed). */
+  /** Confirm and schedule account deletion from the emailed link. */
   confirm_account_deletion: Confirm_Account_Deletion_Output;
-  /** Create an asset record after S3 upload */
+  /** Register an uploaded file as an asset */
   create_asset: Create_Asset_Output;
-  /** Create a new personal access token for API/MCP authentication */
+  /** Create a Whop checkout session with the buyer's user_id baked into metadata */
+  create_checkout_session: Create_Checkout_Session_Output;
+  /** Create a personal access token for API and MCP access */
   create_personal_access_token: Create_Personal_Access_Token_Output;
-  /** Delete an asset and its S3 object */
+  /** Delete an asset */
   delete_asset: Delete_Asset_Output;
   /** delete data from the table: "notifications" */
   delete_notifications?: Maybe<Notifications_Mutation_Response>;
   /** delete single row from the table: "notifications" */
   delete_notifications_by_pk?: Maybe<Notifications>;
-  /** Create affiliate record and referral code for current user if missing */
+  /** Create an affiliate profile and referral code for the current user if missing */
   ensure_affiliate: Ensure_Affiliate_Output;
-  /** Initiate Kratos login flow */
-  init_login_flow: Auth_Flow;
-  /** Initiate Kratos password recovery (forgot password) flow */
-  init_recovery_flow: Auth_Result;
-  /** Initiate Kratos signup (registration) flow */
-  init_signup_flow: Auth_Flow;
-  /** Initiate Kratos email verification flow */
+  /** Begin email verification */
   init_verification_flow: Auth_Flow;
-  /** Send an email-link confirmation for account deletion. No state change until the link is clicked. */
+  /** Sign in with email and password */
+  login: Auth_Result;
+  /** Create an account with email and password */
+  register: Auth_Result;
+  /** Send an email link to confirm account deletion. No changes are made until the link is clicked. */
   request_account_deletion: Request_Account_Deletion_Output;
-  /** Mint a presigned S3 PUT URL for an avatar image */
+  /** Request an upload URL for a profile picture */
   request_avatar_upload: Request_Avatar_Upload_Output;
-  /** Initiate an S3 multipart upload and return one presigned PUT URL per part */
+  /** Request upload URLs for a large file sent in multiple parts */
   request_multipart_upload: Request_Multipart_Upload_Output;
-  /** Generate presigned S3 PUT URL for direct browser uploads */
+  /** Send a password reset email */
+  request_password_reset: Auth_Result;
+  /** Request a direct upload URL for a file */
   request_upload: Request_Upload_Output;
+  /** Set a new password using the emailed code */
+  reset_password: Auth_Result;
   /** Revoke a personal access token */
   revoke_personal_access_token: Revoke_Personal_Access_Token_Output;
-  /** Start a pipeline execution via Temporal workflow */
+  /** Start a pipeline run */
   run_pipeline?: Maybe<Run_Pipeline_Output>;
-  /** Submit Kratos login credentials */
-  submit_login_flow: Auth_Result;
-  /** Submit Kratos password recovery (set new password) */
-  submit_recovery_flow: Auth_Result;
-  /** Submit Kratos signup (registration) form */
-  submit_signup_flow: Auth_Result;
-  /** Initiate OIDC social login flow and return provider redirect URL */
+  /** Begin social sign-in and return the provider redirect URL */
   submit_social_login: Social_Login_Output;
-  /** Submit Kratos verification code */
+  /** Submit an email verification code */
   submit_verification_code: Auth_Result;
   /** update data of the table: "affiliate_codes" */
   update_affiliate_codes?: Maybe<Affiliate_Codes_Mutation_Response>;
@@ -1383,6 +1644,12 @@ export type Mutation_Root = {
   update_notifications_by_pk?: Maybe<Notifications>;
   /** update multiples rows of table: "notifications" */
   update_notifications_many?: Maybe<Array<Maybe<Notifications_Mutation_Response>>>;
+  /** update data of the table: "pipeline_runs" */
+  update_pipeline_runs?: Maybe<Pipeline_Runs_Mutation_Response>;
+  /** update single row of the table: "pipeline_runs" */
+  update_pipeline_runs_by_pk?: Maybe<Pipeline_Runs>;
+  /** update multiples rows of table: "pipeline_runs" */
+  update_pipeline_runs_many?: Maybe<Array<Maybe<Pipeline_Runs_Mutation_Response>>>;
 };
 
 
@@ -1449,6 +1716,13 @@ export type Mutation_RootCreate_AssetArgs = {
 
 
 /** mutation root */
+export type Mutation_RootCreate_Checkout_SessionArgs = {
+  affiliate_code?: InputMaybe<Scalars['String']['input']>;
+  whop_plan_id: Scalars['String']['input'];
+};
+
+
+/** mutation root */
 export type Mutation_RootCreate_Personal_Access_TokenArgs = {
   name: Scalars['String']['input'];
 };
@@ -1473,15 +1747,26 @@ export type Mutation_RootDelete_Notifications_By_PkArgs = {
 
 
 /** mutation root */
-export type Mutation_RootInit_Recovery_FlowArgs = {
-  email: Scalars['String']['input'];
+export type Mutation_RootInit_Verification_FlowArgs = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  force?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
 /** mutation root */
-export type Mutation_RootInit_Verification_FlowArgs = {
-  email?: InputMaybe<Scalars['String']['input']>;
-  force?: InputMaybe<Scalars['Boolean']['input']>;
+export type Mutation_RootLoginArgs = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  referral_code?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** mutation root */
+export type Mutation_RootRegisterArgs = {
+  email: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+  referral_code?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1502,9 +1787,23 @@ export type Mutation_RootRequest_Multipart_UploadArgs = {
 
 
 /** mutation root */
+export type Mutation_RootRequest_Password_ResetArgs = {
+  email: Scalars['String']['input'];
+};
+
+
+/** mutation root */
 export type Mutation_RootRequest_UploadArgs = {
   content_type: Scalars['String']['input'];
   filename: Scalars['String']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootReset_PasswordArgs = {
+  code: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  newPassword: Scalars['String']['input'];
 };
 
 
@@ -1518,34 +1817,6 @@ export type Mutation_RootRevoke_Personal_Access_TokenArgs = {
 export type Mutation_RootRun_PipelineArgs = {
   input: Scalars['jsonb']['input'];
   pipeline_slug: Scalars['String']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootSubmit_Login_FlowArgs = {
-  csrf_token: Scalars['String']['input'];
-  email: Scalars['String']['input'];
-  flowId: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-  referral_code?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** mutation root */
-export type Mutation_RootSubmit_Recovery_FlowArgs = {
-  csrf_token: Scalars['String']['input'];
-  flowId: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootSubmit_Signup_FlowArgs = {
-  csrf_token: Scalars['String']['input'];
-  email: Scalars['String']['input'];
-  flowId: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  password: Scalars['String']['input'];
 };
 
 
@@ -1620,6 +1891,26 @@ export type Mutation_RootUpdate_Notifications_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Notifications_ManyArgs = {
   updates: Array<Notifications_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Pipeline_RunsArgs = {
+  _set?: InputMaybe<Pipeline_Runs_Set_Input>;
+  where: Pipeline_Runs_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Pipeline_Runs_By_PkArgs = {
+  _set?: InputMaybe<Pipeline_Runs_Set_Input>;
+  pk_columns: Pipeline_Runs_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Pipeline_Runs_ManyArgs = {
+  updates: Array<Pipeline_Runs_Updates>;
 };
 
 /** columns and relationships of "notifications" */
@@ -1873,6 +2164,344 @@ export type Personal_Access_Tokens_Stream_Cursor_Value_Input = {
   scopes?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
+/** columns and relationships of "pipeline_examples" */
+export type Pipeline_Examples = {
+  __typename?: 'pipeline_examples';
+  caption?: Maybe<Scalars['String']['output']>;
+  content?: Maybe<Scalars['String']['output']>;
+  created_at: Scalars['timestamptz']['output'];
+  id: Scalars['uuid']['output'];
+  input_kind?: Maybe<Scalars['String']['output']>;
+  input_url?: Maybe<Scalars['String']['output']>;
+  inputs?: Maybe<Scalars['jsonb']['output']>;
+  is_active: Scalars['Boolean']['output'];
+  /** An object relationship */
+  model?: Maybe<Models>;
+  model_slug?: Maybe<Scalars['String']['output']>;
+  output_kind: Scalars['String']['output'];
+  output_url?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  pipeline: Pipelines;
+  pipeline_id: Scalars['uuid']['output'];
+  sort_order: Scalars['Int']['output'];
+  thumbnail_url?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  /** An array relationship */
+  translations: Array<Pipeline_Examples_Translations>;
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+
+/** columns and relationships of "pipeline_examples" */
+export type Pipeline_ExamplesInputsArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "pipeline_examples" */
+export type Pipeline_ExamplesTranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Examples_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Examples_Translations_Order_By>>;
+  where?: InputMaybe<Pipeline_Examples_Translations_Bool_Exp>;
+};
+
+/** order by aggregate values of table "pipeline_examples" */
+export type Pipeline_Examples_Aggregate_Order_By = {
+  avg?: InputMaybe<Pipeline_Examples_Avg_Order_By>;
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Pipeline_Examples_Max_Order_By>;
+  min?: InputMaybe<Pipeline_Examples_Min_Order_By>;
+  stddev?: InputMaybe<Pipeline_Examples_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Pipeline_Examples_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Pipeline_Examples_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Pipeline_Examples_Sum_Order_By>;
+  var_pop?: InputMaybe<Pipeline_Examples_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Pipeline_Examples_Var_Samp_Order_By>;
+  variance?: InputMaybe<Pipeline_Examples_Variance_Order_By>;
+};
+
+/** order by avg() on columns of table "pipeline_examples" */
+export type Pipeline_Examples_Avg_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "pipeline_examples". All fields are combined with a logical 'AND'. */
+export type Pipeline_Examples_Bool_Exp = {
+  _and?: InputMaybe<Array<Pipeline_Examples_Bool_Exp>>;
+  _not?: InputMaybe<Pipeline_Examples_Bool_Exp>;
+  _or?: InputMaybe<Array<Pipeline_Examples_Bool_Exp>>;
+  caption?: InputMaybe<String_Comparison_Exp>;
+  content?: InputMaybe<String_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  input_kind?: InputMaybe<String_Comparison_Exp>;
+  input_url?: InputMaybe<String_Comparison_Exp>;
+  inputs?: InputMaybe<Jsonb_Comparison_Exp>;
+  is_active?: InputMaybe<Boolean_Comparison_Exp>;
+  model?: InputMaybe<Models_Bool_Exp>;
+  model_slug?: InputMaybe<String_Comparison_Exp>;
+  output_kind?: InputMaybe<String_Comparison_Exp>;
+  output_url?: InputMaybe<String_Comparison_Exp>;
+  pipeline?: InputMaybe<Pipelines_Bool_Exp>;
+  pipeline_id?: InputMaybe<Uuid_Comparison_Exp>;
+  sort_order?: InputMaybe<Int_Comparison_Exp>;
+  thumbnail_url?: InputMaybe<String_Comparison_Exp>;
+  title?: InputMaybe<String_Comparison_Exp>;
+  translations?: InputMaybe<Pipeline_Examples_Translations_Bool_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** order by max() on columns of table "pipeline_examples" */
+export type Pipeline_Examples_Max_Order_By = {
+  caption?: InputMaybe<Order_By>;
+  content?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  input_kind?: InputMaybe<Order_By>;
+  input_url?: InputMaybe<Order_By>;
+  model_slug?: InputMaybe<Order_By>;
+  output_kind?: InputMaybe<Order_By>;
+  output_url?: InputMaybe<Order_By>;
+  pipeline_id?: InputMaybe<Order_By>;
+  sort_order?: InputMaybe<Order_By>;
+  thumbnail_url?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "pipeline_examples" */
+export type Pipeline_Examples_Min_Order_By = {
+  caption?: InputMaybe<Order_By>;
+  content?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  input_kind?: InputMaybe<Order_By>;
+  input_url?: InputMaybe<Order_By>;
+  model_slug?: InputMaybe<Order_By>;
+  output_kind?: InputMaybe<Order_By>;
+  output_url?: InputMaybe<Order_By>;
+  pipeline_id?: InputMaybe<Order_By>;
+  sort_order?: InputMaybe<Order_By>;
+  thumbnail_url?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "pipeline_examples". */
+export type Pipeline_Examples_Order_By = {
+  caption?: InputMaybe<Order_By>;
+  content?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  input_kind?: InputMaybe<Order_By>;
+  input_url?: InputMaybe<Order_By>;
+  inputs?: InputMaybe<Order_By>;
+  is_active?: InputMaybe<Order_By>;
+  model?: InputMaybe<Models_Order_By>;
+  model_slug?: InputMaybe<Order_By>;
+  output_kind?: InputMaybe<Order_By>;
+  output_url?: InputMaybe<Order_By>;
+  pipeline?: InputMaybe<Pipelines_Order_By>;
+  pipeline_id?: InputMaybe<Order_By>;
+  sort_order?: InputMaybe<Order_By>;
+  thumbnail_url?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+  translations_aggregate?: InputMaybe<Pipeline_Examples_Translations_Aggregate_Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "pipeline_examples" */
+export enum Pipeline_Examples_Select_Column {
+  /** column name */
+  Caption = 'caption',
+  /** column name */
+  Content = 'content',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  InputKind = 'input_kind',
+  /** column name */
+  InputUrl = 'input_url',
+  /** column name */
+  Inputs = 'inputs',
+  /** column name */
+  IsActive = 'is_active',
+  /** column name */
+  ModelSlug = 'model_slug',
+  /** column name */
+  OutputKind = 'output_kind',
+  /** column name */
+  OutputUrl = 'output_url',
+  /** column name */
+  PipelineId = 'pipeline_id',
+  /** column name */
+  SortOrder = 'sort_order',
+  /** column name */
+  ThumbnailUrl = 'thumbnail_url',
+  /** column name */
+  Title = 'title',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** order by stddev() on columns of table "pipeline_examples" */
+export type Pipeline_Examples_Stddev_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_pop() on columns of table "pipeline_examples" */
+export type Pipeline_Examples_Stddev_Pop_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** order by stddev_samp() on columns of table "pipeline_examples" */
+export type Pipeline_Examples_Stddev_Samp_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** Streaming cursor of the table "pipeline_examples" */
+export type Pipeline_Examples_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Pipeline_Examples_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Pipeline_Examples_Stream_Cursor_Value_Input = {
+  caption?: InputMaybe<Scalars['String']['input']>;
+  content?: InputMaybe<Scalars['String']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  input_kind?: InputMaybe<Scalars['String']['input']>;
+  input_url?: InputMaybe<Scalars['String']['input']>;
+  inputs?: InputMaybe<Scalars['jsonb']['input']>;
+  is_active?: InputMaybe<Scalars['Boolean']['input']>;
+  model_slug?: InputMaybe<Scalars['String']['input']>;
+  output_kind?: InputMaybe<Scalars['String']['input']>;
+  output_url?: InputMaybe<Scalars['String']['input']>;
+  pipeline_id?: InputMaybe<Scalars['uuid']['input']>;
+  sort_order?: InputMaybe<Scalars['Int']['input']>;
+  thumbnail_url?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** order by sum() on columns of table "pipeline_examples" */
+export type Pipeline_Examples_Sum_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** columns and relationships of "pipeline_examples_translations" */
+export type Pipeline_Examples_Translations = {
+  __typename?: 'pipeline_examples_translations';
+  caption?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  example: Pipeline_Examples;
+  example_id: Scalars['uuid']['output'];
+  locale: Scalars['String']['output'];
+  title?: Maybe<Scalars['String']['output']>;
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+/** order by aggregate values of table "pipeline_examples_translations" */
+export type Pipeline_Examples_Translations_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Pipeline_Examples_Translations_Max_Order_By>;
+  min?: InputMaybe<Pipeline_Examples_Translations_Min_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "pipeline_examples_translations". All fields are combined with a logical 'AND'. */
+export type Pipeline_Examples_Translations_Bool_Exp = {
+  _and?: InputMaybe<Array<Pipeline_Examples_Translations_Bool_Exp>>;
+  _not?: InputMaybe<Pipeline_Examples_Translations_Bool_Exp>;
+  _or?: InputMaybe<Array<Pipeline_Examples_Translations_Bool_Exp>>;
+  caption?: InputMaybe<String_Comparison_Exp>;
+  example?: InputMaybe<Pipeline_Examples_Bool_Exp>;
+  example_id?: InputMaybe<Uuid_Comparison_Exp>;
+  locale?: InputMaybe<String_Comparison_Exp>;
+  title?: InputMaybe<String_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** order by max() on columns of table "pipeline_examples_translations" */
+export type Pipeline_Examples_Translations_Max_Order_By = {
+  caption?: InputMaybe<Order_By>;
+  example_id?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "pipeline_examples_translations" */
+export type Pipeline_Examples_Translations_Min_Order_By = {
+  caption?: InputMaybe<Order_By>;
+  example_id?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "pipeline_examples_translations". */
+export type Pipeline_Examples_Translations_Order_By = {
+  caption?: InputMaybe<Order_By>;
+  example?: InputMaybe<Pipeline_Examples_Order_By>;
+  example_id?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  title?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "pipeline_examples_translations" */
+export enum Pipeline_Examples_Translations_Select_Column {
+  /** column name */
+  Caption = 'caption',
+  /** column name */
+  ExampleId = 'example_id',
+  /** column name */
+  Locale = 'locale',
+  /** column name */
+  Title = 'title',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** Streaming cursor of the table "pipeline_examples_translations" */
+export type Pipeline_Examples_Translations_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Pipeline_Examples_Translations_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Pipeline_Examples_Translations_Stream_Cursor_Value_Input = {
+  caption?: InputMaybe<Scalars['String']['input']>;
+  example_id?: InputMaybe<Scalars['uuid']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** order by var_pop() on columns of table "pipeline_examples" */
+export type Pipeline_Examples_Var_Pop_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** order by var_samp() on columns of table "pipeline_examples" */
+export type Pipeline_Examples_Var_Samp_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** order by variance() on columns of table "pipeline_examples" */
+export type Pipeline_Examples_Variance_Order_By = {
+  sort_order?: InputMaybe<Order_By>;
+};
+
 /** columns and relationships of "pipeline_models" */
 export type Pipeline_Models = {
   __typename?: 'pipeline_models';
@@ -2021,6 +2650,8 @@ export type Pipeline_Runs = {
   /** An object relationship */
   pipeline: Pipelines;
   pipeline_id: Scalars['uuid']['output'];
+  share_token?: Maybe<Scalars['uuid']['output']>;
+  share_watermark: Scalars['Boolean']['output'];
   started_at?: Maybe<Scalars['timestamptz']['output']>;
   status: Scalars['String']['output'];
   temporal_workflow_id?: Maybe<Scalars['String']['output']>;
@@ -2111,6 +2742,8 @@ export type Pipeline_Runs_Bool_Exp = {
   output?: InputMaybe<Jsonb_Comparison_Exp>;
   pipeline?: InputMaybe<Pipelines_Bool_Exp>;
   pipeline_id?: InputMaybe<Uuid_Comparison_Exp>;
+  share_token?: InputMaybe<Uuid_Comparison_Exp>;
+  share_watermark?: InputMaybe<Boolean_Comparison_Exp>;
   started_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   status?: InputMaybe<String_Comparison_Exp>;
   temporal_workflow_id?: InputMaybe<String_Comparison_Exp>;
@@ -2125,6 +2758,7 @@ export type Pipeline_Runs_Max_Fields = {
   error_message?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   pipeline_id?: Maybe<Scalars['uuid']['output']>;
+  share_token?: Maybe<Scalars['uuid']['output']>;
   started_at?: Maybe<Scalars['timestamptz']['output']>;
   status?: Maybe<Scalars['String']['output']>;
   temporal_workflow_id?: Maybe<Scalars['String']['output']>;
@@ -2139,9 +2773,19 @@ export type Pipeline_Runs_Min_Fields = {
   error_message?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
   pipeline_id?: Maybe<Scalars['uuid']['output']>;
+  share_token?: Maybe<Scalars['uuid']['output']>;
   started_at?: Maybe<Scalars['timestamptz']['output']>;
   status?: Maybe<Scalars['String']['output']>;
   temporal_workflow_id?: Maybe<Scalars['String']['output']>;
+};
+
+/** response of any mutation on the table "pipeline_runs" */
+export type Pipeline_Runs_Mutation_Response = {
+  __typename?: 'pipeline_runs_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Pipeline_Runs>;
 };
 
 /** Ordering options when selecting data from "pipeline_runs". */
@@ -2156,9 +2800,16 @@ export type Pipeline_Runs_Order_By = {
   output?: InputMaybe<Order_By>;
   pipeline?: InputMaybe<Pipelines_Order_By>;
   pipeline_id?: InputMaybe<Order_By>;
+  share_token?: InputMaybe<Order_By>;
+  share_watermark?: InputMaybe<Order_By>;
   started_at?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
   temporal_workflow_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: pipeline_runs */
+export type Pipeline_Runs_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
 };
 
 /** select columns of table "pipeline_runs" */
@@ -2180,12 +2831,22 @@ export enum Pipeline_Runs_Select_Column {
   /** column name */
   PipelineId = 'pipeline_id',
   /** column name */
+  ShareToken = 'share_token',
+  /** column name */
+  ShareWatermark = 'share_watermark',
+  /** column name */
   StartedAt = 'started_at',
   /** column name */
   Status = 'status',
   /** column name */
   TemporalWorkflowId = 'temporal_workflow_id'
 }
+
+/** input type for updating data in table "pipeline_runs" */
+export type Pipeline_Runs_Set_Input = {
+  share_token?: InputMaybe<Scalars['uuid']['input']>;
+  share_watermark?: InputMaybe<Scalars['Boolean']['input']>;
+};
 
 /** aggregate stddev on columns */
 export type Pipeline_Runs_Stddev_Fields = {
@@ -2223,6 +2884,8 @@ export type Pipeline_Runs_Stream_Cursor_Value_Input = {
   input?: InputMaybe<Scalars['jsonb']['input']>;
   output?: InputMaybe<Scalars['jsonb']['input']>;
   pipeline_id?: InputMaybe<Scalars['uuid']['input']>;
+  share_token?: InputMaybe<Scalars['uuid']['input']>;
+  share_watermark?: InputMaybe<Scalars['Boolean']['input']>;
   started_at?: InputMaybe<Scalars['timestamptz']['input']>;
   status?: InputMaybe<Scalars['String']['input']>;
   temporal_workflow_id?: InputMaybe<Scalars['String']['input']>;
@@ -2232,6 +2895,13 @@ export type Pipeline_Runs_Stream_Cursor_Value_Input = {
 export type Pipeline_Runs_Sum_Fields = {
   __typename?: 'pipeline_runs_sum_fields';
   credits_charged?: Maybe<Scalars['Int']['output']>;
+};
+
+export type Pipeline_Runs_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Pipeline_Runs_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Pipeline_Runs_Bool_Exp;
 };
 
 /** aggregate var_pop on columns */
@@ -2252,12 +2922,149 @@ export type Pipeline_Runs_Variance_Fields = {
   credits_charged?: Maybe<Scalars['Float']['output']>;
 };
 
+/** columns and relationships of "pipeline_translations" */
+export type Pipeline_Translations = {
+  __typename?: 'pipeline_translations';
+  description?: Maybe<Scalars['String']['output']>;
+  form_i18n?: Maybe<Scalars['jsonb']['output']>;
+  hints?: Maybe<Scalars['jsonb']['output']>;
+  locale: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  pipeline: Pipelines;
+  pipeline_id: Scalars['uuid']['output'];
+  seo_content?: Maybe<Scalars['String']['output']>;
+  seo_faq?: Maybe<Scalars['jsonb']['output']>;
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+
+/** columns and relationships of "pipeline_translations" */
+export type Pipeline_TranslationsForm_I18nArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "pipeline_translations" */
+export type Pipeline_TranslationsHintsArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "pipeline_translations" */
+export type Pipeline_TranslationsSeo_FaqArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** order by aggregate values of table "pipeline_translations" */
+export type Pipeline_Translations_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Pipeline_Translations_Max_Order_By>;
+  min?: InputMaybe<Pipeline_Translations_Min_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "pipeline_translations". All fields are combined with a logical 'AND'. */
+export type Pipeline_Translations_Bool_Exp = {
+  _and?: InputMaybe<Array<Pipeline_Translations_Bool_Exp>>;
+  _not?: InputMaybe<Pipeline_Translations_Bool_Exp>;
+  _or?: InputMaybe<Array<Pipeline_Translations_Bool_Exp>>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  form_i18n?: InputMaybe<Jsonb_Comparison_Exp>;
+  hints?: InputMaybe<Jsonb_Comparison_Exp>;
+  locale?: InputMaybe<String_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  pipeline?: InputMaybe<Pipelines_Bool_Exp>;
+  pipeline_id?: InputMaybe<Uuid_Comparison_Exp>;
+  seo_content?: InputMaybe<String_Comparison_Exp>;
+  seo_faq?: InputMaybe<Jsonb_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** order by max() on columns of table "pipeline_translations" */
+export type Pipeline_Translations_Max_Order_By = {
+  description?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  pipeline_id?: InputMaybe<Order_By>;
+  seo_content?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "pipeline_translations" */
+export type Pipeline_Translations_Min_Order_By = {
+  description?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  pipeline_id?: InputMaybe<Order_By>;
+  seo_content?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "pipeline_translations". */
+export type Pipeline_Translations_Order_By = {
+  description?: InputMaybe<Order_By>;
+  form_i18n?: InputMaybe<Order_By>;
+  hints?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  pipeline?: InputMaybe<Pipelines_Order_By>;
+  pipeline_id?: InputMaybe<Order_By>;
+  seo_content?: InputMaybe<Order_By>;
+  seo_faq?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "pipeline_translations" */
+export enum Pipeline_Translations_Select_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  FormI18n = 'form_i18n',
+  /** column name */
+  Hints = 'hints',
+  /** column name */
+  Locale = 'locale',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  PipelineId = 'pipeline_id',
+  /** column name */
+  SeoContent = 'seo_content',
+  /** column name */
+  SeoFaq = 'seo_faq',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** Streaming cursor of the table "pipeline_translations" */
+export type Pipeline_Translations_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Pipeline_Translations_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Pipeline_Translations_Stream_Cursor_Value_Input = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  form_i18n?: InputMaybe<Scalars['jsonb']['input']>;
+  hints?: InputMaybe<Scalars['jsonb']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  pipeline_id?: InputMaybe<Scalars['uuid']['input']>;
+  seo_content?: InputMaybe<Scalars['String']['input']>;
+  seo_faq?: InputMaybe<Scalars['jsonb']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
 /** columns and relationships of "pipelines" */
 export type Pipelines = {
   __typename?: 'pipelines';
   cancellable: Scalars['Boolean']['output'];
   category: Scalars['String']['output'];
   description?: Maybe<Scalars['String']['output']>;
+  /** An array relationship */
+  examples: Array<Pipeline_Examples>;
   /** Structured metadata for AI orchestrators: best_for, avoid_for, limitations, output_characteristics, composability, quality_tips */
   hints: Scalars['jsonb']['output'];
   icon_url?: Maybe<Scalars['String']['output']>;
@@ -2267,6 +3074,8 @@ export type Pipelines = {
   models: Array<Scalars['String']['output']>;
   name: Scalars['String']['output'];
   output_schema: Scalars['jsonb']['output'];
+  /** An array relationship */
+  pipeline_models: Array<Pipeline_Models>;
   preview_url?: Maybe<Scalars['String']['output']>;
   providers: Array<Scalars['String']['output']>;
   seo_content?: Maybe<Scalars['String']['output']>;
@@ -2274,7 +3083,19 @@ export type Pipelines = {
   slug: Scalars['String']['output'];
   sort_order: Scalars['Int']['output'];
   tags: Array<Scalars['String']['output']>;
+  /** An array relationship */
+  translations: Array<Pipeline_Translations>;
   ui_schema: Scalars['jsonb']['output'];
+};
+
+
+/** columns and relationships of "pipelines" */
+export type PipelinesExamplesArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Examples_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Examples_Order_By>>;
+  where?: InputMaybe<Pipeline_Examples_Bool_Exp>;
 };
 
 
@@ -2297,8 +3118,28 @@ export type PipelinesOutput_SchemaArgs = {
 
 
 /** columns and relationships of "pipelines" */
+export type PipelinesPipeline_ModelsArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Models_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Models_Order_By>>;
+  where?: InputMaybe<Pipeline_Models_Bool_Exp>;
+};
+
+
+/** columns and relationships of "pipelines" */
 export type PipelinesSeo_FaqArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "pipelines" */
+export type PipelinesTranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Translations_Order_By>>;
+  where?: InputMaybe<Pipeline_Translations_Bool_Exp>;
 };
 
 
@@ -2315,6 +3156,7 @@ export type Pipelines_Bool_Exp = {
   cancellable?: InputMaybe<Boolean_Comparison_Exp>;
   category?: InputMaybe<String_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
+  examples?: InputMaybe<Pipeline_Examples_Bool_Exp>;
   hints?: InputMaybe<Jsonb_Comparison_Exp>;
   icon_url?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
@@ -2323,6 +3165,7 @@ export type Pipelines_Bool_Exp = {
   models?: InputMaybe<String_Array_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
   output_schema?: InputMaybe<Jsonb_Comparison_Exp>;
+  pipeline_models?: InputMaybe<Pipeline_Models_Bool_Exp>;
   preview_url?: InputMaybe<String_Comparison_Exp>;
   providers?: InputMaybe<String_Array_Comparison_Exp>;
   seo_content?: InputMaybe<String_Comparison_Exp>;
@@ -2330,6 +3173,7 @@ export type Pipelines_Bool_Exp = {
   slug?: InputMaybe<String_Comparison_Exp>;
   sort_order?: InputMaybe<Int_Comparison_Exp>;
   tags?: InputMaybe<String_Array_Comparison_Exp>;
+  translations?: InputMaybe<Pipeline_Translations_Bool_Exp>;
   ui_schema?: InputMaybe<Jsonb_Comparison_Exp>;
 };
 
@@ -2338,6 +3182,7 @@ export type Pipelines_Order_By = {
   cancellable?: InputMaybe<Order_By>;
   category?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
+  examples_aggregate?: InputMaybe<Pipeline_Examples_Aggregate_Order_By>;
   hints?: InputMaybe<Order_By>;
   icon_url?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
@@ -2346,6 +3191,7 @@ export type Pipelines_Order_By = {
   models?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
   output_schema?: InputMaybe<Order_By>;
+  pipeline_models_aggregate?: InputMaybe<Pipeline_Models_Aggregate_Order_By>;
   preview_url?: InputMaybe<Order_By>;
   providers?: InputMaybe<Order_By>;
   seo_content?: InputMaybe<Order_By>;
@@ -2353,6 +3199,7 @@ export type Pipelines_Order_By = {
   slug?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
   tags?: InputMaybe<Order_By>;
+  translations_aggregate?: InputMaybe<Pipeline_Translations_Aggregate_Order_By>;
   ui_schema?: InputMaybe<Order_By>;
 };
 
@@ -2428,6 +3275,105 @@ export type Pipelines_Stream_Cursor_Value_Input = {
   sort_order?: InputMaybe<Scalars['Int']['input']>;
   tags?: InputMaybe<Array<Scalars['String']['input']>>;
   ui_schema?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** columns and relationships of "plan_translations" */
+export type Plan_Translations = {
+  __typename?: 'plan_translations';
+  description?: Maybe<Scalars['String']['output']>;
+  features?: Maybe<Scalars['jsonb']['output']>;
+  locale: Scalars['String']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  plan_id: Scalars['uuid']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+
+/** columns and relationships of "plan_translations" */
+export type Plan_TranslationsFeaturesArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** order by aggregate values of table "plan_translations" */
+export type Plan_Translations_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Plan_Translations_Max_Order_By>;
+  min?: InputMaybe<Plan_Translations_Min_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "plan_translations". All fields are combined with a logical 'AND'. */
+export type Plan_Translations_Bool_Exp = {
+  _and?: InputMaybe<Array<Plan_Translations_Bool_Exp>>;
+  _not?: InputMaybe<Plan_Translations_Bool_Exp>;
+  _or?: InputMaybe<Array<Plan_Translations_Bool_Exp>>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  features?: InputMaybe<Jsonb_Comparison_Exp>;
+  locale?: InputMaybe<String_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+  plan_id?: InputMaybe<Uuid_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** order by max() on columns of table "plan_translations" */
+export type Plan_Translations_Max_Order_By = {
+  description?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  plan_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "plan_translations" */
+export type Plan_Translations_Min_Order_By = {
+  description?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  plan_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "plan_translations". */
+export type Plan_Translations_Order_By = {
+  description?: InputMaybe<Order_By>;
+  features?: InputMaybe<Order_By>;
+  locale?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+  plan_id?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "plan_translations" */
+export enum Plan_Translations_Select_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Features = 'features',
+  /** column name */
+  Locale = 'locale',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  PlanId = 'plan_id',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** Streaming cursor of the table "plan_translations" */
+export type Plan_Translations_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Plan_Translations_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Plan_Translations_Stream_Cursor_Value_Input = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  features?: InputMaybe<Scalars['jsonb']['input']>;
+  locale?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  plan_id?: InputMaybe<Scalars['uuid']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
 /** columns and relationships of "plan_versions" */
@@ -2681,6 +3627,8 @@ export type Plans = {
   slug: Scalars['String']['output'];
   sort_order: Scalars['Int']['output'];
   /** An array relationship */
+  translations: Array<Plan_Translations>;
+  /** An array relationship */
   versions: Array<Plan_Versions>;
 };
 
@@ -2688,6 +3636,16 @@ export type Plans = {
 /** columns and relationships of "plans" */
 export type PlansFeaturesArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** columns and relationships of "plans" */
+export type PlansTranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Plan_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Plan_Translations_Order_By>>;
+  where?: InputMaybe<Plan_Translations_Bool_Exp>;
 };
 
 
@@ -2711,6 +3669,7 @@ export type Plans_Bool_Exp = {
   name?: InputMaybe<String_Comparison_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
   sort_order?: InputMaybe<Int_Comparison_Exp>;
+  translations?: InputMaybe<Plan_Translations_Bool_Exp>;
   versions?: InputMaybe<Plan_Versions_Bool_Exp>;
 };
 
@@ -2722,6 +3681,7 @@ export type Plans_Order_By = {
   name?: InputMaybe<Order_By>;
   slug?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
+  translations_aggregate?: InputMaybe<Plan_Translations_Aggregate_Order_By>;
   versions_aggregate?: InputMaybe<Plan_Versions_Aggregate_Order_By>;
 };
 
@@ -2775,6 +3735,10 @@ export type Query_Root = {
   assets_aggregate: Assets_Aggregate;
   /** fetch data from the table: "assets" using primary key columns */
   assets_by_pk?: Maybe<Assets>;
+  /** fetch data from the table: "credit_pack_translations" */
+  credit_pack_translations: Array<Credit_Pack_Translations>;
+  /** fetch data from the table: "credit_pack_translations" using primary key columns */
+  credit_pack_translations_by_pk?: Maybe<Credit_Pack_Translations>;
   /** fetch data from the table: "credit_pack_versions" */
   credit_pack_versions: Array<Credit_Pack_Versions>;
   /** fetch data from the table: "credit_pack_versions" using primary key columns */
@@ -2783,18 +3747,26 @@ export type Query_Root = {
   credit_packs: Array<Credit_Packs>;
   /** fetch data from the table: "credit_packs" using primary key columns */
   credit_packs_by_pk?: Maybe<Credit_Packs>;
-  /** Get currently authenticated user from JWT claims */
+  /** Get the currently signed-in user */
   current_user: Current_User_Output;
-  /** Read-only credit cost preview for a pipeline+input — used by CLI --estimate and FE cost previews (public pipeline pages show per-model prices to logged-out visitors) */
+  /** Preview the credit cost of running a pipeline with a given input (read-only) */
   estimate_pipeline_cost?: Maybe<Estimate_Pipeline_Cost_Output>;
   /** fetch data from the table: "executions_visibility" */
   executions_visibility: Array<Executions_Visibility>;
-  /** Get user credit balance from TigerBeetle */
+  /** Get your current credit balance */
   get_credit_balance?: Maybe<Credit_Balance_Output>;
-  /** Get user credit transaction history from TigerBeetle */
+  /** Get your credit transaction history */
   get_credit_history: Array<Credit_History_Entry>;
-  /** Get affiliate referral stats and referred users */
+  /** Get your referral stats and referred users */
   get_my_referrals: Get_My_Referrals_Output;
+  /** fetch data from the table: "locales" */
+  locales: Array<Locales>;
+  /** fetch data from the table: "locales" using primary key columns */
+  locales_by_pk?: Maybe<Locales>;
+  /** fetch data from the table: "model_translations" */
+  model_translations: Array<Model_Translations>;
+  /** fetch data from the table: "model_translations" using primary key columns */
+  model_translations_by_pk?: Maybe<Model_Translations>;
   /** fetch data from the table: "models" */
   models: Array<Models>;
   /** fetch data from the table: "models" using primary key columns */
@@ -2809,11 +3781,19 @@ export type Query_Root = {
   personal_access_tokens: Array<Personal_Access_Tokens>;
   /** fetch data from the table: "personal_access_tokens" using primary key columns */
   personal_access_tokens_by_pk?: Maybe<Personal_Access_Tokens>;
+  /** fetch data from the table: "pipeline_examples" */
+  pipeline_examples: Array<Pipeline_Examples>;
+  /** fetch data from the table: "pipeline_examples" using primary key columns */
+  pipeline_examples_by_pk?: Maybe<Pipeline_Examples>;
+  /** fetch data from the table: "pipeline_examples_translations" */
+  pipeline_examples_translations: Array<Pipeline_Examples_Translations>;
+  /** fetch data from the table: "pipeline_examples_translations" using primary key columns */
+  pipeline_examples_translations_by_pk?: Maybe<Pipeline_Examples_Translations>;
   /** An array relationship */
   pipeline_models: Array<Pipeline_Models>;
   /** fetch data from the table: "pipeline_models" using primary key columns */
   pipeline_models_by_pk?: Maybe<Pipeline_Models>;
-  /** Derived pipeline pricing (from DB wholesale) — FE cost-display read model replacing pipelines.pricing */
+  /** Credit pricing for pipelines */
   pipeline_pricing: Array<Pipeline_Pricing_Row>;
   /** fetch data from the table: "pipeline_runs" */
   pipeline_runs: Array<Pipeline_Runs>;
@@ -2821,10 +3801,18 @@ export type Query_Root = {
   pipeline_runs_aggregate: Pipeline_Runs_Aggregate;
   /** fetch data from the table: "pipeline_runs" using primary key columns */
   pipeline_runs_by_pk?: Maybe<Pipeline_Runs>;
+  /** fetch data from the table: "pipeline_translations" */
+  pipeline_translations: Array<Pipeline_Translations>;
+  /** fetch data from the table: "pipeline_translations" using primary key columns */
+  pipeline_translations_by_pk?: Maybe<Pipeline_Translations>;
   /** fetch data from the table: "pipelines" */
   pipelines: Array<Pipelines>;
   /** fetch data from the table: "pipelines" using primary key columns */
   pipelines_by_pk?: Maybe<Pipelines>;
+  /** fetch data from the table: "plan_translations" */
+  plan_translations: Array<Plan_Translations>;
+  /** fetch data from the table: "plan_translations" using primary key columns */
+  plan_translations_by_pk?: Maybe<Plan_Translations>;
   /** fetch data from the table: "plan_versions" */
   plan_versions: Array<Plan_Versions>;
   /** fetch data from the table: "plan_versions" using primary key columns */
@@ -2891,6 +3879,21 @@ export type Query_RootAssets_By_PkArgs = {
 };
 
 
+export type Query_RootCredit_Pack_TranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Credit_Pack_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Credit_Pack_Translations_Order_By>>;
+  where?: InputMaybe<Credit_Pack_Translations_Bool_Exp>;
+};
+
+
+export type Query_RootCredit_Pack_Translations_By_PkArgs = {
+  credit_pack_id: Scalars['uuid']['input'];
+  locale: Scalars['String']['input'];
+};
+
+
 export type Query_RootCredit_Pack_VersionsArgs = {
   distinct_on?: InputMaybe<Array<Credit_Pack_Versions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -2931,6 +3934,35 @@ export type Query_RootExecutions_VisibilityArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Executions_Visibility_Order_By>>;
   where?: InputMaybe<Executions_Visibility_Bool_Exp>;
+};
+
+
+export type Query_RootLocalesArgs = {
+  distinct_on?: InputMaybe<Array<Locales_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Locales_Order_By>>;
+  where?: InputMaybe<Locales_Bool_Exp>;
+};
+
+
+export type Query_RootLocales_By_PkArgs = {
+  code: Scalars['String']['input'];
+};
+
+
+export type Query_RootModel_TranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Model_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Model_Translations_Order_By>>;
+  where?: InputMaybe<Model_Translations_Bool_Exp>;
+};
+
+
+export type Query_RootModel_Translations_By_PkArgs = {
+  locale: Scalars['String']['input'];
+  model_slug: Scalars['String']['input'];
 };
 
 
@@ -2985,6 +4017,35 @@ export type Query_RootPersonal_Access_Tokens_By_PkArgs = {
 };
 
 
+export type Query_RootPipeline_ExamplesArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Examples_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Examples_Order_By>>;
+  where?: InputMaybe<Pipeline_Examples_Bool_Exp>;
+};
+
+
+export type Query_RootPipeline_Examples_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootPipeline_Examples_TranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Examples_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Examples_Translations_Order_By>>;
+  where?: InputMaybe<Pipeline_Examples_Translations_Bool_Exp>;
+};
+
+
+export type Query_RootPipeline_Examples_Translations_By_PkArgs = {
+  example_id: Scalars['uuid']['input'];
+  locale: Scalars['String']['input'];
+};
+
+
 export type Query_RootPipeline_ModelsArgs = {
   distinct_on?: InputMaybe<Array<Pipeline_Models_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -3023,6 +4084,21 @@ export type Query_RootPipeline_Runs_By_PkArgs = {
 };
 
 
+export type Query_RootPipeline_TranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Translations_Order_By>>;
+  where?: InputMaybe<Pipeline_Translations_Bool_Exp>;
+};
+
+
+export type Query_RootPipeline_Translations_By_PkArgs = {
+  locale: Scalars['String']['input'];
+  pipeline_id: Scalars['uuid']['input'];
+};
+
+
 export type Query_RootPipelinesArgs = {
   distinct_on?: InputMaybe<Array<Pipelines_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -3034,6 +4110,21 @@ export type Query_RootPipelinesArgs = {
 
 export type Query_RootPipelines_By_PkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootPlan_TranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Plan_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Plan_Translations_Order_By>>;
+  where?: InputMaybe<Plan_Translations_Bool_Exp>;
+};
+
+
+export type Query_RootPlan_Translations_By_PkArgs = {
+  locale: Scalars['String']['input'];
+  plan_id: Scalars['uuid']['input'];
 };
 
 
@@ -3161,6 +4252,12 @@ export type Subscription_Root = {
   assets_by_pk?: Maybe<Assets>;
   /** fetch data from the table in a streaming manner: "assets" */
   assets_stream: Array<Assets>;
+  /** fetch data from the table: "credit_pack_translations" */
+  credit_pack_translations: Array<Credit_Pack_Translations>;
+  /** fetch data from the table: "credit_pack_translations" using primary key columns */
+  credit_pack_translations_by_pk?: Maybe<Credit_Pack_Translations>;
+  /** fetch data from the table in a streaming manner: "credit_pack_translations" */
+  credit_pack_translations_stream: Array<Credit_Pack_Translations>;
   /** fetch data from the table: "credit_pack_versions" */
   credit_pack_versions: Array<Credit_Pack_Versions>;
   /** fetch data from the table: "credit_pack_versions" using primary key columns */
@@ -3177,6 +4274,18 @@ export type Subscription_Root = {
   executions_visibility: Array<Executions_Visibility>;
   /** fetch data from the table in a streaming manner: "executions_visibility" */
   executions_visibility_stream: Array<Executions_Visibility>;
+  /** fetch data from the table: "locales" */
+  locales: Array<Locales>;
+  /** fetch data from the table: "locales" using primary key columns */
+  locales_by_pk?: Maybe<Locales>;
+  /** fetch data from the table in a streaming manner: "locales" */
+  locales_stream: Array<Locales>;
+  /** fetch data from the table: "model_translations" */
+  model_translations: Array<Model_Translations>;
+  /** fetch data from the table: "model_translations" using primary key columns */
+  model_translations_by_pk?: Maybe<Model_Translations>;
+  /** fetch data from the table in a streaming manner: "model_translations" */
+  model_translations_stream: Array<Model_Translations>;
   /** fetch data from the table: "models" */
   models: Array<Models>;
   /** fetch data from the table: "models" using primary key columns */
@@ -3197,6 +4306,18 @@ export type Subscription_Root = {
   personal_access_tokens_by_pk?: Maybe<Personal_Access_Tokens>;
   /** fetch data from the table in a streaming manner: "personal_access_tokens" */
   personal_access_tokens_stream: Array<Personal_Access_Tokens>;
+  /** fetch data from the table: "pipeline_examples" */
+  pipeline_examples: Array<Pipeline_Examples>;
+  /** fetch data from the table: "pipeline_examples" using primary key columns */
+  pipeline_examples_by_pk?: Maybe<Pipeline_Examples>;
+  /** fetch data from the table in a streaming manner: "pipeline_examples" */
+  pipeline_examples_stream: Array<Pipeline_Examples>;
+  /** fetch data from the table: "pipeline_examples_translations" */
+  pipeline_examples_translations: Array<Pipeline_Examples_Translations>;
+  /** fetch data from the table: "pipeline_examples_translations" using primary key columns */
+  pipeline_examples_translations_by_pk?: Maybe<Pipeline_Examples_Translations>;
+  /** fetch data from the table in a streaming manner: "pipeline_examples_translations" */
+  pipeline_examples_translations_stream: Array<Pipeline_Examples_Translations>;
   /** An array relationship */
   pipeline_models: Array<Pipeline_Models>;
   /** fetch data from the table: "pipeline_models" using primary key columns */
@@ -3211,12 +4332,24 @@ export type Subscription_Root = {
   pipeline_runs_by_pk?: Maybe<Pipeline_Runs>;
   /** fetch data from the table in a streaming manner: "pipeline_runs" */
   pipeline_runs_stream: Array<Pipeline_Runs>;
+  /** fetch data from the table: "pipeline_translations" */
+  pipeline_translations: Array<Pipeline_Translations>;
+  /** fetch data from the table: "pipeline_translations" using primary key columns */
+  pipeline_translations_by_pk?: Maybe<Pipeline_Translations>;
+  /** fetch data from the table in a streaming manner: "pipeline_translations" */
+  pipeline_translations_stream: Array<Pipeline_Translations>;
   /** fetch data from the table: "pipelines" */
   pipelines: Array<Pipelines>;
   /** fetch data from the table: "pipelines" using primary key columns */
   pipelines_by_pk?: Maybe<Pipelines>;
   /** fetch data from the table in a streaming manner: "pipelines" */
   pipelines_stream: Array<Pipelines>;
+  /** fetch data from the table: "plan_translations" */
+  plan_translations: Array<Plan_Translations>;
+  /** fetch data from the table: "plan_translations" using primary key columns */
+  plan_translations_by_pk?: Maybe<Plan_Translations>;
+  /** fetch data from the table in a streaming manner: "plan_translations" */
+  plan_translations_stream: Array<Plan_Translations>;
   /** fetch data from the table: "plan_versions" */
   plan_versions: Array<Plan_Versions>;
   /** fetch data from the table: "plan_versions" using primary key columns */
@@ -3310,6 +4443,28 @@ export type Subscription_RootAssets_StreamArgs = {
 };
 
 
+export type Subscription_RootCredit_Pack_TranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Credit_Pack_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Credit_Pack_Translations_Order_By>>;
+  where?: InputMaybe<Credit_Pack_Translations_Bool_Exp>;
+};
+
+
+export type Subscription_RootCredit_Pack_Translations_By_PkArgs = {
+  credit_pack_id: Scalars['uuid']['input'];
+  locale: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootCredit_Pack_Translations_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Credit_Pack_Translations_Stream_Cursor_Input>>;
+  where?: InputMaybe<Credit_Pack_Translations_Bool_Exp>;
+};
+
+
 export type Subscription_RootCredit_Pack_VersionsArgs = {
   distinct_on?: InputMaybe<Array<Credit_Pack_Versions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -3365,6 +4520,49 @@ export type Subscription_RootExecutions_Visibility_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Executions_Visibility_Stream_Cursor_Input>>;
   where?: InputMaybe<Executions_Visibility_Bool_Exp>;
+};
+
+
+export type Subscription_RootLocalesArgs = {
+  distinct_on?: InputMaybe<Array<Locales_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Locales_Order_By>>;
+  where?: InputMaybe<Locales_Bool_Exp>;
+};
+
+
+export type Subscription_RootLocales_By_PkArgs = {
+  code: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootLocales_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Locales_Stream_Cursor_Input>>;
+  where?: InputMaybe<Locales_Bool_Exp>;
+};
+
+
+export type Subscription_RootModel_TranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Model_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Model_Translations_Order_By>>;
+  where?: InputMaybe<Model_Translations_Bool_Exp>;
+};
+
+
+export type Subscription_RootModel_Translations_By_PkArgs = {
+  locale: Scalars['String']['input'];
+  model_slug: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootModel_Translations_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Model_Translations_Stream_Cursor_Input>>;
+  where?: InputMaybe<Model_Translations_Bool_Exp>;
 };
 
 
@@ -3440,6 +4638,49 @@ export type Subscription_RootPersonal_Access_Tokens_StreamArgs = {
 };
 
 
+export type Subscription_RootPipeline_ExamplesArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Examples_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Examples_Order_By>>;
+  where?: InputMaybe<Pipeline_Examples_Bool_Exp>;
+};
+
+
+export type Subscription_RootPipeline_Examples_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootPipeline_Examples_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Pipeline_Examples_Stream_Cursor_Input>>;
+  where?: InputMaybe<Pipeline_Examples_Bool_Exp>;
+};
+
+
+export type Subscription_RootPipeline_Examples_TranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Examples_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Examples_Translations_Order_By>>;
+  where?: InputMaybe<Pipeline_Examples_Translations_Bool_Exp>;
+};
+
+
+export type Subscription_RootPipeline_Examples_Translations_By_PkArgs = {
+  example_id: Scalars['uuid']['input'];
+  locale: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootPipeline_Examples_Translations_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Pipeline_Examples_Translations_Stream_Cursor_Input>>;
+  where?: InputMaybe<Pipeline_Examples_Translations_Bool_Exp>;
+};
+
+
 export type Subscription_RootPipeline_ModelsArgs = {
   distinct_on?: InputMaybe<Array<Pipeline_Models_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -3492,6 +4733,28 @@ export type Subscription_RootPipeline_Runs_StreamArgs = {
 };
 
 
+export type Subscription_RootPipeline_TranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Pipeline_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipeline_Translations_Order_By>>;
+  where?: InputMaybe<Pipeline_Translations_Bool_Exp>;
+};
+
+
+export type Subscription_RootPipeline_Translations_By_PkArgs = {
+  locale: Scalars['String']['input'];
+  pipeline_id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootPipeline_Translations_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Pipeline_Translations_Stream_Cursor_Input>>;
+  where?: InputMaybe<Pipeline_Translations_Bool_Exp>;
+};
+
+
 export type Subscription_RootPipelinesArgs = {
   distinct_on?: InputMaybe<Array<Pipelines_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -3510,6 +4773,28 @@ export type Subscription_RootPipelines_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Pipelines_Stream_Cursor_Input>>;
   where?: InputMaybe<Pipelines_Bool_Exp>;
+};
+
+
+export type Subscription_RootPlan_TranslationsArgs = {
+  distinct_on?: InputMaybe<Array<Plan_Translations_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Plan_Translations_Order_By>>;
+  where?: InputMaybe<Plan_Translations_Bool_Exp>;
+};
+
+
+export type Subscription_RootPlan_Translations_By_PkArgs = {
+  locale: Scalars['String']['input'];
+  plan_id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootPlan_Translations_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Plan_Translations_Stream_Cursor_Input>>;
+  where?: InputMaybe<Plan_Translations_Bool_Exp>;
 };
 
 
@@ -3899,37 +5184,24 @@ export type UpdateAssetTagsMutationVariables = Exact<{
 
 export type UpdateAssetTagsMutation = { __typename?: 'mutation_root', update_assets_by_pk?: { __typename?: 'assets', id: any, tags: Array<string> } | null };
 
-export type InitLoginFlowMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type InitLoginFlowMutation = { __typename?: 'mutation_root', init_login_flow: { __typename?: 'auth_flow', id: string, csrf_token: string } };
-
-export type SubmitLoginFlowMutationVariables = Exact<{
-  flowId: Scalars['String']['input'];
+export type LoginMutationVariables = Exact<{
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
-  csrf_token: Scalars['String']['input'];
   referral_code?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type SubmitLoginFlowMutation = { __typename?: 'mutation_root', submit_login_flow: { __typename?: 'auth_result', success: boolean, message: string, token?: string | null, whop_affiliate_id?: string | null } };
+export type LoginMutation = { __typename?: 'mutation_root', login: { __typename?: 'auth_result', success: boolean, message: string, token?: string | null, affiliate_id?: string | null } };
 
-export type InitSignupFlowMutationVariables = Exact<{ [key: string]: never; }>;
-
-
-export type InitSignupFlowMutation = { __typename?: 'mutation_root', init_signup_flow: { __typename?: 'auth_flow', id: string, csrf_token: string } };
-
-export type SubmitSignupFlowMutationVariables = Exact<{
-  flowId: Scalars['String']['input'];
+export type RegisterMutationVariables = Exact<{
   email: Scalars['String']['input'];
   password: Scalars['String']['input'];
   name: Scalars['String']['input'];
-  csrf_token: Scalars['String']['input'];
+  referral_code?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 
-export type SubmitSignupFlowMutation = { __typename?: 'mutation_root', submit_signup_flow: { __typename?: 'auth_result', success: boolean, message: string, token?: string | null } };
+export type RegisterMutation = { __typename?: 'mutation_root', register: { __typename?: 'auth_result', success: boolean, message: string, token?: string | null, affiliate_id?: string | null } };
 
 export type SubmitSocialLoginMutationVariables = Exact<{
   provider: Scalars['String']['input'];
@@ -3955,21 +5227,21 @@ export type SubmitVerificationCodeMutationVariables = Exact<{
 
 export type SubmitVerificationCodeMutation = { __typename?: 'mutation_root', submit_verification_code: { __typename?: 'auth_result', success: boolean, message: string } };
 
-export type InitRecoveryFlowMutationVariables = Exact<{
+export type RequestPasswordResetMutationVariables = Exact<{
   email: Scalars['String']['input'];
 }>;
 
 
-export type InitRecoveryFlowMutation = { __typename?: 'mutation_root', init_recovery_flow: { __typename?: 'auth_result', success: boolean, message: string } };
+export type RequestPasswordResetMutation = { __typename?: 'mutation_root', request_password_reset: { __typename?: 'auth_result', success: boolean, message: string } };
 
-export type SubmitRecoveryFlowMutationVariables = Exact<{
-  flowId: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-  csrf_token: Scalars['String']['input'];
+export type ResetPasswordMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+  code: Scalars['String']['input'];
+  newPassword: Scalars['String']['input'];
 }>;
 
 
-export type SubmitRecoveryFlowMutation = { __typename?: 'mutation_root', submit_recovery_flow: { __typename?: 'auth_result', success: boolean, message: string } };
+export type ResetPasswordMutation = { __typename?: 'mutation_root', reset_password: { __typename?: 'auth_result', success: boolean, message: string } };
 
 export type GetCreditBalanceQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4004,7 +5276,7 @@ export type MarkAllNotificationsReadMutation = { __typename?: 'mutation_root', u
 export type GetPipelinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPipelinesQuery = { __typename?: 'query_root', pipelines: Array<{ __typename?: 'pipelines', id: any, slug: string, name: string, description?: string | null, category: string, icon_url?: string | null, preview_url?: string | null, providers: Array<string>, models: Array<string>, input_schema: any, ui_schema: any, output_schema: any, seo_content?: string | null, seo_faq?: any | null, tags: Array<string>, hints: any, cancellable: boolean }> };
+export type GetPipelinesQuery = { __typename?: 'query_root', pipelines: Array<{ __typename?: 'pipelines', id: any, slug: string, name: string, description?: string | null, category: string, icon_url?: string | null, preview_url?: string | null, providers: Array<string>, models: Array<string>, input_schema: any, ui_schema: any, output_schema: any, seo_content?: string | null, seo_faq?: any | null, tags: Array<string>, hints: any, cancellable: boolean, translations: Array<{ __typename?: 'pipeline_translations', locale: string, name?: string | null, description?: string | null, seo_content?: string | null, seo_faq?: any | null, hints?: any | null, form_i18n?: any | null }>, examples: Array<{ __typename?: 'pipeline_examples', id: any, title: string, caption?: string | null, output_url?: string | null, output_kind: string, input_url?: string | null, input_kind?: string | null, content?: string | null, inputs?: any | null, thumbnail_url?: string | null, model_slug?: string | null, model?: { __typename?: 'models', slug: string, label: string } | null, translations: Array<{ __typename?: 'pipeline_examples_translations', locale: string, title?: string | null, caption?: string | null }> }> }> };
 
 export type GetPipelinesListQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4020,14 +5292,14 @@ export type EstimatePipelineCostQueryVariables = Exact<{
 }>;
 
 
-export type EstimatePipelineCostQuery = { __typename?: 'query_root', estimate_pipeline_cost?: { __typename?: 'estimate_pipeline_cost_output', pipeline_slug: string, reservation_mc: number, estimated_mc: number, is_metered: boolean } | null };
+export type EstimatePipelineCostQuery = { __typename?: 'query_root', estimate_pipeline_cost?: { __typename?: 'estimate_pipeline_cost_output', pipeline_slug: string, reservation_mc: number, estimated_mc: number, is_metered: boolean, routed_model?: string | null, routed_reason_code?: string | null, routed_reason_params?: any | null, incompatible_models?: any | null, engine_caps?: any | null } | null };
 
 export type PipelineModelsQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type PipelineModelsQuery = { __typename?: 'query_root', pipeline_models: Array<{ __typename?: 'pipeline_models', model_slug: string, model: { __typename?: 'models', slug: string, label: string, description: string } }> };
+export type PipelineModelsQuery = { __typename?: 'query_root', pipeline_models: Array<{ __typename?: 'pipeline_models', model_slug: string, sort_order: number, model: { __typename?: 'models', slug: string, label: string, description: string, provider: string, translations: Array<{ __typename?: 'model_translations', locale: string, description?: string | null }> } }> };
 
 export type PipelinePricingQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -4054,7 +5326,7 @@ export type GetPipelineRunQueryVariables = Exact<{
 }>;
 
 
-export type GetPipelineRunQuery = { __typename?: 'query_root', pipeline_runs_by_pk?: { __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null, created_at: any }>, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null } | null };
+export type GetPipelineRunQuery = { __typename?: 'query_root', pipeline_runs_by_pk?: { __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null, created_at: any }>, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null } | null };
 
 export type GetPipelineRunsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4063,7 +5335,7 @@ export type GetPipelineRunsQueryVariables = Exact<{
 }>;
 
 
-export type GetPipelineRunsQuery = { __typename?: 'query_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null }>, pipeline_runs_aggregate: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number } | null }, completed: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number, sum?: { __typename?: 'pipeline_runs_sum_fields', credits_charged?: number | null } | null } | null } };
+export type GetPipelineRunsQuery = { __typename?: 'query_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null }>, pipeline_runs_aggregate: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number } | null }, completed: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number, sum?: { __typename?: 'pipeline_runs_sum_fields', credits_charged?: number | null } | null } | null } };
 
 export type GetPipelineRunsBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -4072,27 +5344,44 @@ export type GetPipelineRunsBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetPipelineRunsBySlugQuery = { __typename?: 'query_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null }>, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null }>, pipeline_runs_aggregate: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number } | null } };
+export type GetPipelineRunsBySlugQuery = { __typename?: 'query_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null }>, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null }>, pipeline_runs_aggregate: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number } | null } };
 
 export type GetActivePipelineRunsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetActivePipelineRunsQuery = { __typename?: 'query_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, created_at: any, pipeline: { __typename?: 'pipelines', name: string, slug: string, cancellable: boolean } }>, active_count: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number } | null } };
 
+export type SetRunShareMutationVariables = Exact<{
+  id: Scalars['uuid']['input'];
+  token?: InputMaybe<Scalars['uuid']['input']>;
+  watermark: Scalars['Boolean']['input'];
+}>;
+
+
+export type SetRunShareMutation = { __typename?: 'mutation_root', update_pipeline_runs_by_pk?: { __typename?: 'pipeline_runs', id: any, share_token?: any | null, share_watermark: boolean } | null };
+
 export type GetPlansQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPlansQuery = { __typename?: 'query_root', plans: Array<{ __typename?: 'plans', id: any, slug: string, name: string, description?: string | null, features: any, sort_order: number, versions: Array<{ __typename?: 'plan_versions', id: any, whop_plan_id?: string | null, price_cents: number, monthly_credits: number, max_storage_bytes: any, max_upload_bytes: any }> }> };
+export type GetPlansQuery = { __typename?: 'query_root', plans: Array<{ __typename?: 'plans', id: any, slug: string, name: string, description?: string | null, features: any, sort_order: number, translations: Array<{ __typename?: 'plan_translations', locale: string, name?: string | null, description?: string | null, features?: any | null }>, versions: Array<{ __typename?: 'plan_versions', id: any, whop_plan_id?: string | null, price_cents: number, monthly_credits: number, max_storage_bytes: any, max_upload_bytes: any }> }> };
 
 export type GetCreditPacksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetCreditPacksQuery = { __typename?: 'query_root', credit_packs: Array<{ __typename?: 'credit_packs', id: any, slug: string, name: string, sort_order: number, versions: Array<{ __typename?: 'credit_pack_versions', id: any, whop_plan_id?: string | null, price_cents: number, credits: number }> }> };
+export type GetCreditPacksQuery = { __typename?: 'query_root', credit_packs: Array<{ __typename?: 'credit_packs', id: any, slug: string, name: string, sort_order: number, translations: Array<{ __typename?: 'credit_pack_translations', locale: string, name?: string | null }>, versions: Array<{ __typename?: 'credit_pack_versions', id: any, whop_plan_id?: string | null, price_cents: number, credits: number }> }> };
 
 export type GetSubscriptionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetSubscriptionQuery = { __typename?: 'query_root', subscriptions: Array<{ __typename?: 'subscriptions', id: any, plan_id: any, plan_version_id: any, status: string, period_start: any, period_end: any, cancel_at_period_end: boolean, plan: { __typename?: 'plans', slug: string, name: string, sort_order: number }, plan_version: { __typename?: 'plan_versions', id: any, version: number, monthly_credits: number, price_cents: number, max_storage_bytes: any, max_upload_bytes: any } }> };
+
+export type CreateCheckoutSessionMutationVariables = Exact<{
+  whop_plan_id: Scalars['String']['input'];
+  affiliate_code?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CreateCheckoutSessionMutation = { __typename?: 'mutation_root', create_checkout_session: { __typename?: 'create_checkout_session_output', success: boolean, url: string } };
 
 export type WatchPipelineRunSubscriptionVariables = Exact<{
   run_id: Scalars['uuid']['input'];
@@ -4412,50 +5701,28 @@ export const UpdateAssetTagsDocument = gql`
   }
 }
     `;
-export const InitLoginFlowDocument = gql`
-    mutation InitLoginFlow {
-  init_login_flow {
-    id
-    csrf_token
+export const LoginDocument = gql`
+    mutation Login($email: String!, $password: String!, $referral_code: String) {
+  login(email: $email, password: $password, referral_code: $referral_code) {
+    success
+    message
+    token
+    affiliate_id
   }
 }
     `;
-export const SubmitLoginFlowDocument = gql`
-    mutation SubmitLoginFlow($flowId: String!, $email: String!, $password: String!, $csrf_token: String!, $referral_code: String) {
-  submit_login_flow(
-    flowId: $flowId
+export const RegisterDocument = gql`
+    mutation Register($email: String!, $password: String!, $name: String!, $referral_code: String) {
+  register(
     email: $email
     password: $password
-    csrf_token: $csrf_token
+    name: $name
     referral_code: $referral_code
   ) {
     success
     message
     token
-    whop_affiliate_id
-  }
-}
-    `;
-export const InitSignupFlowDocument = gql`
-    mutation InitSignupFlow {
-  init_signup_flow {
-    id
-    csrf_token
-  }
-}
-    `;
-export const SubmitSignupFlowDocument = gql`
-    mutation SubmitSignupFlow($flowId: String!, $email: String!, $password: String!, $name: String!, $csrf_token: String!) {
-  submit_signup_flow(
-    flowId: $flowId
-    email: $email
-    password: $password
-    name: $name
-    csrf_token: $csrf_token
-  ) {
-    success
-    message
-    token
+    affiliate_id
   }
 }
     `;
@@ -4483,21 +5750,17 @@ export const SubmitVerificationCodeDocument = gql`
   }
 }
     `;
-export const InitRecoveryFlowDocument = gql`
-    mutation InitRecoveryFlow($email: String!) {
-  init_recovery_flow(email: $email) {
+export const RequestPasswordResetDocument = gql`
+    mutation RequestPasswordReset($email: String!) {
+  request_password_reset(email: $email) {
     success
     message
   }
 }
     `;
-export const SubmitRecoveryFlowDocument = gql`
-    mutation SubmitRecoveryFlow($flowId: String!, $password: String!, $csrf_token: String!) {
-  submit_recovery_flow(
-    flowId: $flowId
-    password: $password
-    csrf_token: $csrf_token
-  ) {
+export const ResetPasswordDocument = gql`
+    mutation ResetPassword($email: String!, $code: String!, $newPassword: String!) {
+  reset_password(email: $email, code: $code, newPassword: $newPassword) {
     success
     message
   }
@@ -4580,6 +5843,37 @@ export const GetPipelinesDocument = gql`
     tags
     hints
     cancellable
+    translations {
+      locale
+      name
+      description
+      seo_content
+      seo_faq
+      hints
+      form_i18n
+    }
+    examples(order_by: [{sort_order: asc}, {created_at: asc}]) {
+      id
+      title
+      caption
+      output_url
+      output_kind
+      input_url
+      input_kind
+      content
+      inputs
+      thumbnail_url
+      model_slug
+      model {
+        slug
+        label
+      }
+      translations {
+        locale
+        title
+        caption
+      }
+    }
   }
 }
     `;
@@ -4613,6 +5907,11 @@ export const EstimatePipelineCostDocument = gql`
     reservation_mc
     estimated_mc
     is_metered
+    routed_model
+    routed_reason_code
+    routed_reason_params
+    incompatible_models
+    engine_caps
   }
 }
     `;
@@ -4623,10 +5922,16 @@ export const PipelineModelsDocument = gql`
     order_by: {sort_order: asc}
   ) {
     model_slug
+    sort_order
     model {
       slug
       label
       description
+      provider
+      translations {
+        locale
+        description
+      }
     }
   }
 }
@@ -4667,6 +5972,8 @@ export const GetPipelineRunDocument = gql`
     credits_charged
     created_at
     completed_at
+    share_token
+    share_watermark
     pipeline {
       name
       slug
@@ -4714,6 +6021,8 @@ export const GetPipelineRunsDocument = gql`
     credits_charged
     created_at
     completed_at
+    share_token
+    share_watermark
     workflow_execution {
       status
       start_time
@@ -4761,6 +6070,8 @@ export const GetPipelineRunsBySlugDocument = gql`
     credits_charged
     created_at
     completed_at
+    share_token
+    share_watermark
     assets {
       id
       type
@@ -4805,6 +6116,18 @@ export const GetActivePipelineRunsDocument = gql`
   }
 }
     `;
+export const SetRunShareDocument = gql`
+    mutation SetRunShare($id: uuid!, $token: uuid, $watermark: Boolean!) {
+  update_pipeline_runs_by_pk(
+    pk_columns: {id: $id}
+    _set: {share_token: $token, share_watermark: $watermark}
+  ) {
+    id
+    share_token
+    share_watermark
+  }
+}
+    `;
 export const GetPlansDocument = gql`
     query GetPlans {
   plans(order_by: {sort_order: asc}) {
@@ -4814,6 +6137,12 @@ export const GetPlansDocument = gql`
     description
     features
     sort_order
+    translations {
+      locale
+      name
+      description
+      features
+    }
     versions(where: {is_current: {_eq: true}}, limit: 1) {
       id
       whop_plan_id
@@ -4832,6 +6161,10 @@ export const GetCreditPacksDocument = gql`
     slug
     name
     sort_order
+    translations {
+      locale
+      name
+    }
     versions(where: {is_current: {_eq: true}}, limit: 1) {
       id
       whop_plan_id
@@ -4864,6 +6197,17 @@ export const GetSubscriptionDocument = gql`
       max_storage_bytes
       max_upload_bytes
     }
+  }
+}
+    `;
+export const CreateCheckoutSessionDocument = gql`
+    mutation CreateCheckoutSession($whop_plan_id: String!, $affiliate_code: String) {
+  create_checkout_session(
+    whop_plan_id: $whop_plan_id
+    affiliate_code: $affiliate_code
+  ) {
+    success
+    url
   }
 }
     `;
@@ -5045,17 +6389,11 @@ export function getSdk<C>(requester: Requester<C>) {
     UpdateAssetTags(variables: UpdateAssetTagsMutationVariables, options?: C): Promise<UpdateAssetTagsMutation> {
       return requester<UpdateAssetTagsMutation, UpdateAssetTagsMutationVariables>(UpdateAssetTagsDocument, variables, options) as Promise<UpdateAssetTagsMutation>;
     },
-    InitLoginFlow(variables?: InitLoginFlowMutationVariables, options?: C): Promise<InitLoginFlowMutation> {
-      return requester<InitLoginFlowMutation, InitLoginFlowMutationVariables>(InitLoginFlowDocument, variables, options) as Promise<InitLoginFlowMutation>;
+    Login(variables: LoginMutationVariables, options?: C): Promise<LoginMutation> {
+      return requester<LoginMutation, LoginMutationVariables>(LoginDocument, variables, options) as Promise<LoginMutation>;
     },
-    SubmitLoginFlow(variables: SubmitLoginFlowMutationVariables, options?: C): Promise<SubmitLoginFlowMutation> {
-      return requester<SubmitLoginFlowMutation, SubmitLoginFlowMutationVariables>(SubmitLoginFlowDocument, variables, options) as Promise<SubmitLoginFlowMutation>;
-    },
-    InitSignupFlow(variables?: InitSignupFlowMutationVariables, options?: C): Promise<InitSignupFlowMutation> {
-      return requester<InitSignupFlowMutation, InitSignupFlowMutationVariables>(InitSignupFlowDocument, variables, options) as Promise<InitSignupFlowMutation>;
-    },
-    SubmitSignupFlow(variables: SubmitSignupFlowMutationVariables, options?: C): Promise<SubmitSignupFlowMutation> {
-      return requester<SubmitSignupFlowMutation, SubmitSignupFlowMutationVariables>(SubmitSignupFlowDocument, variables, options) as Promise<SubmitSignupFlowMutation>;
+    Register(variables: RegisterMutationVariables, options?: C): Promise<RegisterMutation> {
+      return requester<RegisterMutation, RegisterMutationVariables>(RegisterDocument, variables, options) as Promise<RegisterMutation>;
     },
     SubmitSocialLogin(variables: SubmitSocialLoginMutationVariables, options?: C): Promise<SubmitSocialLoginMutation> {
       return requester<SubmitSocialLoginMutation, SubmitSocialLoginMutationVariables>(SubmitSocialLoginDocument, variables, options) as Promise<SubmitSocialLoginMutation>;
@@ -5066,11 +6404,11 @@ export function getSdk<C>(requester: Requester<C>) {
     SubmitVerificationCode(variables: SubmitVerificationCodeMutationVariables, options?: C): Promise<SubmitVerificationCodeMutation> {
       return requester<SubmitVerificationCodeMutation, SubmitVerificationCodeMutationVariables>(SubmitVerificationCodeDocument, variables, options) as Promise<SubmitVerificationCodeMutation>;
     },
-    InitRecoveryFlow(variables: InitRecoveryFlowMutationVariables, options?: C): Promise<InitRecoveryFlowMutation> {
-      return requester<InitRecoveryFlowMutation, InitRecoveryFlowMutationVariables>(InitRecoveryFlowDocument, variables, options) as Promise<InitRecoveryFlowMutation>;
+    RequestPasswordReset(variables: RequestPasswordResetMutationVariables, options?: C): Promise<RequestPasswordResetMutation> {
+      return requester<RequestPasswordResetMutation, RequestPasswordResetMutationVariables>(RequestPasswordResetDocument, variables, options) as Promise<RequestPasswordResetMutation>;
     },
-    SubmitRecoveryFlow(variables: SubmitRecoveryFlowMutationVariables, options?: C): Promise<SubmitRecoveryFlowMutation> {
-      return requester<SubmitRecoveryFlowMutation, SubmitRecoveryFlowMutationVariables>(SubmitRecoveryFlowDocument, variables, options) as Promise<SubmitRecoveryFlowMutation>;
+    ResetPassword(variables: ResetPasswordMutationVariables, options?: C): Promise<ResetPasswordMutation> {
+      return requester<ResetPasswordMutation, ResetPasswordMutationVariables>(ResetPasswordDocument, variables, options) as Promise<ResetPasswordMutation>;
     },
     GetCreditBalance(variables?: GetCreditBalanceQueryVariables, options?: C): Promise<GetCreditBalanceQuery> {
       return requester<GetCreditBalanceQuery, GetCreditBalanceQueryVariables>(GetCreditBalanceDocument, variables, options) as Promise<GetCreditBalanceQuery>;
@@ -5120,6 +6458,9 @@ export function getSdk<C>(requester: Requester<C>) {
     GetActivePipelineRuns(variables?: GetActivePipelineRunsQueryVariables, options?: C): Promise<GetActivePipelineRunsQuery> {
       return requester<GetActivePipelineRunsQuery, GetActivePipelineRunsQueryVariables>(GetActivePipelineRunsDocument, variables, options) as Promise<GetActivePipelineRunsQuery>;
     },
+    SetRunShare(variables: SetRunShareMutationVariables, options?: C): Promise<SetRunShareMutation> {
+      return requester<SetRunShareMutation, SetRunShareMutationVariables>(SetRunShareDocument, variables, options) as Promise<SetRunShareMutation>;
+    },
     GetPlans(variables?: GetPlansQueryVariables, options?: C): Promise<GetPlansQuery> {
       return requester<GetPlansQuery, GetPlansQueryVariables>(GetPlansDocument, variables, options) as Promise<GetPlansQuery>;
     },
@@ -5128,6 +6469,9 @@ export function getSdk<C>(requester: Requester<C>) {
     },
     GetSubscription(variables?: GetSubscriptionQueryVariables, options?: C): Promise<GetSubscriptionQuery> {
       return requester<GetSubscriptionQuery, GetSubscriptionQueryVariables>(GetSubscriptionDocument, variables, options) as Promise<GetSubscriptionQuery>;
+    },
+    CreateCheckoutSession(variables: CreateCheckoutSessionMutationVariables, options?: C): Promise<CreateCheckoutSessionMutation> {
+      return requester<CreateCheckoutSessionMutation, CreateCheckoutSessionMutationVariables>(CreateCheckoutSessionDocument, variables, options) as Promise<CreateCheckoutSessionMutation>;
     },
     WatchPipelineRun(variables: WatchPipelineRunSubscriptionVariables, options?: C): AsyncIterable<WatchPipelineRunSubscription> {
       return requester<WatchPipelineRunSubscription, WatchPipelineRunSubscriptionVariables>(WatchPipelineRunDocument, variables, options) as AsyncIterable<WatchPipelineRunSubscription>;
