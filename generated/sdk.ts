@@ -1373,11 +1373,84 @@ export type Locales_Stream_Cursor_Value_Input = {
   sort_order?: InputMaybe<Scalars['Int']['input']>;
 };
 
+export type Logout_Output = {
+  __typename?: 'logout_output';
+  success: Scalars['Boolean']['output'];
+};
+
+/** columns and relationships of "model_capabilities" */
+export type Model_Capabilities = {
+  __typename?: 'model_capabilities';
+  capability_slug: Scalars['String']['output'];
+  /** An object relationship */
+  model: Models;
+  model_slug: Scalars['String']['output'];
+};
+
+/** order by aggregate values of table "model_capabilities" */
+export type Model_Capabilities_Aggregate_Order_By = {
+  count?: InputMaybe<Order_By>;
+  max?: InputMaybe<Model_Capabilities_Max_Order_By>;
+  min?: InputMaybe<Model_Capabilities_Min_Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "model_capabilities". All fields are combined with a logical 'AND'. */
+export type Model_Capabilities_Bool_Exp = {
+  _and?: InputMaybe<Array<Model_Capabilities_Bool_Exp>>;
+  _not?: InputMaybe<Model_Capabilities_Bool_Exp>;
+  _or?: InputMaybe<Array<Model_Capabilities_Bool_Exp>>;
+  capability_slug?: InputMaybe<String_Comparison_Exp>;
+  model?: InputMaybe<Models_Bool_Exp>;
+  model_slug?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** order by max() on columns of table "model_capabilities" */
+export type Model_Capabilities_Max_Order_By = {
+  capability_slug?: InputMaybe<Order_By>;
+  model_slug?: InputMaybe<Order_By>;
+};
+
+/** order by min() on columns of table "model_capabilities" */
+export type Model_Capabilities_Min_Order_By = {
+  capability_slug?: InputMaybe<Order_By>;
+  model_slug?: InputMaybe<Order_By>;
+};
+
+/** Ordering options when selecting data from "model_capabilities". */
+export type Model_Capabilities_Order_By = {
+  capability_slug?: InputMaybe<Order_By>;
+  model?: InputMaybe<Models_Order_By>;
+  model_slug?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "model_capabilities" */
+export enum Model_Capabilities_Select_Column {
+  /** column name */
+  CapabilitySlug = 'capability_slug',
+  /** column name */
+  ModelSlug = 'model_slug'
+}
+
+/** Streaming cursor of the table "model_capabilities" */
+export type Model_Capabilities_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Model_Capabilities_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Model_Capabilities_Stream_Cursor_Value_Input = {
+  capability_slug?: InputMaybe<Scalars['String']['input']>;
+  model_slug?: InputMaybe<Scalars['String']['input']>;
+};
+
 /** columns and relationships of "model_translations" */
 export type Model_Translations = {
   __typename?: 'model_translations';
   description?: Maybe<Scalars['String']['output']>;
   locale: Scalars['String']['output'];
+  long_description?: Maybe<Scalars['String']['output']>;
   /** An object relationship */
   model: Models;
   model_slug: Scalars['String']['output'];
@@ -1398,6 +1471,7 @@ export type Model_Translations_Bool_Exp = {
   _or?: InputMaybe<Array<Model_Translations_Bool_Exp>>;
   description?: InputMaybe<String_Comparison_Exp>;
   locale?: InputMaybe<String_Comparison_Exp>;
+  long_description?: InputMaybe<String_Comparison_Exp>;
   model?: InputMaybe<Models_Bool_Exp>;
   model_slug?: InputMaybe<String_Comparison_Exp>;
   updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
@@ -1407,6 +1481,7 @@ export type Model_Translations_Bool_Exp = {
 export type Model_Translations_Max_Order_By = {
   description?: InputMaybe<Order_By>;
   locale?: InputMaybe<Order_By>;
+  long_description?: InputMaybe<Order_By>;
   model_slug?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
@@ -1415,6 +1490,7 @@ export type Model_Translations_Max_Order_By = {
 export type Model_Translations_Min_Order_By = {
   description?: InputMaybe<Order_By>;
   locale?: InputMaybe<Order_By>;
+  long_description?: InputMaybe<Order_By>;
   model_slug?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
 };
@@ -1423,6 +1499,7 @@ export type Model_Translations_Min_Order_By = {
 export type Model_Translations_Order_By = {
   description?: InputMaybe<Order_By>;
   locale?: InputMaybe<Order_By>;
+  long_description?: InputMaybe<Order_By>;
   model?: InputMaybe<Models_Order_By>;
   model_slug?: InputMaybe<Order_By>;
   updated_at?: InputMaybe<Order_By>;
@@ -1434,6 +1511,8 @@ export enum Model_Translations_Select_Column {
   Description = 'description',
   /** column name */
   Locale = 'locale',
+  /** column name */
+  LongDescription = 'long_description',
   /** column name */
   ModelSlug = 'model_slug',
   /** column name */
@@ -1452,6 +1531,7 @@ export type Model_Translations_Stream_Cursor_Input = {
 export type Model_Translations_Stream_Cursor_Value_Input = {
   description?: InputMaybe<Scalars['String']['input']>;
   locale?: InputMaybe<Scalars['String']['input']>;
+  long_description?: InputMaybe<Scalars['String']['input']>;
   model_slug?: InputMaybe<Scalars['String']['input']>;
   updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
@@ -1459,16 +1539,34 @@ export type Model_Translations_Stream_Cursor_Value_Input = {
 /** columns and relationships of "models" */
 export type Models = {
   __typename?: 'models';
+  aliases: Array<Scalars['String']['output']>;
+  /** An array relationship */
+  capabilities: Array<Model_Capabilities>;
   description: Scalars['String']['output'];
+  featured: Scalars['Boolean']['output'];
   is_active: Scalars['Boolean']['output'];
   label: Scalars['String']['output'];
+  long_description?: Maybe<Scalars['String']['output']>;
   /** An array relationship */
   pipeline_models: Array<Pipeline_Models>;
   provider: Scalars['String']['output'];
+  /** An object relationship */
+  provider_info: Providers;
+  public_name?: Maybe<Scalars['String']['output']>;
   slug: Scalars['String']['output'];
   sort_order: Scalars['Int']['output'];
   /** An array relationship */
   translations: Array<Model_Translations>;
+};
+
+
+/** columns and relationships of "models" */
+export type ModelsCapabilitiesArgs = {
+  distinct_on?: InputMaybe<Array<Model_Capabilities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Model_Capabilities_Order_By>>;
+  where?: InputMaybe<Model_Capabilities_Bool_Exp>;
 };
 
 
@@ -1496,11 +1594,17 @@ export type Models_Bool_Exp = {
   _and?: InputMaybe<Array<Models_Bool_Exp>>;
   _not?: InputMaybe<Models_Bool_Exp>;
   _or?: InputMaybe<Array<Models_Bool_Exp>>;
+  aliases?: InputMaybe<String_Array_Comparison_Exp>;
+  capabilities?: InputMaybe<Model_Capabilities_Bool_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
+  featured?: InputMaybe<Boolean_Comparison_Exp>;
   is_active?: InputMaybe<Boolean_Comparison_Exp>;
   label?: InputMaybe<String_Comparison_Exp>;
+  long_description?: InputMaybe<String_Comparison_Exp>;
   pipeline_models?: InputMaybe<Pipeline_Models_Bool_Exp>;
   provider?: InputMaybe<String_Comparison_Exp>;
+  provider_info?: InputMaybe<Providers_Bool_Exp>;
+  public_name?: InputMaybe<String_Comparison_Exp>;
   slug?: InputMaybe<String_Comparison_Exp>;
   sort_order?: InputMaybe<Int_Comparison_Exp>;
   translations?: InputMaybe<Model_Translations_Bool_Exp>;
@@ -1508,11 +1612,17 @@ export type Models_Bool_Exp = {
 
 /** Ordering options when selecting data from "models". */
 export type Models_Order_By = {
+  aliases?: InputMaybe<Order_By>;
+  capabilities_aggregate?: InputMaybe<Model_Capabilities_Aggregate_Order_By>;
   description?: InputMaybe<Order_By>;
+  featured?: InputMaybe<Order_By>;
   is_active?: InputMaybe<Order_By>;
   label?: InputMaybe<Order_By>;
+  long_description?: InputMaybe<Order_By>;
   pipeline_models_aggregate?: InputMaybe<Pipeline_Models_Aggregate_Order_By>;
   provider?: InputMaybe<Order_By>;
+  provider_info?: InputMaybe<Providers_Order_By>;
+  public_name?: InputMaybe<Order_By>;
   slug?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
   translations_aggregate?: InputMaybe<Model_Translations_Aggregate_Order_By>;
@@ -1521,13 +1631,21 @@ export type Models_Order_By = {
 /** select columns of table "models" */
 export enum Models_Select_Column {
   /** column name */
+  Aliases = 'aliases',
+  /** column name */
   Description = 'description',
+  /** column name */
+  Featured = 'featured',
   /** column name */
   IsActive = 'is_active',
   /** column name */
   Label = 'label',
   /** column name */
+  LongDescription = 'long_description',
+  /** column name */
   Provider = 'provider',
+  /** column name */
+  PublicName = 'public_name',
   /** column name */
   Slug = 'slug',
   /** column name */
@@ -1544,10 +1662,14 @@ export type Models_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Models_Stream_Cursor_Value_Input = {
+  aliases?: InputMaybe<Array<Scalars['String']['input']>>;
   description?: InputMaybe<Scalars['String']['input']>;
+  featured?: InputMaybe<Scalars['Boolean']['input']>;
   is_active?: InputMaybe<Scalars['Boolean']['input']>;
   label?: InputMaybe<Scalars['String']['input']>;
+  long_description?: InputMaybe<Scalars['String']['input']>;
   provider?: InputMaybe<Scalars['String']['input']>;
+  public_name?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   sort_order?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -1604,6 +1726,8 @@ export type Mutation_Root = {
   init_verification_flow: Auth_Flow;
   /** Sign in with email and password */
   login: Auth_Result;
+  /** Revoke all Kratos sessions for the current user */
+  logout: Logout_Output;
   /** Create an account with email and password */
   register: Auth_Result;
   /** Send an email link to confirm account deletion. No changes are made until the link is clicked. */
@@ -1622,8 +1746,6 @@ export type Mutation_Root = {
   revoke_personal_access_token: Revoke_Personal_Access_Token_Output;
   /** Start a pipeline run */
   run_pipeline?: Maybe<Run_Pipeline_Output>;
-  /** Begin social sign-in and return the provider redirect URL */
-  submit_social_login: Social_Login_Output;
   /** Submit an email verification code */
   submit_verification_code: Auth_Result;
   /** update data of the table: "affiliate_codes" */
@@ -1817,12 +1939,6 @@ export type Mutation_RootRevoke_Personal_Access_TokenArgs = {
 export type Mutation_RootRun_PipelineArgs = {
   input: Scalars['jsonb']['input'];
   pipeline_slug: Scalars['String']['input'];
-};
-
-
-/** mutation root */
-export type Mutation_RootSubmit_Social_LoginArgs = {
-  provider: Scalars['String']['input'];
 };
 
 
@@ -3719,6 +3835,50 @@ export type Plans_Stream_Cursor_Value_Input = {
   sort_order?: InputMaybe<Scalars['Int']['input']>;
 };
 
+/** columns and relationships of "providers" */
+export type Providers = {
+  __typename?: 'providers';
+  label?: Maybe<Scalars['String']['output']>;
+  slug: Scalars['String']['output'];
+};
+
+/** Boolean expression to filter rows from the table "providers". All fields are combined with a logical 'AND'. */
+export type Providers_Bool_Exp = {
+  _and?: InputMaybe<Array<Providers_Bool_Exp>>;
+  _not?: InputMaybe<Providers_Bool_Exp>;
+  _or?: InputMaybe<Array<Providers_Bool_Exp>>;
+  label?: InputMaybe<String_Comparison_Exp>;
+  slug?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "providers". */
+export type Providers_Order_By = {
+  label?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "providers" */
+export enum Providers_Select_Column {
+  /** column name */
+  Label = 'label',
+  /** column name */
+  Slug = 'slug'
+}
+
+/** Streaming cursor of the table "providers" */
+export type Providers_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Providers_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Providers_Stream_Cursor_Value_Input = {
+  label?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Query_Root = {
   __typename?: 'query_root';
   /** fetch data from the table: "affiliate_codes" */
@@ -3763,6 +3923,10 @@ export type Query_Root = {
   locales: Array<Locales>;
   /** fetch data from the table: "locales" using primary key columns */
   locales_by_pk?: Maybe<Locales>;
+  /** fetch data from the table: "model_capabilities" */
+  model_capabilities: Array<Model_Capabilities>;
+  /** fetch data from the table: "model_capabilities" using primary key columns */
+  model_capabilities_by_pk?: Maybe<Model_Capabilities>;
   /** fetch data from the table: "model_translations" */
   model_translations: Array<Model_Translations>;
   /** fetch data from the table: "model_translations" using primary key columns */
@@ -3821,6 +3985,10 @@ export type Query_Root = {
   plans: Array<Plans>;
   /** fetch data from the table: "plans" using primary key columns */
   plans_by_pk?: Maybe<Plans>;
+  /** fetch data from the table: "providers" */
+  providers: Array<Providers>;
+  /** fetch data from the table: "providers" using primary key columns */
+  providers_by_pk?: Maybe<Providers>;
   /** An array relationship */
   subscriptions: Array<Subscriptions>;
   /** fetch data from the table: "subscriptions" using primary key columns */
@@ -3948,6 +4116,21 @@ export type Query_RootLocalesArgs = {
 
 export type Query_RootLocales_By_PkArgs = {
   code: Scalars['String']['input'];
+};
+
+
+export type Query_RootModel_CapabilitiesArgs = {
+  distinct_on?: InputMaybe<Array<Model_Capabilities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Model_Capabilities_Order_By>>;
+  where?: InputMaybe<Model_Capabilities_Bool_Exp>;
+};
+
+
+export type Query_RootModel_Capabilities_By_PkArgs = {
+  capability_slug: Scalars['String']['input'];
+  model_slug: Scalars['String']['input'];
 };
 
 
@@ -4156,6 +4339,20 @@ export type Query_RootPlans_By_PkArgs = {
 };
 
 
+export type Query_RootProvidersArgs = {
+  distinct_on?: InputMaybe<Array<Providers_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Providers_Order_By>>;
+  where?: InputMaybe<Providers_Bool_Exp>;
+};
+
+
+export type Query_RootProviders_By_PkArgs = {
+  slug: Scalars['String']['input'];
+};
+
+
 export type Query_RootSubscriptionsArgs = {
   distinct_on?: InputMaybe<Array<Subscriptions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4224,12 +4421,6 @@ export type Run_Pipeline_Output = {
   workflow_id: Scalars['String']['output'];
 };
 
-export type Social_Login_Output = {
-  __typename?: 'social_login_output';
-  redirect_url: Scalars['String']['output'];
-  success: Scalars['Boolean']['output'];
-};
-
 export type Subscription_Root = {
   __typename?: 'subscription_root';
   /** fetch data from the table: "affiliate_codes" */
@@ -4280,6 +4471,12 @@ export type Subscription_Root = {
   locales_by_pk?: Maybe<Locales>;
   /** fetch data from the table in a streaming manner: "locales" */
   locales_stream: Array<Locales>;
+  /** fetch data from the table: "model_capabilities" */
+  model_capabilities: Array<Model_Capabilities>;
+  /** fetch data from the table: "model_capabilities" using primary key columns */
+  model_capabilities_by_pk?: Maybe<Model_Capabilities>;
+  /** fetch data from the table in a streaming manner: "model_capabilities" */
+  model_capabilities_stream: Array<Model_Capabilities>;
   /** fetch data from the table: "model_translations" */
   model_translations: Array<Model_Translations>;
   /** fetch data from the table: "model_translations" using primary key columns */
@@ -4362,6 +4559,12 @@ export type Subscription_Root = {
   plans_by_pk?: Maybe<Plans>;
   /** fetch data from the table in a streaming manner: "plans" */
   plans_stream: Array<Plans>;
+  /** fetch data from the table: "providers" */
+  providers: Array<Providers>;
+  /** fetch data from the table: "providers" using primary key columns */
+  providers_by_pk?: Maybe<Providers>;
+  /** fetch data from the table in a streaming manner: "providers" */
+  providers_stream: Array<Providers>;
   /** An array relationship */
   subscriptions: Array<Subscriptions>;
   /** fetch data from the table: "subscriptions" using primary key columns */
@@ -4541,6 +4744,28 @@ export type Subscription_RootLocales_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Locales_Stream_Cursor_Input>>;
   where?: InputMaybe<Locales_Bool_Exp>;
+};
+
+
+export type Subscription_RootModel_CapabilitiesArgs = {
+  distinct_on?: InputMaybe<Array<Model_Capabilities_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Model_Capabilities_Order_By>>;
+  where?: InputMaybe<Model_Capabilities_Bool_Exp>;
+};
+
+
+export type Subscription_RootModel_Capabilities_By_PkArgs = {
+  capability_slug: Scalars['String']['input'];
+  model_slug: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootModel_Capabilities_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Model_Capabilities_Stream_Cursor_Input>>;
+  where?: InputMaybe<Model_Capabilities_Bool_Exp>;
 };
 
 
@@ -4837,6 +5062,27 @@ export type Subscription_RootPlans_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Plans_Stream_Cursor_Input>>;
   where?: InputMaybe<Plans_Bool_Exp>;
+};
+
+
+export type Subscription_RootProvidersArgs = {
+  distinct_on?: InputMaybe<Array<Providers_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Providers_Order_By>>;
+  where?: InputMaybe<Providers_Bool_Exp>;
+};
+
+
+export type Subscription_RootProviders_By_PkArgs = {
+  slug: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootProviders_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Providers_Stream_Cursor_Input>>;
+  where?: InputMaybe<Providers_Bool_Exp>;
 };
 
 
@@ -5203,12 +5449,10 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'mutation_root', register: { __typename?: 'auth_result', success: boolean, message: string, token?: string | null, affiliate_id?: string | null } };
 
-export type SubmitSocialLoginMutationVariables = Exact<{
-  provider: Scalars['String']['input'];
-}>;
+export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type SubmitSocialLoginMutation = { __typename?: 'mutation_root', submit_social_login: { __typename?: 'social_login_output', success: boolean, redirect_url: string } };
+export type LogoutMutation = { __typename?: 'mutation_root', logout: { __typename?: 'logout_output', success: boolean } };
 
 export type InitVerificationFlowMutationVariables = Exact<{
   email?: InputMaybe<Scalars['String']['input']>;
@@ -5252,6 +5496,11 @@ export type GetCreditHistoryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetCreditHistoryQuery = { __typename?: 'query_root', get_credit_history: Array<{ __typename?: 'credit_history_entry', type: string, amount: number, description: string, created_at: string, pipeline_run_id?: string | null, pipeline_slug?: string | null, pipeline_name?: string | null, status?: string | null, reservation_mc?: number | null }> };
+
+export type ModelsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ModelsQuery = { __typename?: 'query_root', models: Array<{ __typename?: 'models', slug: string, provider: string, label: string, public_name?: string | null, aliases: Array<string>, description: string, long_description?: string | null, featured: boolean, sort_order: number, provider_info: { __typename?: 'providers', label?: string | null }, capabilities: Array<{ __typename?: 'model_capabilities', capability_slug: string }>, pipeline_models: Array<{ __typename?: 'pipeline_models', pipeline_slug: string, sort_order: number }>, translations: Array<{ __typename?: 'model_translations', locale: string, description?: string | null, long_description?: string | null }> }> };
 
 export type GetNotificationsQueryVariables = Exact<{
   limit: Scalars['Int']['input'];
@@ -5726,11 +5975,10 @@ export const RegisterDocument = gql`
   }
 }
     `;
-export const SubmitSocialLoginDocument = gql`
-    mutation SubmitSocialLogin($provider: String!) {
-  submit_social_login(provider: $provider) {
+export const LogoutDocument = gql`
+    mutation Logout {
+  logout {
     success
-    redirect_url
   }
 }
     `;
@@ -5787,6 +6035,36 @@ export const GetCreditHistoryDocument = gql`
     pipeline_name
     status
     reservation_mc
+  }
+}
+    `;
+export const ModelsDocument = gql`
+    query Models {
+  models(order_by: {sort_order: asc, slug: asc}) {
+    slug
+    provider
+    label
+    public_name
+    aliases
+    provider_info {
+      label
+    }
+    description
+    long_description
+    featured
+    sort_order
+    capabilities {
+      capability_slug
+    }
+    pipeline_models(order_by: {sort_order: asc}) {
+      pipeline_slug
+      sort_order
+    }
+    translations {
+      locale
+      description
+      long_description
+    }
   }
 }
     `;
@@ -6395,8 +6673,8 @@ export function getSdk<C>(requester: Requester<C>) {
     Register(variables: RegisterMutationVariables, options?: C): Promise<RegisterMutation> {
       return requester<RegisterMutation, RegisterMutationVariables>(RegisterDocument, variables, options) as Promise<RegisterMutation>;
     },
-    SubmitSocialLogin(variables: SubmitSocialLoginMutationVariables, options?: C): Promise<SubmitSocialLoginMutation> {
-      return requester<SubmitSocialLoginMutation, SubmitSocialLoginMutationVariables>(SubmitSocialLoginDocument, variables, options) as Promise<SubmitSocialLoginMutation>;
+    Logout(variables?: LogoutMutationVariables, options?: C): Promise<LogoutMutation> {
+      return requester<LogoutMutation, LogoutMutationVariables>(LogoutDocument, variables, options) as Promise<LogoutMutation>;
     },
     InitVerificationFlow(variables?: InitVerificationFlowMutationVariables, options?: C): Promise<InitVerificationFlowMutation> {
       return requester<InitVerificationFlowMutation, InitVerificationFlowMutationVariables>(InitVerificationFlowDocument, variables, options) as Promise<InitVerificationFlowMutation>;
@@ -6415,6 +6693,9 @@ export function getSdk<C>(requester: Requester<C>) {
     },
     GetCreditHistory(variables?: GetCreditHistoryQueryVariables, options?: C): Promise<GetCreditHistoryQuery> {
       return requester<GetCreditHistoryQuery, GetCreditHistoryQueryVariables>(GetCreditHistoryDocument, variables, options) as Promise<GetCreditHistoryQuery>;
+    },
+    Models(variables?: ModelsQueryVariables, options?: C): Promise<ModelsQuery> {
+      return requester<ModelsQuery, ModelsQueryVariables>(ModelsDocument, variables, options) as Promise<ModelsQuery>;
     },
     GetNotifications(variables: GetNotificationsQueryVariables, options?: C): Promise<GetNotificationsQuery> {
       return requester<GetNotificationsQuery, GetNotificationsQueryVariables>(GetNotificationsDocument, variables, options) as Promise<GetNotificationsQuery>;
