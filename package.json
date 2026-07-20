@@ -1,6 +1,6 @@
 {
   "name": "@pipe2-ai/sdk",
-  "version": "2026.07.4",
+  "version": "2026.07.5",
   "description": "Typed TypeScript client for the Pipe2.ai API — run AI media pipelines (video generation, image generation, text-to-speech, video reframing) and track their results.",
   "homepage": "https://pipe2.ai",
   "keywords": [
