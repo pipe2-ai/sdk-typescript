@@ -325,6 +325,8 @@ export type Assets = {
   thumbnail_url?: Maybe<Scalars['String']['output']>;
   type: Scalars['String']['output'];
   url: Scalars['String']['output'];
+  /** An object relationship */
+  user: Users;
 };
 
 
@@ -419,6 +421,7 @@ export type Assets_Bool_Exp = {
   thumbnail_url?: InputMaybe<String_Comparison_Exp>;
   type?: InputMaybe<String_Comparison_Exp>;
   url?: InputMaybe<String_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
 };
 
 /** aggregate max on columns */
@@ -502,6 +505,7 @@ export type Assets_Order_By = {
   thumbnail_url?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   url?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
 };
 
 /** primary key columns input for table: assets */
@@ -739,6 +743,12 @@ export type Cancel_Subscription_Output = {
   success: Scalars['Boolean']['output'];
 };
 
+export type Cancel_Subscription_Plan_Change_Output = {
+  __typename?: 'cancel_subscription_plan_change_output';
+  cancelled: Scalars['Boolean']['output'];
+  success: Scalars['Boolean']['output'];
+};
+
 export type Change_Avatar_Output = {
   __typename?: 'change_avatar_output';
   avatar_url: Scalars['String']['output'];
@@ -766,6 +776,58 @@ export type Confirm_Account_Deletion_Output = {
   success: Scalars['Boolean']['output'];
 };
 
+/** ISO 3166-1 alpha-2, plus a literal '*' row meaning "any country". */
+export type Countries = {
+  __typename?: 'countries';
+  code: Scalars['String']['output'];
+  /** ISO-4217 code of the country's current legal tender (CLDR currencyData). DISPLAY ONLY — every rail still settles in USD, so this never touches the amount charged. */
+  currency?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+};
+
+/** Boolean expression to filter rows from the table "countries". All fields are combined with a logical 'AND'. */
+export type Countries_Bool_Exp = {
+  _and?: InputMaybe<Array<Countries_Bool_Exp>>;
+  _not?: InputMaybe<Countries_Bool_Exp>;
+  _or?: InputMaybe<Array<Countries_Bool_Exp>>;
+  code?: InputMaybe<String_Comparison_Exp>;
+  currency?: InputMaybe<String_Comparison_Exp>;
+  name?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "countries". */
+export type Countries_Order_By = {
+  code?: InputMaybe<Order_By>;
+  currency?: InputMaybe<Order_By>;
+  name?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "countries" */
+export enum Countries_Select_Column {
+  /** column name */
+  Code = 'code',
+  /** column name */
+  Currency = 'currency',
+  /** column name */
+  Name = 'name'
+}
+
+/** Streaming cursor of the table "countries" */
+export type Countries_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Countries_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Countries_Stream_Cursor_Value_Input = {
+  code?: InputMaybe<Scalars['String']['input']>;
+  /** ISO-4217 code of the country's current legal tender (CLDR currencyData). DISPLAY ONLY — every rail still settles in USD, so this never touches the amount charged. */
+  currency?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Create_Asset_Output = {
   __typename?: 'create_asset_output';
   created_at: Scalars['String']['output'];
@@ -775,10 +837,42 @@ export type Create_Asset_Output = {
   url: Scalars['String']['output'];
 };
 
+export type Create_Auth_Handoff_Code_Output = {
+  __typename?: 'create_auth_handoff_code_output';
+  code: Scalars['String']['output'];
+  expires_at: Scalars['String']['output'];
+};
+
 export type Create_Checkout_Session_Output = {
   __typename?: 'create_checkout_session_output';
   success: Scalars['Boolean']['output'];
   url: Scalars['String']['output'];
+};
+
+export type Create_Crypto_Payment_Output = {
+  __typename?: 'create_crypto_payment_output';
+  amount: Scalars['String']['output'];
+  amount_paid_usdt?: Maybe<Scalars['Float']['output']>;
+  asset?: Maybe<Scalars['String']['output']>;
+  confirmations: Scalars['Int']['output'];
+  credits: Scalars['Float']['output'];
+  currency_id: Scalars['String']['output'];
+  deposit_address: Scalars['String']['output'];
+  expected_usdt: Scalars['Float']['output'];
+  expires_at: Scalars['String']['output'];
+  granted_at?: Maybe<Scalars['String']['output']>;
+  network: Scalars['String']['output'];
+  payment_id: Scalars['String']['output'];
+  payment_uri?: Maybe<Scalars['String']['output']>;
+  provider: Scalars['String']['output'];
+  qr_code_data_url?: Maybe<Scalars['String']['output']>;
+  remaining_amount?: Maybe<Scalars['String']['output']>;
+  required_confirmations: Scalars['Int']['output'];
+  status: Scalars['String']['output'];
+  success: Scalars['Boolean']['output'];
+  top_up_payment_uri?: Maybe<Scalars['String']['output']>;
+  top_up_qr_code_data_url?: Maybe<Scalars['String']['output']>;
+  tx_hash?: Maybe<Scalars['String']['output']>;
 };
 
 export type Create_Personal_Access_Token_Output = {
@@ -795,6 +889,80 @@ export type Credit_Balance_Output = {
   available: Scalars['Int']['output'];
   balance: Scalars['Int']['output'];
   reserved: Scalars['Int']['output'];
+};
+
+/** columns and relationships of "credit_grants" */
+export type Credit_Grants = {
+  __typename?: 'credit_grants';
+  created_at: Scalars['timestamptz']['output'];
+  expires_at?: Maybe<Scalars['timestamptz']['output']>;
+  id: Scalars['uuid']['output'];
+  original_mc: Scalars['bigint']['output'];
+  remaining_mc: Scalars['bigint']['output'];
+  source: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+};
+
+/** Boolean expression to filter rows from the table "credit_grants". All fields are combined with a logical 'AND'. */
+export type Credit_Grants_Bool_Exp = {
+  _and?: InputMaybe<Array<Credit_Grants_Bool_Exp>>;
+  _not?: InputMaybe<Credit_Grants_Bool_Exp>;
+  _or?: InputMaybe<Array<Credit_Grants_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  expires_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  original_mc?: InputMaybe<Bigint_Comparison_Exp>;
+  remaining_mc?: InputMaybe<Bigint_Comparison_Exp>;
+  source?: InputMaybe<String_Comparison_Exp>;
+  status?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "credit_grants". */
+export type Credit_Grants_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  expires_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  original_mc?: InputMaybe<Order_By>;
+  remaining_mc?: InputMaybe<Order_By>;
+  source?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "credit_grants" */
+export enum Credit_Grants_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  ExpiresAt = 'expires_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  OriginalMc = 'original_mc',
+  /** column name */
+  RemainingMc = 'remaining_mc',
+  /** column name */
+  Source = 'source',
+  /** column name */
+  Status = 'status'
+}
+
+/** Streaming cursor of the table "credit_grants" */
+export type Credit_Grants_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Credit_Grants_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Credit_Grants_Stream_Cursor_Value_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  expires_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  original_mc?: InputMaybe<Scalars['bigint']['input']>;
+  remaining_mc?: InputMaybe<Scalars['bigint']['input']>;
+  source?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Credit_History_Entry = {
@@ -1158,6 +1326,242 @@ export type Credit_Packs_Stream_Cursor_Value_Input = {
   sort_order?: InputMaybe<Scalars['Int']['input']>;
 };
 
+/** columns and relationships of "crypto_payment_currencies" */
+export type Crypto_Payment_Currencies = {
+  __typename?: 'crypto_payment_currencies';
+  asset: Scalars['String']['output'];
+  currency_id: Scalars['String']['output'];
+  decimals: Scalars['Int']['output'];
+  enabled: Scalars['Boolean']['output'];
+  label: Scalars['String']['output'];
+  min_usdt: Scalars['numeric']['output'];
+  network: Scalars['String']['output'];
+  provider: Scalars['String']['output'];
+  sort_order: Scalars['Int']['output'];
+};
+
+/** Boolean expression to filter rows from the table "crypto_payment_currencies". All fields are combined with a logical 'AND'. */
+export type Crypto_Payment_Currencies_Bool_Exp = {
+  _and?: InputMaybe<Array<Crypto_Payment_Currencies_Bool_Exp>>;
+  _not?: InputMaybe<Crypto_Payment_Currencies_Bool_Exp>;
+  _or?: InputMaybe<Array<Crypto_Payment_Currencies_Bool_Exp>>;
+  asset?: InputMaybe<String_Comparison_Exp>;
+  currency_id?: InputMaybe<String_Comparison_Exp>;
+  decimals?: InputMaybe<Int_Comparison_Exp>;
+  enabled?: InputMaybe<Boolean_Comparison_Exp>;
+  label?: InputMaybe<String_Comparison_Exp>;
+  min_usdt?: InputMaybe<Numeric_Comparison_Exp>;
+  network?: InputMaybe<String_Comparison_Exp>;
+  provider?: InputMaybe<String_Comparison_Exp>;
+  sort_order?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "crypto_payment_currencies". */
+export type Crypto_Payment_Currencies_Order_By = {
+  asset?: InputMaybe<Order_By>;
+  currency_id?: InputMaybe<Order_By>;
+  decimals?: InputMaybe<Order_By>;
+  enabled?: InputMaybe<Order_By>;
+  label?: InputMaybe<Order_By>;
+  min_usdt?: InputMaybe<Order_By>;
+  network?: InputMaybe<Order_By>;
+  provider?: InputMaybe<Order_By>;
+  sort_order?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "crypto_payment_currencies" */
+export enum Crypto_Payment_Currencies_Select_Column {
+  /** column name */
+  Asset = 'asset',
+  /** column name */
+  CurrencyId = 'currency_id',
+  /** column name */
+  Decimals = 'decimals',
+  /** column name */
+  Enabled = 'enabled',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  MinUsdt = 'min_usdt',
+  /** column name */
+  Network = 'network',
+  /** column name */
+  Provider = 'provider',
+  /** column name */
+  SortOrder = 'sort_order'
+}
+
+/** Streaming cursor of the table "crypto_payment_currencies" */
+export type Crypto_Payment_Currencies_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Crypto_Payment_Currencies_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Crypto_Payment_Currencies_Stream_Cursor_Value_Input = {
+  asset?: InputMaybe<Scalars['String']['input']>;
+  currency_id?: InputMaybe<Scalars['String']['input']>;
+  decimals?: InputMaybe<Scalars['Int']['input']>;
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  min_usdt?: InputMaybe<Scalars['numeric']['input']>;
+  network?: InputMaybe<Scalars['String']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+  sort_order?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type Crypto_Payment_Status_Output = {
+  __typename?: 'crypto_payment_status_output';
+  amount: Scalars['String']['output'];
+  amount_paid_usdt?: Maybe<Scalars['Float']['output']>;
+  asset?: Maybe<Scalars['String']['output']>;
+  confirmations: Scalars['Int']['output'];
+  credits: Scalars['Float']['output'];
+  currency_id: Scalars['String']['output'];
+  deposit_address: Scalars['String']['output'];
+  expected_usdt: Scalars['Float']['output'];
+  expires_at: Scalars['String']['output'];
+  granted_at?: Maybe<Scalars['String']['output']>;
+  network: Scalars['String']['output'];
+  payment_id: Scalars['String']['output'];
+  payment_uri?: Maybe<Scalars['String']['output']>;
+  provider: Scalars['String']['output'];
+  qr_code_data_url?: Maybe<Scalars['String']['output']>;
+  remaining_amount?: Maybe<Scalars['String']['output']>;
+  required_confirmations: Scalars['Int']['output'];
+  status: Scalars['String']['output'];
+  success: Scalars['Boolean']['output'];
+  top_up_payment_uri?: Maybe<Scalars['String']['output']>;
+  top_up_qr_code_data_url?: Maybe<Scalars['String']['output']>;
+  tx_hash?: Maybe<Scalars['String']['output']>;
+};
+
+/** columns and relationships of "crypto_payments" */
+export type Crypto_Payments = {
+  __typename?: 'crypto_payments';
+  amount_paid_usdt?: Maybe<Scalars['numeric']['output']>;
+  created_at: Scalars['timestamptz']['output'];
+  /** An object relationship */
+  credit_pack_version?: Maybe<Credit_Pack_Versions>;
+  credits: Scalars['Int']['output'];
+  currency_id: Scalars['String']['output'];
+  deposit_address: Scalars['String']['output'];
+  expected_usdt: Scalars['numeric']['output'];
+  expires_at: Scalars['timestamptz']['output'];
+  granted_at?: Maybe<Scalars['timestamptz']['output']>;
+  id: Scalars['uuid']['output'];
+  kind: Scalars['String']['output'];
+  network: Scalars['String']['output'];
+  provider: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+  tx_hash?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  user: Users;
+};
+
+/** Boolean expression to filter rows from the table "crypto_payments". All fields are combined with a logical 'AND'. */
+export type Crypto_Payments_Bool_Exp = {
+  _and?: InputMaybe<Array<Crypto_Payments_Bool_Exp>>;
+  _not?: InputMaybe<Crypto_Payments_Bool_Exp>;
+  _or?: InputMaybe<Array<Crypto_Payments_Bool_Exp>>;
+  amount_paid_usdt?: InputMaybe<Numeric_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  credit_pack_version?: InputMaybe<Credit_Pack_Versions_Bool_Exp>;
+  credits?: InputMaybe<Int_Comparison_Exp>;
+  currency_id?: InputMaybe<String_Comparison_Exp>;
+  deposit_address?: InputMaybe<String_Comparison_Exp>;
+  expected_usdt?: InputMaybe<Numeric_Comparison_Exp>;
+  expires_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  granted_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  kind?: InputMaybe<String_Comparison_Exp>;
+  network?: InputMaybe<String_Comparison_Exp>;
+  provider?: InputMaybe<String_Comparison_Exp>;
+  status?: InputMaybe<String_Comparison_Exp>;
+  tx_hash?: InputMaybe<String_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "crypto_payments". */
+export type Crypto_Payments_Order_By = {
+  amount_paid_usdt?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  credit_pack_version?: InputMaybe<Credit_Pack_Versions_Order_By>;
+  credits?: InputMaybe<Order_By>;
+  currency_id?: InputMaybe<Order_By>;
+  deposit_address?: InputMaybe<Order_By>;
+  expected_usdt?: InputMaybe<Order_By>;
+  expires_at?: InputMaybe<Order_By>;
+  granted_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  kind?: InputMaybe<Order_By>;
+  network?: InputMaybe<Order_By>;
+  provider?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
+  tx_hash?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
+};
+
+/** select columns of table "crypto_payments" */
+export enum Crypto_Payments_Select_Column {
+  /** column name */
+  AmountPaidUsdt = 'amount_paid_usdt',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Credits = 'credits',
+  /** column name */
+  CurrencyId = 'currency_id',
+  /** column name */
+  DepositAddress = 'deposit_address',
+  /** column name */
+  ExpectedUsdt = 'expected_usdt',
+  /** column name */
+  ExpiresAt = 'expires_at',
+  /** column name */
+  GrantedAt = 'granted_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Kind = 'kind',
+  /** column name */
+  Network = 'network',
+  /** column name */
+  Provider = 'provider',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  TxHash = 'tx_hash'
+}
+
+/** Streaming cursor of the table "crypto_payments" */
+export type Crypto_Payments_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Crypto_Payments_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Crypto_Payments_Stream_Cursor_Value_Input = {
+  amount_paid_usdt?: InputMaybe<Scalars['numeric']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  credits?: InputMaybe<Scalars['Int']['input']>;
+  currency_id?: InputMaybe<Scalars['String']['input']>;
+  deposit_address?: InputMaybe<Scalars['String']['input']>;
+  expected_usdt?: InputMaybe<Scalars['numeric']['input']>;
+  expires_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  granted_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  kind?: InputMaybe<Scalars['String']['input']>;
+  network?: InputMaybe<Scalars['String']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  tx_hash?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Current_User_Output = {
   __typename?: 'current_user_output';
   avatar_url?: Maybe<Scalars['String']['output']>;
@@ -1182,6 +1586,80 @@ export type Delete_Asset_Output = {
   success: Scalars['Boolean']['output'];
 };
 
+/** columns and relationships of "dispatch_blocks" */
+export type Dispatch_Blocks = {
+  __typename?: 'dispatch_blocks';
+  created_at: Scalars['timestamptz']['output'];
+  /** An object relationship */
+  created_by_user?: Maybe<Users>;
+  id: Scalars['uuid']['output'];
+  /** An object relationship */
+  pipeline?: Maybe<Pipelines>;
+  pipeline_slug?: Maybe<Scalars['String']['output']>;
+  reason: Scalars['String']['output'];
+  /** An object relationship */
+  user?: Maybe<Users>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "dispatch_blocks". All fields are combined with a logical 'AND'. */
+export type Dispatch_Blocks_Bool_Exp = {
+  _and?: InputMaybe<Array<Dispatch_Blocks_Bool_Exp>>;
+  _not?: InputMaybe<Dispatch_Blocks_Bool_Exp>;
+  _or?: InputMaybe<Array<Dispatch_Blocks_Bool_Exp>>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  created_by_user?: InputMaybe<Users_Bool_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  pipeline?: InputMaybe<Pipelines_Bool_Exp>;
+  pipeline_slug?: InputMaybe<String_Comparison_Exp>;
+  reason?: InputMaybe<String_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "dispatch_blocks". */
+export type Dispatch_Blocks_Order_By = {
+  created_at?: InputMaybe<Order_By>;
+  created_by_user?: InputMaybe<Users_Order_By>;
+  id?: InputMaybe<Order_By>;
+  pipeline?: InputMaybe<Pipelines_Order_By>;
+  pipeline_slug?: InputMaybe<Order_By>;
+  reason?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "dispatch_blocks" */
+export enum Dispatch_Blocks_Select_Column {
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  PipelineSlug = 'pipeline_slug',
+  /** column name */
+  Reason = 'reason',
+  /** column name */
+  UserId = 'user_id'
+}
+
+/** Streaming cursor of the table "dispatch_blocks" */
+export type Dispatch_Blocks_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Dispatch_Blocks_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Dispatch_Blocks_Stream_Cursor_Value_Input = {
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  pipeline_slug?: InputMaybe<Scalars['String']['input']>;
+  reason?: InputMaybe<Scalars['String']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
 export type Ensure_Affiliate_Output = {
   __typename?: 'ensure_affiliate_output';
   affiliate_id: Scalars['String']['output'];
@@ -1190,15 +1668,21 @@ export type Ensure_Affiliate_Output = {
 
 export type Estimate_Pipeline_Cost_Output = {
   __typename?: 'estimate_pipeline_cost_output';
-  engine_caps?: Maybe<Scalars['jsonb']['output']>;
   estimated_mc: Scalars['Int']['output'];
   incompatible_models?: Maybe<Scalars['jsonb']['output']>;
   is_metered: Scalars['Boolean']['output'];
+  model_input_schema?: Maybe<Scalars['jsonb']['output']>;
   pipeline_slug: Scalars['String']['output'];
   reservation_mc: Scalars['Int']['output'];
   routed_model?: Maybe<Scalars['String']['output']>;
   routed_reason_code?: Maybe<Scalars['String']['output']>;
   routed_reason_params?: Maybe<Scalars['jsonb']['output']>;
+};
+
+export type Exchange_Auth_Handoff_Code_Output = {
+  __typename?: 'exchange_auth_handoff_code_output';
+  expires_at: Scalars['String']['output'];
+  token: Scalars['String']['output'];
 };
 
 /** columns and relationships of "executions_visibility" */
@@ -1273,6 +1757,56 @@ export type Executions_Visibility_Stream_Cursor_Value_Input = {
   task_queue?: InputMaybe<Scalars['String']['input']>;
   workflow_id?: InputMaybe<Scalars['String']['input']>;
   workflow_type_name?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Daily USD reference rates used to calculate localized product prices. */
+export type Fx_Rates = {
+  __typename?: 'fx_rates';
+  currency: Scalars['String']['output'];
+  rate: Scalars['numeric']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+/** Boolean expression to filter rows from the table "fx_rates". All fields are combined with a logical 'AND'. */
+export type Fx_Rates_Bool_Exp = {
+  _and?: InputMaybe<Array<Fx_Rates_Bool_Exp>>;
+  _not?: InputMaybe<Fx_Rates_Bool_Exp>;
+  _or?: InputMaybe<Array<Fx_Rates_Bool_Exp>>;
+  currency?: InputMaybe<String_Comparison_Exp>;
+  rate?: InputMaybe<Numeric_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "fx_rates". */
+export type Fx_Rates_Order_By = {
+  currency?: InputMaybe<Order_By>;
+  rate?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "fx_rates" */
+export enum Fx_Rates_Select_Column {
+  /** column name */
+  Currency = 'currency',
+  /** column name */
+  Rate = 'rate',
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** Streaming cursor of the table "fx_rates" */
+export type Fx_Rates_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Fx_Rates_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Fx_Rates_Stream_Cursor_Value_Input = {
+  currency?: InputMaybe<Scalars['String']['input']>;
+  rate?: InputMaybe<Scalars['numeric']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
 export type Get_My_Referrals_Output = {
@@ -1371,6 +1905,74 @@ export type Locales_Stream_Cursor_Value_Input = {
   label?: InputMaybe<Scalars['String']['input']>;
   native_name?: InputMaybe<Scalars['String']['input']>;
   sort_order?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Indicative local display prices for current public plans and credit packs. Provider quotes remain authoritative for settlement. */
+export type Localized_Product_Prices = {
+  __typename?: 'localized_product_prices';
+  converted_price?: Maybe<Scalars['numeric']['output']>;
+  country?: Maybe<Scalars['String']['output']>;
+  currency?: Maybe<Scalars['String']['output']>;
+  product_kind?: Maybe<Scalars['String']['output']>;
+  product_slug?: Maybe<Scalars['String']['output']>;
+  usd_price_cents?: Maybe<Scalars['Int']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "localized_product_prices". All fields are combined with a logical 'AND'. */
+export type Localized_Product_Prices_Bool_Exp = {
+  _and?: InputMaybe<Array<Localized_Product_Prices_Bool_Exp>>;
+  _not?: InputMaybe<Localized_Product_Prices_Bool_Exp>;
+  _or?: InputMaybe<Array<Localized_Product_Prices_Bool_Exp>>;
+  converted_price?: InputMaybe<Numeric_Comparison_Exp>;
+  country?: InputMaybe<String_Comparison_Exp>;
+  currency?: InputMaybe<String_Comparison_Exp>;
+  product_kind?: InputMaybe<String_Comparison_Exp>;
+  product_slug?: InputMaybe<String_Comparison_Exp>;
+  usd_price_cents?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "localized_product_prices". */
+export type Localized_Product_Prices_Order_By = {
+  converted_price?: InputMaybe<Order_By>;
+  country?: InputMaybe<Order_By>;
+  currency?: InputMaybe<Order_By>;
+  product_kind?: InputMaybe<Order_By>;
+  product_slug?: InputMaybe<Order_By>;
+  usd_price_cents?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "localized_product_prices" */
+export enum Localized_Product_Prices_Select_Column {
+  /** column name */
+  ConvertedPrice = 'converted_price',
+  /** column name */
+  Country = 'country',
+  /** column name */
+  Currency = 'currency',
+  /** column name */
+  ProductKind = 'product_kind',
+  /** column name */
+  ProductSlug = 'product_slug',
+  /** column name */
+  UsdPriceCents = 'usd_price_cents'
+}
+
+/** Streaming cursor of the table "localized_product_prices" */
+export type Localized_Product_Prices_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Localized_Product_Prices_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Localized_Product_Prices_Stream_Cursor_Value_Input = {
+  converted_price?: InputMaybe<Scalars['numeric']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  currency?: InputMaybe<Scalars['String']['input']>;
+  product_kind?: InputMaybe<Scalars['String']['input']>;
+  product_slug?: InputMaybe<Scalars['String']['input']>;
+  usd_price_cents?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type Logout_Output = {
@@ -1698,6 +2300,8 @@ export type Mutation_Root = {
   cancel_pipeline_run?: Maybe<Cancel_Pipeline_Run_Output>;
   /** Cancel your subscription at the end of the current billing period */
   cancel_subscription: Cancel_Subscription_Output;
+  /** Cancel the current user's pending downgrade */
+  cancel_subscription_plan_change: Cancel_Subscription_Plan_Change_Output;
   /** Update your profile picture */
   change_avatar: Change_Avatar_Output;
   /** Update your display name */
@@ -1710,10 +2314,16 @@ export type Mutation_Root = {
   confirm_account_deletion: Confirm_Account_Deletion_Output;
   /** Register an uploaded file as an asset */
   create_asset: Create_Asset_Output;
+  /** Create a short-lived, PKCE-bound authentication handoff code */
+  create_auth_handoff_code: Create_Auth_Handoff_Code_Output;
   /** Create a Whop checkout session with the buyer's user_id baked into metadata */
   create_checkout_session: Create_Checkout_Session_Output;
+  /** Create an idempotent server-priced crypto payment or monthly invoice */
+  create_crypto_payment: Create_Crypto_Payment_Output;
   /** Create a personal access token for API and MCP access */
   create_personal_access_token: Create_Personal_Access_Token_Output;
+  /** Create an idempotent server-priced SBP payment through the selected enabled provider */
+  create_sbp_payment: Sbp_Payment_Output;
   /** Delete an asset */
   delete_asset: Delete_Asset_Output;
   /** delete data from the table: "notifications" */
@@ -1722,6 +2332,8 @@ export type Mutation_Root = {
   delete_notifications_by_pk?: Maybe<Notifications>;
   /** Create an affiliate profile and referral code for the current user if missing */
   ensure_affiliate: Ensure_Affiliate_Output;
+  /** Exchange a one-time authentication handoff code */
+  exchange_auth_handoff_code: Exchange_Auth_Handoff_Code_Output;
   /** Begin email verification */
   init_verification_flow: Auth_Flow;
   /** Sign in with email and password */
@@ -1746,6 +2358,8 @@ export type Mutation_Root = {
   revoke_personal_access_token: Revoke_Personal_Access_Token_Output;
   /** Start a pipeline run */
   run_pipeline?: Maybe<Run_Pipeline_Output>;
+  /** Schedule a subscription downgrade for the next billing boundary */
+  schedule_subscription_plan_change: Subscription_Plan_Change_Output;
   /** Submit an email verification code */
   submit_verification_code: Auth_Result;
   /** update data of the table: "affiliate_codes" */
@@ -1838,6 +2452,13 @@ export type Mutation_RootCreate_AssetArgs = {
 
 
 /** mutation root */
+export type Mutation_RootCreate_Auth_Handoff_CodeArgs = {
+  code_challenge: Scalars['String']['input'];
+  redirect_uri: Scalars['String']['input'];
+};
+
+
+/** mutation root */
 export type Mutation_RootCreate_Checkout_SessionArgs = {
   affiliate_code?: InputMaybe<Scalars['String']['input']>;
   whop_plan_id: Scalars['String']['input'];
@@ -1845,8 +2466,30 @@ export type Mutation_RootCreate_Checkout_SessionArgs = {
 
 
 /** mutation root */
+export type Mutation_RootCreate_Crypto_PaymentArgs = {
+  attempt_id?: InputMaybe<Scalars['uuid']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  credit_pack_slug?: InputMaybe<Scalars['String']['input']>;
+  currency_id: Scalars['String']['input'];
+  plan_slug?: InputMaybe<Scalars['String']['input']>;
+  provider?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** mutation root */
 export type Mutation_RootCreate_Personal_Access_TokenArgs = {
   name: Scalars['String']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootCreate_Sbp_PaymentArgs = {
+  attempt_id: Scalars['uuid']['input'];
+  country?: InputMaybe<Scalars['String']['input']>;
+  credit_pack_slug?: InputMaybe<Scalars['String']['input']>;
+  plan_slug?: InputMaybe<Scalars['String']['input']>;
+  provider: Scalars['String']['input'];
+  recurring_consent?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
@@ -1865,6 +2508,14 @@ export type Mutation_RootDelete_NotificationsArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Notifications_By_PkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootExchange_Auth_Handoff_CodeArgs = {
+  code: Scalars['String']['input'];
+  code_verifier: Scalars['String']['input'];
+  redirect_uri: Scalars['String']['input'];
 };
 
 
@@ -1939,6 +2590,12 @@ export type Mutation_RootRevoke_Personal_Access_TokenArgs = {
 export type Mutation_RootRun_PipelineArgs = {
   input: Scalars['jsonb']['input'];
   pipeline_slug: Scalars['String']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootSchedule_Subscription_Plan_ChangeArgs = {
+  plan_slug: Scalars['String']['input'];
 };
 
 
@@ -2206,6 +2863,176 @@ export enum Order_By {
   DescNullsLast = 'desc_nulls_last'
 }
 
+/** columns and relationships of "payment_provider_resolved_row" */
+export type Payment_Provider_Resolved_Row = {
+  __typename?: 'payment_provider_resolved_row';
+  description?: Maybe<Scalars['String']['output']>;
+  fee_bps?: Maybe<Scalars['Int']['output']>;
+  kind?: Maybe<Scalars['String']['output']>;
+  label?: Maybe<Scalars['String']['output']>;
+  price_source?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  sort_order?: Maybe<Scalars['Int']['output']>;
+  supports_recurring?: Maybe<Scalars['Boolean']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "payment_provider_resolved_row". All fields are combined with a logical 'AND'. */
+export type Payment_Provider_Resolved_Row_Bool_Exp = {
+  _and?: InputMaybe<Array<Payment_Provider_Resolved_Row_Bool_Exp>>;
+  _not?: InputMaybe<Payment_Provider_Resolved_Row_Bool_Exp>;
+  _or?: InputMaybe<Array<Payment_Provider_Resolved_Row_Bool_Exp>>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  fee_bps?: InputMaybe<Int_Comparison_Exp>;
+  kind?: InputMaybe<String_Comparison_Exp>;
+  label?: InputMaybe<String_Comparison_Exp>;
+  price_source?: InputMaybe<String_Comparison_Exp>;
+  slug?: InputMaybe<String_Comparison_Exp>;
+  sort_order?: InputMaybe<Int_Comparison_Exp>;
+  supports_recurring?: InputMaybe<Boolean_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "payment_provider_resolved_row". */
+export type Payment_Provider_Resolved_Row_Order_By = {
+  description?: InputMaybe<Order_By>;
+  fee_bps?: InputMaybe<Order_By>;
+  kind?: InputMaybe<Order_By>;
+  label?: InputMaybe<Order_By>;
+  price_source?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+  sort_order?: InputMaybe<Order_By>;
+  supports_recurring?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "payment_provider_resolved_row" */
+export enum Payment_Provider_Resolved_Row_Select_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  FeeBps = 'fee_bps',
+  /** column name */
+  Kind = 'kind',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  PriceSource = 'price_source',
+  /** column name */
+  Slug = 'slug',
+  /** column name */
+  SortOrder = 'sort_order',
+  /** column name */
+  SupportsRecurring = 'supports_recurring'
+}
+
+/** Streaming cursor of the table "payment_provider_resolved_row" */
+export type Payment_Provider_Resolved_Row_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Payment_Provider_Resolved_Row_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Payment_Provider_Resolved_Row_Stream_Cursor_Value_Input = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  fee_bps?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<Scalars['String']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  price_source?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  sort_order?: InputMaybe<Scalars['Int']['input']>;
+  supports_recurring?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** columns and relationships of "payment_providers" */
+export type Payment_Providers = {
+  __typename?: 'payment_providers';
+  description?: Maybe<Scalars['String']['output']>;
+  enabled: Scalars['Boolean']['output'];
+  /** Signed basis points applied to the base price: -300 = 3% discount, 1500 = 15% surcharge. */
+  fee_bps: Scalars['Int']['output'];
+  kind: Scalars['String']['output'];
+  label: Scalars['String']['output'];
+  price_source: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  sort_order: Scalars['Int']['output'];
+  /** Provider integration can automatically renew subscriptions. One-time packs do not require this capability. */
+  supports_recurring: Scalars['Boolean']['output'];
+};
+
+/** Boolean expression to filter rows from the table "payment_providers". All fields are combined with a logical 'AND'. */
+export type Payment_Providers_Bool_Exp = {
+  _and?: InputMaybe<Array<Payment_Providers_Bool_Exp>>;
+  _not?: InputMaybe<Payment_Providers_Bool_Exp>;
+  _or?: InputMaybe<Array<Payment_Providers_Bool_Exp>>;
+  description?: InputMaybe<String_Comparison_Exp>;
+  enabled?: InputMaybe<Boolean_Comparison_Exp>;
+  fee_bps?: InputMaybe<Int_Comparison_Exp>;
+  kind?: InputMaybe<String_Comparison_Exp>;
+  label?: InputMaybe<String_Comparison_Exp>;
+  price_source?: InputMaybe<String_Comparison_Exp>;
+  slug?: InputMaybe<String_Comparison_Exp>;
+  sort_order?: InputMaybe<Int_Comparison_Exp>;
+  supports_recurring?: InputMaybe<Boolean_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "payment_providers". */
+export type Payment_Providers_Order_By = {
+  description?: InputMaybe<Order_By>;
+  enabled?: InputMaybe<Order_By>;
+  fee_bps?: InputMaybe<Order_By>;
+  kind?: InputMaybe<Order_By>;
+  label?: InputMaybe<Order_By>;
+  price_source?: InputMaybe<Order_By>;
+  slug?: InputMaybe<Order_By>;
+  sort_order?: InputMaybe<Order_By>;
+  supports_recurring?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "payment_providers" */
+export enum Payment_Providers_Select_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Enabled = 'enabled',
+  /** column name */
+  FeeBps = 'fee_bps',
+  /** column name */
+  Kind = 'kind',
+  /** column name */
+  Label = 'label',
+  /** column name */
+  PriceSource = 'price_source',
+  /** column name */
+  Slug = 'slug',
+  /** column name */
+  SortOrder = 'sort_order',
+  /** column name */
+  SupportsRecurring = 'supports_recurring'
+}
+
+/** Streaming cursor of the table "payment_providers" */
+export type Payment_Providers_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Payment_Providers_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Payment_Providers_Stream_Cursor_Value_Input = {
+  description?: InputMaybe<Scalars['String']['input']>;
+  enabled?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Signed basis points applied to the base price: -300 = 3% discount, 1500 = 15% surcharge. */
+  fee_bps?: InputMaybe<Scalars['Int']['input']>;
+  kind?: InputMaybe<Scalars['String']['input']>;
+  label?: InputMaybe<Scalars['String']['input']>;
+  price_source?: InputMaybe<Scalars['String']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  sort_order?: InputMaybe<Scalars['Int']['input']>;
+  /** Provider integration can automatically renew subscriptions. One-time packs do not require this capability. */
+  supports_recurring?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 /** columns and relationships of "personal_access_tokens" */
 export type Personal_Access_Tokens = {
   __typename?: 'personal_access_tokens';
@@ -2216,6 +3043,8 @@ export type Personal_Access_Tokens = {
   name: Scalars['String']['output'];
   revoked_at?: Maybe<Scalars['timestamptz']['output']>;
   scopes: Array<Scalars['String']['output']>;
+  /** An object relationship */
+  user: Users;
 };
 
 /** Boolean expression to filter rows from the table "personal_access_tokens". All fields are combined with a logical 'AND'. */
@@ -2230,6 +3059,7 @@ export type Personal_Access_Tokens_Bool_Exp = {
   name?: InputMaybe<String_Comparison_Exp>;
   revoked_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   scopes?: InputMaybe<String_Array_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "personal_access_tokens". */
@@ -2241,6 +3071,7 @@ export type Personal_Access_Tokens_Order_By = {
   name?: InputMaybe<Order_By>;
   revoked_at?: InputMaybe<Order_By>;
   scopes?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
 };
 
 /** select columns of table "personal_access_tokens" */
@@ -2621,11 +3452,21 @@ export type Pipeline_Examples_Variance_Order_By = {
 /** columns and relationships of "pipeline_models" */
 export type Pipeline_Models = {
   __typename?: 'pipeline_models';
+  auto_route_order?: Maybe<Scalars['Int']['output']>;
+  input_schema: Scalars['jsonb']['output'];
   /** An object relationship */
   model: Models;
   model_slug: Scalars['String']['output'];
+  /** An object relationship */
+  pipeline: Pipelines;
   pipeline_slug: Scalars['String']['output'];
   sort_order: Scalars['Int']['output'];
+};
+
+
+/** columns and relationships of "pipeline_models" */
+export type Pipeline_ModelsInput_SchemaArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** order by aggregate values of table "pipeline_models" */
@@ -2645,6 +3486,7 @@ export type Pipeline_Models_Aggregate_Order_By = {
 
 /** order by avg() on columns of table "pipeline_models" */
 export type Pipeline_Models_Avg_Order_By = {
+  auto_route_order?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
 };
 
@@ -2653,14 +3495,18 @@ export type Pipeline_Models_Bool_Exp = {
   _and?: InputMaybe<Array<Pipeline_Models_Bool_Exp>>;
   _not?: InputMaybe<Pipeline_Models_Bool_Exp>;
   _or?: InputMaybe<Array<Pipeline_Models_Bool_Exp>>;
+  auto_route_order?: InputMaybe<Int_Comparison_Exp>;
+  input_schema?: InputMaybe<Jsonb_Comparison_Exp>;
   model?: InputMaybe<Models_Bool_Exp>;
   model_slug?: InputMaybe<String_Comparison_Exp>;
+  pipeline?: InputMaybe<Pipelines_Bool_Exp>;
   pipeline_slug?: InputMaybe<String_Comparison_Exp>;
   sort_order?: InputMaybe<Int_Comparison_Exp>;
 };
 
 /** order by max() on columns of table "pipeline_models" */
 export type Pipeline_Models_Max_Order_By = {
+  auto_route_order?: InputMaybe<Order_By>;
   model_slug?: InputMaybe<Order_By>;
   pipeline_slug?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
@@ -2668,6 +3514,7 @@ export type Pipeline_Models_Max_Order_By = {
 
 /** order by min() on columns of table "pipeline_models" */
 export type Pipeline_Models_Min_Order_By = {
+  auto_route_order?: InputMaybe<Order_By>;
   model_slug?: InputMaybe<Order_By>;
   pipeline_slug?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
@@ -2675,14 +3522,21 @@ export type Pipeline_Models_Min_Order_By = {
 
 /** Ordering options when selecting data from "pipeline_models". */
 export type Pipeline_Models_Order_By = {
+  auto_route_order?: InputMaybe<Order_By>;
+  input_schema?: InputMaybe<Order_By>;
   model?: InputMaybe<Models_Order_By>;
   model_slug?: InputMaybe<Order_By>;
+  pipeline?: InputMaybe<Pipelines_Order_By>;
   pipeline_slug?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
 };
 
 /** select columns of table "pipeline_models" */
 export enum Pipeline_Models_Select_Column {
+  /** column name */
+  AutoRouteOrder = 'auto_route_order',
+  /** column name */
+  InputSchema = 'input_schema',
   /** column name */
   ModelSlug = 'model_slug',
   /** column name */
@@ -2693,16 +3547,19 @@ export enum Pipeline_Models_Select_Column {
 
 /** order by stddev() on columns of table "pipeline_models" */
 export type Pipeline_Models_Stddev_Order_By = {
+  auto_route_order?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
 };
 
 /** order by stddev_pop() on columns of table "pipeline_models" */
 export type Pipeline_Models_Stddev_Pop_Order_By = {
+  auto_route_order?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
 };
 
 /** order by stddev_samp() on columns of table "pipeline_models" */
 export type Pipeline_Models_Stddev_Samp_Order_By = {
+  auto_route_order?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
 };
 
@@ -2716,6 +3573,8 @@ export type Pipeline_Models_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Pipeline_Models_Stream_Cursor_Value_Input = {
+  auto_route_order?: InputMaybe<Scalars['Int']['input']>;
+  input_schema?: InputMaybe<Scalars['jsonb']['input']>;
   model_slug?: InputMaybe<Scalars['String']['input']>;
   pipeline_slug?: InputMaybe<Scalars['String']['input']>;
   sort_order?: InputMaybe<Scalars['Int']['input']>;
@@ -2723,21 +3582,25 @@ export type Pipeline_Models_Stream_Cursor_Value_Input = {
 
 /** order by sum() on columns of table "pipeline_models" */
 export type Pipeline_Models_Sum_Order_By = {
+  auto_route_order?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
 };
 
 /** order by var_pop() on columns of table "pipeline_models" */
 export type Pipeline_Models_Var_Pop_Order_By = {
+  auto_route_order?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
 };
 
 /** order by var_samp() on columns of table "pipeline_models" */
 export type Pipeline_Models_Var_Samp_Order_By = {
+  auto_route_order?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
 };
 
 /** order by variance() on columns of table "pipeline_models" */
 export type Pipeline_Models_Variance_Order_By = {
+  auto_route_order?: InputMaybe<Order_By>;
   sort_order?: InputMaybe<Order_By>;
 };
 
@@ -2771,6 +3634,8 @@ export type Pipeline_Runs = {
   started_at?: Maybe<Scalars['timestamptz']['output']>;
   status: Scalars['String']['output'];
   temporal_workflow_id?: Maybe<Scalars['String']['output']>;
+  /** An object relationship */
+  user: Users;
   workflow_execution?: Maybe<Executions_Visibility>;
 };
 
@@ -2863,6 +3728,7 @@ export type Pipeline_Runs_Bool_Exp = {
   started_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   status?: InputMaybe<String_Comparison_Exp>;
   temporal_workflow_id?: InputMaybe<String_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
 };
 
 /** aggregate max on columns */
@@ -2921,6 +3787,7 @@ export type Pipeline_Runs_Order_By = {
   started_at?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
   temporal_workflow_id?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
 };
 
 /** primary key columns input for table: pipeline_runs */
@@ -3264,6 +4131,42 @@ export type PipelinesUi_SchemaArgs = {
   path?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** aggregated selection of "pipelines" */
+export type Pipelines_Aggregate = {
+  __typename?: 'pipelines_aggregate';
+  aggregate?: Maybe<Pipelines_Aggregate_Fields>;
+  nodes: Array<Pipelines>;
+};
+
+/** aggregate fields of "pipelines" */
+export type Pipelines_Aggregate_Fields = {
+  __typename?: 'pipelines_aggregate_fields';
+  avg?: Maybe<Pipelines_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Pipelines_Max_Fields>;
+  min?: Maybe<Pipelines_Min_Fields>;
+  stddev?: Maybe<Pipelines_Stddev_Fields>;
+  stddev_pop?: Maybe<Pipelines_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Pipelines_Stddev_Samp_Fields>;
+  sum?: Maybe<Pipelines_Sum_Fields>;
+  var_pop?: Maybe<Pipelines_Var_Pop_Fields>;
+  var_samp?: Maybe<Pipelines_Var_Samp_Fields>;
+  variance?: Maybe<Pipelines_Variance_Fields>;
+};
+
+
+/** aggregate fields of "pipelines" */
+export type Pipelines_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Pipelines_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Pipelines_Avg_Fields = {
+  __typename?: 'pipelines_avg_fields';
+  sort_order?: Maybe<Scalars['Float']['output']>;
+};
+
 /** Boolean expression to filter rows from the table "pipelines". All fields are combined with a logical 'AND'. */
 export type Pipelines_Bool_Exp = {
   _and?: InputMaybe<Array<Pipelines_Bool_Exp>>;
@@ -3291,6 +4194,40 @@ export type Pipelines_Bool_Exp = {
   tags?: InputMaybe<String_Array_Comparison_Exp>;
   translations?: InputMaybe<Pipeline_Translations_Bool_Exp>;
   ui_schema?: InputMaybe<Jsonb_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Pipelines_Max_Fields = {
+  __typename?: 'pipelines_max_fields';
+  category?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon_url?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  models?: Maybe<Array<Scalars['String']['output']>>;
+  name?: Maybe<Scalars['String']['output']>;
+  preview_url?: Maybe<Scalars['String']['output']>;
+  providers?: Maybe<Array<Scalars['String']['output']>>;
+  seo_content?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  sort_order?: Maybe<Scalars['Int']['output']>;
+  tags?: Maybe<Array<Scalars['String']['output']>>;
+};
+
+/** aggregate min on columns */
+export type Pipelines_Min_Fields = {
+  __typename?: 'pipelines_min_fields';
+  category?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  icon_url?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  models?: Maybe<Array<Scalars['String']['output']>>;
+  name?: Maybe<Scalars['String']['output']>;
+  preview_url?: Maybe<Scalars['String']['output']>;
+  providers?: Maybe<Array<Scalars['String']['output']>>;
+  seo_content?: Maybe<Scalars['String']['output']>;
+  slug?: Maybe<Scalars['String']['output']>;
+  sort_order?: Maybe<Scalars['Int']['output']>;
+  tags?: Maybe<Array<Scalars['String']['output']>>;
 };
 
 /** Ordering options when selecting data from "pipelines". */
@@ -3361,6 +4298,24 @@ export enum Pipelines_Select_Column {
   UiSchema = 'ui_schema'
 }
 
+/** aggregate stddev on columns */
+export type Pipelines_Stddev_Fields = {
+  __typename?: 'pipelines_stddev_fields';
+  sort_order?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Pipelines_Stddev_Pop_Fields = {
+  __typename?: 'pipelines_stddev_pop_fields';
+  sort_order?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Pipelines_Stddev_Samp_Fields = {
+  __typename?: 'pipelines_stddev_samp_fields';
+  sort_order?: Maybe<Scalars['Float']['output']>;
+};
+
 /** Streaming cursor of the table "pipelines" */
 export type Pipelines_Stream_Cursor_Input = {
   /** Stream column input with initial value */
@@ -3391,6 +4346,30 @@ export type Pipelines_Stream_Cursor_Value_Input = {
   sort_order?: InputMaybe<Scalars['Int']['input']>;
   tags?: InputMaybe<Array<Scalars['String']['input']>>;
   ui_schema?: InputMaybe<Scalars['jsonb']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Pipelines_Sum_Fields = {
+  __typename?: 'pipelines_sum_fields';
+  sort_order?: Maybe<Scalars['Int']['output']>;
+};
+
+/** aggregate var_pop on columns */
+export type Pipelines_Var_Pop_Fields = {
+  __typename?: 'pipelines_var_pop_fields';
+  sort_order?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Pipelines_Var_Samp_Fields = {
+  __typename?: 'pipelines_var_samp_fields';
+  sort_order?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Pipelines_Variance_Fields = {
+  __typename?: 'pipelines_variance_fields';
+  sort_order?: Maybe<Scalars['Float']['output']>;
 };
 
 /** columns and relationships of "plan_translations" */
@@ -3895,6 +4874,14 @@ export type Query_Root = {
   assets_aggregate: Assets_Aggregate;
   /** fetch data from the table: "assets" using primary key columns */
   assets_by_pk?: Maybe<Assets>;
+  /** fetch data from the table: "countries" */
+  countries: Array<Countries>;
+  /** fetch data from the table: "countries" using primary key columns */
+  countries_by_pk?: Maybe<Countries>;
+  /** fetch data from the table: "credit_grants" */
+  credit_grants: Array<Credit_Grants>;
+  /** fetch data from the table: "credit_grants" using primary key columns */
+  credit_grants_by_pk?: Maybe<Credit_Grants>;
   /** fetch data from the table: "credit_pack_translations" */
   credit_pack_translations: Array<Credit_Pack_Translations>;
   /** fetch data from the table: "credit_pack_translations" using primary key columns */
@@ -3907,22 +4894,44 @@ export type Query_Root = {
   credit_packs: Array<Credit_Packs>;
   /** fetch data from the table: "credit_packs" using primary key columns */
   credit_packs_by_pk?: Maybe<Credit_Packs>;
+  /** fetch data from the table: "crypto_payment_currencies" */
+  crypto_payment_currencies: Array<Crypto_Payment_Currencies>;
+  /** fetch data from the table: "crypto_payment_currencies" using primary key columns */
+  crypto_payment_currencies_by_pk?: Maybe<Crypto_Payment_Currencies>;
+  /** fetch data from the table: "crypto_payments" */
+  crypto_payments: Array<Crypto_Payments>;
+  /** fetch data from the table: "crypto_payments" using primary key columns */
+  crypto_payments_by_pk?: Maybe<Crypto_Payments>;
   /** Get the currently signed-in user */
   current_user: Current_User_Output;
+  /** fetch data from the table: "dispatch_blocks" */
+  dispatch_blocks: Array<Dispatch_Blocks>;
+  /** fetch data from the table: "dispatch_blocks" using primary key columns */
+  dispatch_blocks_by_pk?: Maybe<Dispatch_Blocks>;
   /** Preview the credit cost of running a pipeline with a given input (read-only) */
   estimate_pipeline_cost?: Maybe<Estimate_Pipeline_Cost_Output>;
   /** fetch data from the table: "executions_visibility" */
   executions_visibility: Array<Executions_Visibility>;
+  /** fetch data from the table: "fx_rates" */
+  fx_rates: Array<Fx_Rates>;
+  /** fetch data from the table: "fx_rates" using primary key columns */
+  fx_rates_by_pk?: Maybe<Fx_Rates>;
   /** Get your current credit balance */
   get_credit_balance?: Maybe<Credit_Balance_Output>;
   /** Get your credit transaction history */
   get_credit_history: Array<Credit_History_Entry>;
+  /** Poll one owned crypto payment through the server-side gateway client */
+  get_crypto_payment_status: Crypto_Payment_Status_Output;
   /** Get your referral stats and referred users */
   get_my_referrals: Get_My_Referrals_Output;
+  /** Poll one owned SBP payment and settle it through its recorded provider */
+  get_sbp_payment_status: Sbp_Payment_Output;
   /** fetch data from the table: "locales" */
   locales: Array<Locales>;
   /** fetch data from the table: "locales" using primary key columns */
   locales_by_pk?: Maybe<Locales>;
+  /** fetch data from the table: "localized_product_prices" */
+  localized_product_prices: Array<Localized_Product_Prices>;
   /** fetch data from the table: "model_capabilities" */
   model_capabilities: Array<Model_Capabilities>;
   /** fetch data from the table: "model_capabilities" using primary key columns */
@@ -3941,6 +4950,12 @@ export type Query_Root = {
   notifications_aggregate: Notifications_Aggregate;
   /** fetch data from the table: "notifications" using primary key columns */
   notifications_by_pk?: Maybe<Notifications>;
+  /** fetch data from the table: "payment_provider_resolved_row" */
+  payment_provider_resolved_row: Array<Payment_Provider_Resolved_Row>;
+  /** fetch data from the table: "payment_providers" */
+  payment_providers: Array<Payment_Providers>;
+  /** fetch data from the table: "payment_providers" using primary key columns */
+  payment_providers_by_pk?: Maybe<Payment_Providers>;
   /** fetch data from the table: "personal_access_tokens" */
   personal_access_tokens: Array<Personal_Access_Tokens>;
   /** fetch data from the table: "personal_access_tokens" using primary key columns */
@@ -3971,6 +4986,8 @@ export type Query_Root = {
   pipeline_translations_by_pk?: Maybe<Pipeline_Translations>;
   /** fetch data from the table: "pipelines" */
   pipelines: Array<Pipelines>;
+  /** fetch aggregated fields from the table: "pipelines" */
+  pipelines_aggregate: Pipelines_Aggregate;
   /** fetch data from the table: "pipelines" using primary key columns */
   pipelines_by_pk?: Maybe<Pipelines>;
   /** fetch data from the table: "plan_translations" */
@@ -3989,10 +5006,24 @@ export type Query_Root = {
   providers: Array<Providers>;
   /** fetch data from the table: "providers" using primary key columns */
   providers_by_pk?: Maybe<Providers>;
+  /** execute function "resolve_payment_providers" which returns "payment_provider_resolved_row" */
+  resolve_payment_providers: Array<Payment_Provider_Resolved_Row>;
+  /** fetch data from the table: "subscription_plan_changes" */
+  subscription_plan_changes: Array<Subscription_Plan_Changes>;
+  /** fetch data from the table: "subscription_plan_changes" using primary key columns */
+  subscription_plan_changes_by_pk?: Maybe<Subscription_Plan_Changes>;
   /** An array relationship */
   subscriptions: Array<Subscriptions>;
   /** fetch data from the table: "subscriptions" using primary key columns */
   subscriptions_by_pk?: Maybe<Subscriptions>;
+  /** fetch data from the table: "user_credit_balance_breakdown" */
+  user_credit_balance_breakdown: Array<User_Credit_Balance_Breakdown>;
+  /** fetch data from the table: "user_subscription_credits" */
+  user_subscription_credits: Array<User_Subscription_Credits>;
+  /** fetch data from the table: "user_subscription_credits" using primary key columns */
+  user_subscription_credits_by_pk?: Maybe<User_Subscription_Credits>;
+  /** fetch data from the table: "users" */
+  users: Array<Users>;
 };
 
 
@@ -4047,6 +5078,34 @@ export type Query_RootAssets_By_PkArgs = {
 };
 
 
+export type Query_RootCountriesArgs = {
+  distinct_on?: InputMaybe<Array<Countries_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Countries_Order_By>>;
+  where?: InputMaybe<Countries_Bool_Exp>;
+};
+
+
+export type Query_RootCountries_By_PkArgs = {
+  code: Scalars['String']['input'];
+};
+
+
+export type Query_RootCredit_GrantsArgs = {
+  distinct_on?: InputMaybe<Array<Credit_Grants_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Credit_Grants_Order_By>>;
+  where?: InputMaybe<Credit_Grants_Bool_Exp>;
+};
+
+
+export type Query_RootCredit_Grants_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
 export type Query_RootCredit_Pack_TranslationsArgs = {
   distinct_on?: InputMaybe<Array<Credit_Pack_Translations_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4090,6 +5149,48 @@ export type Query_RootCredit_Packs_By_PkArgs = {
 };
 
 
+export type Query_RootCrypto_Payment_CurrenciesArgs = {
+  distinct_on?: InputMaybe<Array<Crypto_Payment_Currencies_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Crypto_Payment_Currencies_Order_By>>;
+  where?: InputMaybe<Crypto_Payment_Currencies_Bool_Exp>;
+};
+
+
+export type Query_RootCrypto_Payment_Currencies_By_PkArgs = {
+  currency_id: Scalars['String']['input'];
+};
+
+
+export type Query_RootCrypto_PaymentsArgs = {
+  distinct_on?: InputMaybe<Array<Crypto_Payments_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Crypto_Payments_Order_By>>;
+  where?: InputMaybe<Crypto_Payments_Bool_Exp>;
+};
+
+
+export type Query_RootCrypto_Payments_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootDispatch_BlocksArgs = {
+  distinct_on?: InputMaybe<Array<Dispatch_Blocks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Dispatch_Blocks_Order_By>>;
+  where?: InputMaybe<Dispatch_Blocks_Bool_Exp>;
+};
+
+
+export type Query_RootDispatch_Blocks_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
 export type Query_RootEstimate_Pipeline_CostArgs = {
   input: Scalars['jsonb']['input'];
   pipeline_slug: Scalars['String']['input'];
@@ -4105,6 +5206,30 @@ export type Query_RootExecutions_VisibilityArgs = {
 };
 
 
+export type Query_RootFx_RatesArgs = {
+  distinct_on?: InputMaybe<Array<Fx_Rates_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Fx_Rates_Order_By>>;
+  where?: InputMaybe<Fx_Rates_Bool_Exp>;
+};
+
+
+export type Query_RootFx_Rates_By_PkArgs = {
+  currency: Scalars['String']['input'];
+};
+
+
+export type Query_RootGet_Crypto_Payment_StatusArgs = {
+  payment_id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootGet_Sbp_Payment_StatusArgs = {
+  payment_id: Scalars['uuid']['input'];
+};
+
+
 export type Query_RootLocalesArgs = {
   distinct_on?: InputMaybe<Array<Locales_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4116,6 +5241,15 @@ export type Query_RootLocalesArgs = {
 
 export type Query_RootLocales_By_PkArgs = {
   code: Scalars['String']['input'];
+};
+
+
+export type Query_RootLocalized_Product_PricesArgs = {
+  distinct_on?: InputMaybe<Array<Localized_Product_Prices_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Localized_Product_Prices_Order_By>>;
+  where?: InputMaybe<Localized_Product_Prices_Bool_Exp>;
 };
 
 
@@ -4183,6 +5317,29 @@ export type Query_RootNotifications_AggregateArgs = {
 
 export type Query_RootNotifications_By_PkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootPayment_Provider_Resolved_RowArgs = {
+  distinct_on?: InputMaybe<Array<Payment_Provider_Resolved_Row_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Payment_Provider_Resolved_Row_Order_By>>;
+  where?: InputMaybe<Payment_Provider_Resolved_Row_Bool_Exp>;
+};
+
+
+export type Query_RootPayment_ProvidersArgs = {
+  distinct_on?: InputMaybe<Array<Payment_Providers_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Payment_Providers_Order_By>>;
+  where?: InputMaybe<Payment_Providers_Bool_Exp>;
+};
+
+
+export type Query_RootPayment_Providers_By_PkArgs = {
+  slug: Scalars['String']['input'];
 };
 
 
@@ -4291,6 +5448,15 @@ export type Query_RootPipelinesArgs = {
 };
 
 
+export type Query_RootPipelines_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pipelines_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipelines_Order_By>>;
+  where?: InputMaybe<Pipelines_Bool_Exp>;
+};
+
+
 export type Query_RootPipelines_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
@@ -4353,6 +5519,30 @@ export type Query_RootProviders_By_PkArgs = {
 };
 
 
+export type Query_RootResolve_Payment_ProvidersArgs = {
+  args: Resolve_Payment_Providers_Args;
+  distinct_on?: InputMaybe<Array<Payment_Provider_Resolved_Row_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Payment_Provider_Resolved_Row_Order_By>>;
+  where?: InputMaybe<Payment_Provider_Resolved_Row_Bool_Exp>;
+};
+
+
+export type Query_RootSubscription_Plan_ChangesArgs = {
+  distinct_on?: InputMaybe<Array<Subscription_Plan_Changes_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Subscription_Plan_Changes_Order_By>>;
+  where?: InputMaybe<Subscription_Plan_Changes_Bool_Exp>;
+};
+
+
+export type Query_RootSubscription_Plan_Changes_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
 export type Query_RootSubscriptionsArgs = {
   distinct_on?: InputMaybe<Array<Subscriptions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4364,6 +5554,38 @@ export type Query_RootSubscriptionsArgs = {
 
 export type Query_RootSubscriptions_By_PkArgs = {
   id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootUser_Credit_Balance_BreakdownArgs = {
+  distinct_on?: InputMaybe<Array<User_Credit_Balance_Breakdown_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Credit_Balance_Breakdown_Order_By>>;
+  where?: InputMaybe<User_Credit_Balance_Breakdown_Bool_Exp>;
+};
+
+
+export type Query_RootUser_Subscription_CreditsArgs = {
+  distinct_on?: InputMaybe<Array<User_Subscription_Credits_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Subscription_Credits_Order_By>>;
+  where?: InputMaybe<User_Subscription_Credits_Bool_Exp>;
+};
+
+
+export type Query_RootUser_Subscription_Credits_By_PkArgs = {
+  user_id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootUsersArgs = {
+  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
 };
 
 export type Referral_Entry = {
@@ -4409,6 +5631,12 @@ export type Request_Upload_Output = {
   upload_url: Scalars['String']['output'];
 };
 
+export type Resolve_Payment_Providers_Args = {
+  p_country?: InputMaybe<Scalars['String']['input']>;
+  p_locale?: InputMaybe<Scalars['String']['input']>;
+  p_platform?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Revoke_Personal_Access_Token_Output = {
   __typename?: 'revoke_personal_access_token_output';
   revoked_at: Scalars['String']['output'];
@@ -4419,6 +5647,109 @@ export type Run_Pipeline_Output = {
   __typename?: 'run_pipeline_output';
   run_id: Scalars['String']['output'];
   workflow_id: Scalars['String']['output'];
+};
+
+export type Sbp_Payment_Output = {
+  __typename?: 'sbp_payment_output';
+  amount: Scalars['String']['output'];
+  credits: Scalars['Float']['output'];
+  currency: Scalars['String']['output'];
+  detail?: Maybe<Scalars['String']['output']>;
+  expires_at: Scalars['String']['output'];
+  payment_id: Scalars['String']['output'];
+  payment_uri: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+  success: Scalars['Boolean']['output'];
+};
+
+export type Subscription_Plan_Change_Output = {
+  __typename?: 'subscription_plan_change_output';
+  change_id: Scalars['uuid']['output'];
+  effective_at: Scalars['timestamptz']['output'];
+  status: Scalars['String']['output'];
+  success: Scalars['Boolean']['output'];
+};
+
+/** columns and relationships of "subscription_plan_changes" */
+export type Subscription_Plan_Changes = {
+  __typename?: 'subscription_plan_changes';
+  charge_cents?: Maybe<Scalars['Int']['output']>;
+  created_at: Scalars['timestamptz']['output'];
+  effective_at: Scalars['timestamptz']['output'];
+  /** An object relationship */
+  from_plan_version: Plan_Versions;
+  grant_mc?: Maybe<Scalars['bigint']['output']>;
+  id: Scalars['uuid']['output'];
+  kind: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+  /** An object relationship */
+  to_plan_version: Plan_Versions;
+};
+
+/** Boolean expression to filter rows from the table "subscription_plan_changes". All fields are combined with a logical 'AND'. */
+export type Subscription_Plan_Changes_Bool_Exp = {
+  _and?: InputMaybe<Array<Subscription_Plan_Changes_Bool_Exp>>;
+  _not?: InputMaybe<Subscription_Plan_Changes_Bool_Exp>;
+  _or?: InputMaybe<Array<Subscription_Plan_Changes_Bool_Exp>>;
+  charge_cents?: InputMaybe<Int_Comparison_Exp>;
+  created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  effective_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  from_plan_version?: InputMaybe<Plan_Versions_Bool_Exp>;
+  grant_mc?: InputMaybe<Bigint_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  kind?: InputMaybe<String_Comparison_Exp>;
+  status?: InputMaybe<String_Comparison_Exp>;
+  to_plan_version?: InputMaybe<Plan_Versions_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "subscription_plan_changes". */
+export type Subscription_Plan_Changes_Order_By = {
+  charge_cents?: InputMaybe<Order_By>;
+  created_at?: InputMaybe<Order_By>;
+  effective_at?: InputMaybe<Order_By>;
+  from_plan_version?: InputMaybe<Plan_Versions_Order_By>;
+  grant_mc?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  kind?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
+  to_plan_version?: InputMaybe<Plan_Versions_Order_By>;
+};
+
+/** select columns of table "subscription_plan_changes" */
+export enum Subscription_Plan_Changes_Select_Column {
+  /** column name */
+  ChargeCents = 'charge_cents',
+  /** column name */
+  CreatedAt = 'created_at',
+  /** column name */
+  EffectiveAt = 'effective_at',
+  /** column name */
+  GrantMc = 'grant_mc',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Kind = 'kind',
+  /** column name */
+  Status = 'status'
+}
+
+/** Streaming cursor of the table "subscription_plan_changes" */
+export type Subscription_Plan_Changes_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Subscription_Plan_Changes_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Subscription_Plan_Changes_Stream_Cursor_Value_Input = {
+  charge_cents?: InputMaybe<Scalars['Int']['input']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  effective_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  grant_mc?: InputMaybe<Scalars['bigint']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  kind?: InputMaybe<Scalars['String']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Subscription_Root = {
@@ -4443,6 +5774,18 @@ export type Subscription_Root = {
   assets_by_pk?: Maybe<Assets>;
   /** fetch data from the table in a streaming manner: "assets" */
   assets_stream: Array<Assets>;
+  /** fetch data from the table: "countries" */
+  countries: Array<Countries>;
+  /** fetch data from the table: "countries" using primary key columns */
+  countries_by_pk?: Maybe<Countries>;
+  /** fetch data from the table in a streaming manner: "countries" */
+  countries_stream: Array<Countries>;
+  /** fetch data from the table: "credit_grants" */
+  credit_grants: Array<Credit_Grants>;
+  /** fetch data from the table: "credit_grants" using primary key columns */
+  credit_grants_by_pk?: Maybe<Credit_Grants>;
+  /** fetch data from the table in a streaming manner: "credit_grants" */
+  credit_grants_stream: Array<Credit_Grants>;
   /** fetch data from the table: "credit_pack_translations" */
   credit_pack_translations: Array<Credit_Pack_Translations>;
   /** fetch data from the table: "credit_pack_translations" using primary key columns */
@@ -4461,16 +5804,44 @@ export type Subscription_Root = {
   credit_packs_by_pk?: Maybe<Credit_Packs>;
   /** fetch data from the table in a streaming manner: "credit_packs" */
   credit_packs_stream: Array<Credit_Packs>;
+  /** fetch data from the table: "crypto_payment_currencies" */
+  crypto_payment_currencies: Array<Crypto_Payment_Currencies>;
+  /** fetch data from the table: "crypto_payment_currencies" using primary key columns */
+  crypto_payment_currencies_by_pk?: Maybe<Crypto_Payment_Currencies>;
+  /** fetch data from the table in a streaming manner: "crypto_payment_currencies" */
+  crypto_payment_currencies_stream: Array<Crypto_Payment_Currencies>;
+  /** fetch data from the table: "crypto_payments" */
+  crypto_payments: Array<Crypto_Payments>;
+  /** fetch data from the table: "crypto_payments" using primary key columns */
+  crypto_payments_by_pk?: Maybe<Crypto_Payments>;
+  /** fetch data from the table in a streaming manner: "crypto_payments" */
+  crypto_payments_stream: Array<Crypto_Payments>;
+  /** fetch data from the table: "dispatch_blocks" */
+  dispatch_blocks: Array<Dispatch_Blocks>;
+  /** fetch data from the table: "dispatch_blocks" using primary key columns */
+  dispatch_blocks_by_pk?: Maybe<Dispatch_Blocks>;
+  /** fetch data from the table in a streaming manner: "dispatch_blocks" */
+  dispatch_blocks_stream: Array<Dispatch_Blocks>;
   /** fetch data from the table: "executions_visibility" */
   executions_visibility: Array<Executions_Visibility>;
   /** fetch data from the table in a streaming manner: "executions_visibility" */
   executions_visibility_stream: Array<Executions_Visibility>;
+  /** fetch data from the table: "fx_rates" */
+  fx_rates: Array<Fx_Rates>;
+  /** fetch data from the table: "fx_rates" using primary key columns */
+  fx_rates_by_pk?: Maybe<Fx_Rates>;
+  /** fetch data from the table in a streaming manner: "fx_rates" */
+  fx_rates_stream: Array<Fx_Rates>;
   /** fetch data from the table: "locales" */
   locales: Array<Locales>;
   /** fetch data from the table: "locales" using primary key columns */
   locales_by_pk?: Maybe<Locales>;
   /** fetch data from the table in a streaming manner: "locales" */
   locales_stream: Array<Locales>;
+  /** fetch data from the table: "localized_product_prices" */
+  localized_product_prices: Array<Localized_Product_Prices>;
+  /** fetch data from the table in a streaming manner: "localized_product_prices" */
+  localized_product_prices_stream: Array<Localized_Product_Prices>;
   /** fetch data from the table: "model_capabilities" */
   model_capabilities: Array<Model_Capabilities>;
   /** fetch data from the table: "model_capabilities" using primary key columns */
@@ -4497,6 +5868,16 @@ export type Subscription_Root = {
   notifications_by_pk?: Maybe<Notifications>;
   /** fetch data from the table in a streaming manner: "notifications" */
   notifications_stream: Array<Notifications>;
+  /** fetch data from the table: "payment_provider_resolved_row" */
+  payment_provider_resolved_row: Array<Payment_Provider_Resolved_Row>;
+  /** fetch data from the table in a streaming manner: "payment_provider_resolved_row" */
+  payment_provider_resolved_row_stream: Array<Payment_Provider_Resolved_Row>;
+  /** fetch data from the table: "payment_providers" */
+  payment_providers: Array<Payment_Providers>;
+  /** fetch data from the table: "payment_providers" using primary key columns */
+  payment_providers_by_pk?: Maybe<Payment_Providers>;
+  /** fetch data from the table in a streaming manner: "payment_providers" */
+  payment_providers_stream: Array<Payment_Providers>;
   /** fetch data from the table: "personal_access_tokens" */
   personal_access_tokens: Array<Personal_Access_Tokens>;
   /** fetch data from the table: "personal_access_tokens" using primary key columns */
@@ -4537,6 +5918,8 @@ export type Subscription_Root = {
   pipeline_translations_stream: Array<Pipeline_Translations>;
   /** fetch data from the table: "pipelines" */
   pipelines: Array<Pipelines>;
+  /** fetch aggregated fields from the table: "pipelines" */
+  pipelines_aggregate: Pipelines_Aggregate;
   /** fetch data from the table: "pipelines" using primary key columns */
   pipelines_by_pk?: Maybe<Pipelines>;
   /** fetch data from the table in a streaming manner: "pipelines" */
@@ -4565,12 +5948,34 @@ export type Subscription_Root = {
   providers_by_pk?: Maybe<Providers>;
   /** fetch data from the table in a streaming manner: "providers" */
   providers_stream: Array<Providers>;
+  /** execute function "resolve_payment_providers" which returns "payment_provider_resolved_row" */
+  resolve_payment_providers: Array<Payment_Provider_Resolved_Row>;
+  /** fetch data from the table: "subscription_plan_changes" */
+  subscription_plan_changes: Array<Subscription_Plan_Changes>;
+  /** fetch data from the table: "subscription_plan_changes" using primary key columns */
+  subscription_plan_changes_by_pk?: Maybe<Subscription_Plan_Changes>;
+  /** fetch data from the table in a streaming manner: "subscription_plan_changes" */
+  subscription_plan_changes_stream: Array<Subscription_Plan_Changes>;
   /** An array relationship */
   subscriptions: Array<Subscriptions>;
   /** fetch data from the table: "subscriptions" using primary key columns */
   subscriptions_by_pk?: Maybe<Subscriptions>;
   /** fetch data from the table in a streaming manner: "subscriptions" */
   subscriptions_stream: Array<Subscriptions>;
+  /** fetch data from the table: "user_credit_balance_breakdown" */
+  user_credit_balance_breakdown: Array<User_Credit_Balance_Breakdown>;
+  /** fetch data from the table in a streaming manner: "user_credit_balance_breakdown" */
+  user_credit_balance_breakdown_stream: Array<User_Credit_Balance_Breakdown>;
+  /** fetch data from the table: "user_subscription_credits" */
+  user_subscription_credits: Array<User_Subscription_Credits>;
+  /** fetch data from the table: "user_subscription_credits" using primary key columns */
+  user_subscription_credits_by_pk?: Maybe<User_Subscription_Credits>;
+  /** fetch data from the table in a streaming manner: "user_subscription_credits" */
+  user_subscription_credits_stream: Array<User_Subscription_Credits>;
+  /** fetch data from the table: "users" */
+  users: Array<Users>;
+  /** fetch data from the table in a streaming manner: "users" */
+  users_stream: Array<Users>;
 };
 
 
@@ -4646,6 +6051,48 @@ export type Subscription_RootAssets_StreamArgs = {
 };
 
 
+export type Subscription_RootCountriesArgs = {
+  distinct_on?: InputMaybe<Array<Countries_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Countries_Order_By>>;
+  where?: InputMaybe<Countries_Bool_Exp>;
+};
+
+
+export type Subscription_RootCountries_By_PkArgs = {
+  code: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootCountries_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Countries_Stream_Cursor_Input>>;
+  where?: InputMaybe<Countries_Bool_Exp>;
+};
+
+
+export type Subscription_RootCredit_GrantsArgs = {
+  distinct_on?: InputMaybe<Array<Credit_Grants_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Credit_Grants_Order_By>>;
+  where?: InputMaybe<Credit_Grants_Bool_Exp>;
+};
+
+
+export type Subscription_RootCredit_Grants_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootCredit_Grants_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Credit_Grants_Stream_Cursor_Input>>;
+  where?: InputMaybe<Credit_Grants_Bool_Exp>;
+};
+
+
 export type Subscription_RootCredit_Pack_TranslationsArgs = {
   distinct_on?: InputMaybe<Array<Credit_Pack_Translations_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4710,6 +6157,69 @@ export type Subscription_RootCredit_Packs_StreamArgs = {
 };
 
 
+export type Subscription_RootCrypto_Payment_CurrenciesArgs = {
+  distinct_on?: InputMaybe<Array<Crypto_Payment_Currencies_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Crypto_Payment_Currencies_Order_By>>;
+  where?: InputMaybe<Crypto_Payment_Currencies_Bool_Exp>;
+};
+
+
+export type Subscription_RootCrypto_Payment_Currencies_By_PkArgs = {
+  currency_id: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootCrypto_Payment_Currencies_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Crypto_Payment_Currencies_Stream_Cursor_Input>>;
+  where?: InputMaybe<Crypto_Payment_Currencies_Bool_Exp>;
+};
+
+
+export type Subscription_RootCrypto_PaymentsArgs = {
+  distinct_on?: InputMaybe<Array<Crypto_Payments_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Crypto_Payments_Order_By>>;
+  where?: InputMaybe<Crypto_Payments_Bool_Exp>;
+};
+
+
+export type Subscription_RootCrypto_Payments_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootCrypto_Payments_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Crypto_Payments_Stream_Cursor_Input>>;
+  where?: InputMaybe<Crypto_Payments_Bool_Exp>;
+};
+
+
+export type Subscription_RootDispatch_BlocksArgs = {
+  distinct_on?: InputMaybe<Array<Dispatch_Blocks_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Dispatch_Blocks_Order_By>>;
+  where?: InputMaybe<Dispatch_Blocks_Bool_Exp>;
+};
+
+
+export type Subscription_RootDispatch_Blocks_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootDispatch_Blocks_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Dispatch_Blocks_Stream_Cursor_Input>>;
+  where?: InputMaybe<Dispatch_Blocks_Bool_Exp>;
+};
+
+
 export type Subscription_RootExecutions_VisibilityArgs = {
   distinct_on?: InputMaybe<Array<Executions_Visibility_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -4723,6 +6233,27 @@ export type Subscription_RootExecutions_Visibility_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Executions_Visibility_Stream_Cursor_Input>>;
   where?: InputMaybe<Executions_Visibility_Bool_Exp>;
+};
+
+
+export type Subscription_RootFx_RatesArgs = {
+  distinct_on?: InputMaybe<Array<Fx_Rates_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Fx_Rates_Order_By>>;
+  where?: InputMaybe<Fx_Rates_Bool_Exp>;
+};
+
+
+export type Subscription_RootFx_Rates_By_PkArgs = {
+  currency: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootFx_Rates_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Fx_Rates_Stream_Cursor_Input>>;
+  where?: InputMaybe<Fx_Rates_Bool_Exp>;
 };
 
 
@@ -4744,6 +6275,22 @@ export type Subscription_RootLocales_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Locales_Stream_Cursor_Input>>;
   where?: InputMaybe<Locales_Bool_Exp>;
+};
+
+
+export type Subscription_RootLocalized_Product_PricesArgs = {
+  distinct_on?: InputMaybe<Array<Localized_Product_Prices_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Localized_Product_Prices_Order_By>>;
+  where?: InputMaybe<Localized_Product_Prices_Bool_Exp>;
+};
+
+
+export type Subscription_RootLocalized_Product_Prices_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Localized_Product_Prices_Stream_Cursor_Input>>;
+  where?: InputMaybe<Localized_Product_Prices_Bool_Exp>;
 };
 
 
@@ -4839,6 +6386,43 @@ export type Subscription_RootNotifications_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Notifications_Stream_Cursor_Input>>;
   where?: InputMaybe<Notifications_Bool_Exp>;
+};
+
+
+export type Subscription_RootPayment_Provider_Resolved_RowArgs = {
+  distinct_on?: InputMaybe<Array<Payment_Provider_Resolved_Row_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Payment_Provider_Resolved_Row_Order_By>>;
+  where?: InputMaybe<Payment_Provider_Resolved_Row_Bool_Exp>;
+};
+
+
+export type Subscription_RootPayment_Provider_Resolved_Row_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Payment_Provider_Resolved_Row_Stream_Cursor_Input>>;
+  where?: InputMaybe<Payment_Provider_Resolved_Row_Bool_Exp>;
+};
+
+
+export type Subscription_RootPayment_ProvidersArgs = {
+  distinct_on?: InputMaybe<Array<Payment_Providers_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Payment_Providers_Order_By>>;
+  where?: InputMaybe<Payment_Providers_Bool_Exp>;
+};
+
+
+export type Subscription_RootPayment_Providers_By_PkArgs = {
+  slug: Scalars['String']['input'];
+};
+
+
+export type Subscription_RootPayment_Providers_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Payment_Providers_Stream_Cursor_Input>>;
+  where?: InputMaybe<Payment_Providers_Bool_Exp>;
 };
 
 
@@ -4989,6 +6573,15 @@ export type Subscription_RootPipelinesArgs = {
 };
 
 
+export type Subscription_RootPipelines_AggregateArgs = {
+  distinct_on?: InputMaybe<Array<Pipelines_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Pipelines_Order_By>>;
+  where?: InputMaybe<Pipelines_Bool_Exp>;
+};
+
+
 export type Subscription_RootPipelines_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
@@ -5086,6 +6679,37 @@ export type Subscription_RootProviders_StreamArgs = {
 };
 
 
+export type Subscription_RootResolve_Payment_ProvidersArgs = {
+  args: Resolve_Payment_Providers_Args;
+  distinct_on?: InputMaybe<Array<Payment_Provider_Resolved_Row_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Payment_Provider_Resolved_Row_Order_By>>;
+  where?: InputMaybe<Payment_Provider_Resolved_Row_Bool_Exp>;
+};
+
+
+export type Subscription_RootSubscription_Plan_ChangesArgs = {
+  distinct_on?: InputMaybe<Array<Subscription_Plan_Changes_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Subscription_Plan_Changes_Order_By>>;
+  where?: InputMaybe<Subscription_Plan_Changes_Bool_Exp>;
+};
+
+
+export type Subscription_RootSubscription_Plan_Changes_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootSubscription_Plan_Changes_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Subscription_Plan_Changes_Stream_Cursor_Input>>;
+  where?: InputMaybe<Subscription_Plan_Changes_Bool_Exp>;
+};
+
+
 export type Subscription_RootSubscriptionsArgs = {
   distinct_on?: InputMaybe<Array<Subscriptions_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -5106,12 +6730,66 @@ export type Subscription_RootSubscriptions_StreamArgs = {
   where?: InputMaybe<Subscriptions_Bool_Exp>;
 };
 
+
+export type Subscription_RootUser_Credit_Balance_BreakdownArgs = {
+  distinct_on?: InputMaybe<Array<User_Credit_Balance_Breakdown_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Credit_Balance_Breakdown_Order_By>>;
+  where?: InputMaybe<User_Credit_Balance_Breakdown_Bool_Exp>;
+};
+
+
+export type Subscription_RootUser_Credit_Balance_Breakdown_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<User_Credit_Balance_Breakdown_Stream_Cursor_Input>>;
+  where?: InputMaybe<User_Credit_Balance_Breakdown_Bool_Exp>;
+};
+
+
+export type Subscription_RootUser_Subscription_CreditsArgs = {
+  distinct_on?: InputMaybe<Array<User_Subscription_Credits_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<User_Subscription_Credits_Order_By>>;
+  where?: InputMaybe<User_Subscription_Credits_Bool_Exp>;
+};
+
+
+export type Subscription_RootUser_Subscription_Credits_By_PkArgs = {
+  user_id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootUser_Subscription_Credits_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<User_Subscription_Credits_Stream_Cursor_Input>>;
+  where?: InputMaybe<User_Subscription_Credits_Bool_Exp>;
+};
+
+
+export type Subscription_RootUsersArgs = {
+  distinct_on?: InputMaybe<Array<Users_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Users_Order_By>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
+
+export type Subscription_RootUsers_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Users_Stream_Cursor_Input>>;
+  where?: InputMaybe<Users_Bool_Exp>;
+};
+
 /** columns and relationships of "subscriptions" */
 export type Subscriptions = {
   __typename?: 'subscriptions';
   cancel_at_period_end: Scalars['Boolean']['output'];
   created_at: Scalars['timestamptz']['output'];
   id: Scalars['uuid']['output'];
+  metadata?: Maybe<Scalars['jsonb']['output']>;
   period_end: Scalars['timestamptz']['output'];
   period_start: Scalars['timestamptz']['output'];
   /** An object relationship */
@@ -5121,6 +6799,14 @@ export type Subscriptions = {
   plan_version: Plan_Versions;
   plan_version_id: Scalars['uuid']['output'];
   status: Scalars['String']['output'];
+  /** An object relationship */
+  user: Users;
+};
+
+
+/** columns and relationships of "subscriptions" */
+export type SubscriptionsMetadataArgs = {
+  path?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** order by aggregate values of table "subscriptions" */
@@ -5138,6 +6824,7 @@ export type Subscriptions_Bool_Exp = {
   cancel_at_period_end?: InputMaybe<Boolean_Comparison_Exp>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
+  metadata?: InputMaybe<Jsonb_Comparison_Exp>;
   period_end?: InputMaybe<Timestamptz_Comparison_Exp>;
   period_start?: InputMaybe<Timestamptz_Comparison_Exp>;
   plan?: InputMaybe<Plans_Bool_Exp>;
@@ -5145,6 +6832,7 @@ export type Subscriptions_Bool_Exp = {
   plan_version?: InputMaybe<Plan_Versions_Bool_Exp>;
   plan_version_id?: InputMaybe<Uuid_Comparison_Exp>;
   status?: InputMaybe<String_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
 };
 
 /** order by max() on columns of table "subscriptions" */
@@ -5174,6 +6862,7 @@ export type Subscriptions_Order_By = {
   cancel_at_period_end?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  metadata?: InputMaybe<Order_By>;
   period_end?: InputMaybe<Order_By>;
   period_start?: InputMaybe<Order_By>;
   plan?: InputMaybe<Plans_Order_By>;
@@ -5181,6 +6870,7 @@ export type Subscriptions_Order_By = {
   plan_version?: InputMaybe<Plan_Versions_Order_By>;
   plan_version_id?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
 };
 
 /** select columns of table "subscriptions" */
@@ -5191,6 +6881,8 @@ export enum Subscriptions_Select_Column {
   CreatedAt = 'created_at',
   /** column name */
   Id = 'id',
+  /** column name */
+  Metadata = 'metadata',
   /** column name */
   PeriodEnd = 'period_end',
   /** column name */
@@ -5216,6 +6908,7 @@ export type Subscriptions_Stream_Cursor_Value_Input = {
   cancel_at_period_end?: InputMaybe<Scalars['Boolean']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
+  metadata?: InputMaybe<Scalars['jsonb']['input']>;
   period_end?: InputMaybe<Scalars['timestamptz']['input']>;
   period_start?: InputMaybe<Scalars['timestamptz']['input']>;
   plan_id?: InputMaybe<Scalars['uuid']['input']>;
@@ -5247,6 +6940,162 @@ export type Timestamptz_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['timestamptz']['input']>;
   _neq?: InputMaybe<Scalars['timestamptz']['input']>;
   _nin?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
+};
+
+/** columns and relationships of "user_credit_balance_breakdown" */
+export type User_Credit_Balance_Breakdown = {
+  __typename?: 'user_credit_balance_breakdown';
+  expiring_mc?: Maybe<Scalars['bigint']['output']>;
+  next_expiry_at?: Maybe<Scalars['timestamptz']['output']>;
+  retry_mc?: Maybe<Scalars['bigint']['output']>;
+  subscription_mc?: Maybe<Scalars['bigint']['output']>;
+  user_id?: Maybe<Scalars['uuid']['output']>;
+};
+
+/** Boolean expression to filter rows from the table "user_credit_balance_breakdown". All fields are combined with a logical 'AND'. */
+export type User_Credit_Balance_Breakdown_Bool_Exp = {
+  _and?: InputMaybe<Array<User_Credit_Balance_Breakdown_Bool_Exp>>;
+  _not?: InputMaybe<User_Credit_Balance_Breakdown_Bool_Exp>;
+  _or?: InputMaybe<Array<User_Credit_Balance_Breakdown_Bool_Exp>>;
+  expiring_mc?: InputMaybe<Bigint_Comparison_Exp>;
+  next_expiry_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  retry_mc?: InputMaybe<Bigint_Comparison_Exp>;
+  subscription_mc?: InputMaybe<Bigint_Comparison_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "user_credit_balance_breakdown". */
+export type User_Credit_Balance_Breakdown_Order_By = {
+  expiring_mc?: InputMaybe<Order_By>;
+  next_expiry_at?: InputMaybe<Order_By>;
+  retry_mc?: InputMaybe<Order_By>;
+  subscription_mc?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "user_credit_balance_breakdown" */
+export enum User_Credit_Balance_Breakdown_Select_Column {
+  /** column name */
+  ExpiringMc = 'expiring_mc',
+  /** column name */
+  NextExpiryAt = 'next_expiry_at',
+  /** column name */
+  RetryMc = 'retry_mc',
+  /** column name */
+  SubscriptionMc = 'subscription_mc',
+  /** column name */
+  UserId = 'user_id'
+}
+
+/** Streaming cursor of the table "user_credit_balance_breakdown" */
+export type User_Credit_Balance_Breakdown_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: User_Credit_Balance_Breakdown_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type User_Credit_Balance_Breakdown_Stream_Cursor_Value_Input = {
+  expiring_mc?: InputMaybe<Scalars['bigint']['input']>;
+  next_expiry_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  retry_mc?: InputMaybe<Scalars['bigint']['input']>;
+  subscription_mc?: InputMaybe<Scalars['bigint']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** columns and relationships of "user_subscription_credits" */
+export type User_Subscription_Credits = {
+  __typename?: 'user_subscription_credits';
+  expires_at?: Maybe<Scalars['timestamptz']['output']>;
+  remaining_mc: Scalars['bigint']['output'];
+  updated_at: Scalars['timestamptz']['output'];
+  user_id: Scalars['uuid']['output'];
+};
+
+/** Boolean expression to filter rows from the table "user_subscription_credits". All fields are combined with a logical 'AND'. */
+export type User_Subscription_Credits_Bool_Exp = {
+  _and?: InputMaybe<Array<User_Subscription_Credits_Bool_Exp>>;
+  _not?: InputMaybe<User_Subscription_Credits_Bool_Exp>;
+  _or?: InputMaybe<Array<User_Subscription_Credits_Bool_Exp>>;
+  expires_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  remaining_mc?: InputMaybe<Bigint_Comparison_Exp>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  user_id?: InputMaybe<Uuid_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "user_subscription_credits". */
+export type User_Subscription_Credits_Order_By = {
+  expires_at?: InputMaybe<Order_By>;
+  remaining_mc?: InputMaybe<Order_By>;
+  updated_at?: InputMaybe<Order_By>;
+  user_id?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "user_subscription_credits" */
+export enum User_Subscription_Credits_Select_Column {
+  /** column name */
+  ExpiresAt = 'expires_at',
+  /** column name */
+  RemainingMc = 'remaining_mc',
+  /** column name */
+  UpdatedAt = 'updated_at',
+  /** column name */
+  UserId = 'user_id'
+}
+
+/** Streaming cursor of the table "user_subscription_credits" */
+export type User_Subscription_Credits_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: User_Subscription_Credits_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type User_Subscription_Credits_Stream_Cursor_Value_Input = {
+  expires_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  remaining_mc?: InputMaybe<Scalars['bigint']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  user_id?: InputMaybe<Scalars['uuid']['input']>;
+};
+
+/** columns and relationships of "users" */
+export type Users = {
+  __typename?: 'users';
+  updated_at: Scalars['timestamptz']['output'];
+};
+
+/** Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'. */
+export type Users_Bool_Exp = {
+  _and?: InputMaybe<Array<Users_Bool_Exp>>;
+  _not?: InputMaybe<Users_Bool_Exp>;
+  _or?: InputMaybe<Array<Users_Bool_Exp>>;
+  updated_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+};
+
+/** Ordering options when selecting data from "users". */
+export type Users_Order_By = {
+  updated_at?: InputMaybe<Order_By>;
+};
+
+/** select columns of table "users" */
+export enum Users_Select_Column {
+  /** column name */
+  UpdatedAt = 'updated_at'
+}
+
+/** Streaming cursor of the table "users" */
+export type Users_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Users_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Users_Stream_Cursor_Value_Input = {
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
 /** Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'. */
@@ -5449,6 +7298,23 @@ export type RegisterMutationVariables = Exact<{
 
 export type RegisterMutation = { __typename?: 'mutation_root', register: { __typename?: 'auth_result', success: boolean, message: string, token?: string | null, affiliate_id?: string | null } };
 
+export type CreateAuthHandoffCodeMutationVariables = Exact<{
+  redirect_uri: Scalars['String']['input'];
+  code_challenge: Scalars['String']['input'];
+}>;
+
+
+export type CreateAuthHandoffCodeMutation = { __typename?: 'mutation_root', create_auth_handoff_code: { __typename?: 'create_auth_handoff_code_output', code: string, expires_at: string } };
+
+export type ExchangeAuthHandoffCodeMutationVariables = Exact<{
+  code: Scalars['String']['input'];
+  redirect_uri: Scalars['String']['input'];
+  code_verifier: Scalars['String']['input'];
+}>;
+
+
+export type ExchangeAuthHandoffCodeMutation = { __typename?: 'mutation_root', exchange_auth_handoff_code: { __typename?: 'exchange_auth_handoff_code_output', token: string, expires_at: string } };
+
 export type LogoutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5497,10 +7363,41 @@ export type GetCreditHistoryQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetCreditHistoryQuery = { __typename?: 'query_root', get_credit_history: Array<{ __typename?: 'credit_history_entry', type: string, amount: number, description: string, created_at: string, pipeline_run_id?: string | null, pipeline_slug?: string | null, pipeline_name?: string | null, status?: string | null, reservation_mc?: number | null }> };
 
+export type CreateCryptoPaymentMutationVariables = Exact<{
+  provider: Scalars['String']['input'];
+  attempt_id: Scalars['uuid']['input'];
+  credit_pack_slug?: InputMaybe<Scalars['String']['input']>;
+  plan_slug?: InputMaybe<Scalars['String']['input']>;
+  currency_id: Scalars['String']['input'];
+  country?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CreateCryptoPaymentMutation = { __typename?: 'mutation_root', create_crypto_payment: { __typename?: 'create_crypto_payment_output', success: boolean, payment_id: string, deposit_address: string, expected_usdt: number, credits: number, network: string, currency_id: string, expires_at: string, provider: string, status: string, asset?: string | null, amount: string, remaining_amount?: string | null, payment_uri?: string | null, qr_code_data_url?: string | null, top_up_payment_uri?: string | null, top_up_qr_code_data_url?: string | null, required_confirmations: number, confirmations: number, amount_paid_usdt?: number | null, granted_at?: string | null, tx_hash?: string | null } };
+
+export type GetUserSubscriptionCreditsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetUserSubscriptionCreditsQuery = { __typename?: 'query_root', user_credit_balance_breakdown: Array<{ __typename?: 'user_credit_balance_breakdown', subscription_mc?: any | null, retry_mc?: any | null, expiring_mc?: any | null, next_expiry_at?: any | null }> };
+
+export type GetCryptoPaymentCurrenciesQueryVariables = Exact<{
+  provider: Scalars['String']['input'];
+}>;
+
+
+export type GetCryptoPaymentCurrenciesQuery = { __typename?: 'query_root', crypto_payment_currencies: Array<{ __typename?: 'crypto_payment_currencies', currency_id: string, network: string, asset: string, label: string, decimals: number, min_usdt: any }> };
+
+export type GetCryptoPaymentQueryVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+
+export type GetCryptoPaymentQuery = { __typename?: 'query_root', get_crypto_payment_status: { __typename?: 'crypto_payment_status_output', success: boolean, payment_id: string, provider: string, status: string, credits: number, expected_usdt: number, amount_paid_usdt?: number | null, deposit_address: string, currency_id: string, network: string, expires_at: string, granted_at?: string | null, tx_hash?: string | null, asset?: string | null, amount: string, remaining_amount?: string | null, payment_uri?: string | null, qr_code_data_url?: string | null, top_up_payment_uri?: string | null, top_up_qr_code_data_url?: string | null, required_confirmations: number, confirmations: number } };
+
 export type ModelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ModelsQuery = { __typename?: 'query_root', models: Array<{ __typename?: 'models', slug: string, provider: string, label: string, public_name?: string | null, aliases: Array<string>, description: string, long_description?: string | null, featured: boolean, sort_order: number, provider_info: { __typename?: 'providers', label?: string | null }, capabilities: Array<{ __typename?: 'model_capabilities', capability_slug: string }>, pipeline_models: Array<{ __typename?: 'pipeline_models', pipeline_slug: string, sort_order: number }>, translations: Array<{ __typename?: 'model_translations', locale: string, description?: string | null, long_description?: string | null }> }> };
+export type ModelsQuery = { __typename?: 'query_root', models: Array<{ __typename?: 'models', slug: string, provider: string, label: string, public_name?: string | null, aliases: Array<string>, description: string, long_description?: string | null, featured: boolean, sort_order: number, provider_info: { __typename?: 'providers', label?: string | null }, capabilities: Array<{ __typename?: 'model_capabilities', capability_slug: string }>, pipeline_models: Array<{ __typename?: 'pipeline_models', pipeline_slug: string, sort_order: number, input_schema: any, auto_route_order?: number | null }>, translations: Array<{ __typename?: 'model_translations', locale: string, description?: string | null, long_description?: string | null }> }> };
 
 export type GetNotificationsQueryVariables = Exact<{
   limit: Scalars['Int']['input'];
@@ -5522,10 +7419,19 @@ export type MarkAllNotificationsReadMutationVariables = Exact<{ [key: string]: n
 
 export type MarkAllNotificationsReadMutation = { __typename?: 'mutation_root', update_notifications?: { __typename?: 'notifications_mutation_response', affected_rows: number } | null };
 
+export type GetCheckoutProvidersQueryVariables = Exact<{
+  country: Scalars['String']['input'];
+  platform: Scalars['String']['input'];
+  locale: Scalars['String']['input'];
+}>;
+
+
+export type GetCheckoutProvidersQuery = { __typename?: 'query_root', resolve_payment_providers: Array<{ __typename?: 'payment_provider_resolved_row', slug?: string | null, kind?: string | null, label?: string | null, description?: string | null, fee_bps?: number | null, price_source?: string | null, sort_order?: number | null, supports_recurring?: boolean | null }> };
+
 export type GetPipelinesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetPipelinesQuery = { __typename?: 'query_root', pipelines: Array<{ __typename?: 'pipelines', id: any, slug: string, name: string, description?: string | null, category: string, icon_url?: string | null, preview_url?: string | null, providers: Array<string>, models: Array<string>, input_schema: any, ui_schema: any, output_schema: any, seo_content?: string | null, seo_faq?: any | null, tags: Array<string>, hints: any, cancellable: boolean, translations: Array<{ __typename?: 'pipeline_translations', locale: string, name?: string | null, description?: string | null, seo_content?: string | null, seo_faq?: any | null, hints?: any | null, form_i18n?: any | null }>, examples: Array<{ __typename?: 'pipeline_examples', id: any, title: string, caption?: string | null, output_url?: string | null, output_kind: string, input_url?: string | null, input_kind?: string | null, content?: string | null, inputs?: any | null, thumbnail_url?: string | null, model_slug?: string | null, model?: { __typename?: 'models', slug: string, label: string } | null, translations: Array<{ __typename?: 'pipeline_examples_translations', locale: string, title?: string | null, caption?: string | null }> }> }> };
+export type GetPipelinesQuery = { __typename?: 'query_root', pipelines: Array<{ __typename?: 'pipelines', id: any, slug: string, name: string, description?: string | null, category: string, icon_url?: string | null, preview_url?: string | null, providers: Array<string>, models: Array<string>, input_schema: any, ui_schema: any, output_schema: any, seo_content?: string | null, seo_faq?: any | null, tags: Array<string>, hints: any, cancellable: boolean, translations: Array<{ __typename?: 'pipeline_translations', locale: string, name?: string | null, description?: string | null, seo_content?: string | null, seo_faq?: any | null, hints?: any | null, form_i18n?: any | null }>, examples: Array<{ __typename?: 'pipeline_examples', id: any, title: string, caption?: string | null, output_url?: string | null, output_kind: string, input_url?: string | null, input_kind?: string | null, content?: string | null, inputs?: any | null, thumbnail_url?: string | null, model_slug?: string | null, model?: { __typename?: 'models', slug: string, label: string, public_name?: string | null } | null, translations: Array<{ __typename?: 'pipeline_examples_translations', locale: string, title?: string | null, caption?: string | null }> }> }> };
 
 export type GetPipelinesListQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -5535,20 +7441,36 @@ export type GetPipelinesListQueryVariables = Exact<{
 
 export type GetPipelinesListQuery = { __typename?: 'query_root', pipelines: Array<{ __typename?: 'pipelines', id: any, slug: string, name: string, description?: string | null, category: string, icon_url?: string | null, preview_url?: string | null, providers: Array<string>, models: Array<string>, tags: Array<string>, hints: any, cancellable: boolean }> };
 
+export type SearchPipelinesQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  search?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type SearchPipelinesQuery = { __typename?: 'query_root', pipelines: Array<{ __typename?: 'pipelines', id: any, slug: string, name: string, description?: string | null, category: string, icon_url?: string | null, preview_url?: string | null, providers: Array<string>, models: Array<string>, tags: Array<string>, hints: any, cancellable: boolean, translations: Array<{ __typename?: 'pipeline_translations', locale: string, name?: string | null, description?: string | null }> }>, pipelines_aggregate: { __typename?: 'pipelines_aggregate', aggregate?: { __typename?: 'pipelines_aggregate_fields', count: number } | null } };
+
+export type GetPipelineBySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type GetPipelineBySlugQuery = { __typename?: 'query_root', pipelines: Array<{ __typename?: 'pipelines', id: any, slug: string, name: string, description?: string | null, category: string, icon_url?: string | null, preview_url?: string | null, providers: Array<string>, models: Array<string>, input_schema: any, ui_schema: any, output_schema: any, tags: Array<string>, hints: any, cancellable: boolean, translations: Array<{ __typename?: 'pipeline_translations', locale: string, name?: string | null, description?: string | null, form_i18n?: any | null }> }> };
+
 export type EstimatePipelineCostQueryVariables = Exact<{
   pipeline_slug: Scalars['String']['input'];
   input: Scalars['jsonb']['input'];
 }>;
 
 
-export type EstimatePipelineCostQuery = { __typename?: 'query_root', estimate_pipeline_cost?: { __typename?: 'estimate_pipeline_cost_output', pipeline_slug: string, reservation_mc: number, estimated_mc: number, is_metered: boolean, routed_model?: string | null, routed_reason_code?: string | null, routed_reason_params?: any | null, incompatible_models?: any | null, engine_caps?: any | null } | null };
+export type EstimatePipelineCostQuery = { __typename?: 'query_root', estimate_pipeline_cost?: { __typename?: 'estimate_pipeline_cost_output', pipeline_slug: string, reservation_mc: number, estimated_mc: number, is_metered: boolean, routed_model?: string | null, routed_reason_code?: string | null, routed_reason_params?: any | null, incompatible_models?: any | null, model_input_schema?: any | null } | null };
 
 export type PipelineModelsQueryVariables = Exact<{
   slug: Scalars['String']['input'];
 }>;
 
 
-export type PipelineModelsQuery = { __typename?: 'query_root', pipeline_models: Array<{ __typename?: 'pipeline_models', model_slug: string, sort_order: number, model: { __typename?: 'models', slug: string, label: string, description: string, provider: string, translations: Array<{ __typename?: 'model_translations', locale: string, description?: string | null }> } }> };
+export type PipelineModelsQuery = { __typename?: 'query_root', pipeline_models: Array<{ __typename?: 'pipeline_models', model_slug: string, sort_order: number, input_schema: any, auto_route_order?: number | null, model: { __typename?: 'models', slug: string, label: string, public_name?: string | null, description: string, provider: string, translations: Array<{ __typename?: 'model_translations', locale: string, description?: string | null }> } }> };
 
 export type PipelinePricingQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5575,7 +7497,7 @@ export type GetPipelineRunQueryVariables = Exact<{
 }>;
 
 
-export type GetPipelineRunQuery = { __typename?: 'query_root', pipeline_runs_by_pk?: { __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null, created_at: any }>, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null } | null };
+export type GetPipelineRunQuery = { __typename?: 'query_root', pipeline_runs_by_pk?: { __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean, translations: Array<{ __typename?: 'pipeline_translations', locale: string, name?: string | null }> }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null, created_at: any }>, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null } | null };
 
 export type GetPipelineRunsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -5584,7 +7506,7 @@ export type GetPipelineRunsQueryVariables = Exact<{
 }>;
 
 
-export type GetPipelineRunsQuery = { __typename?: 'query_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null }>, pipeline_runs_aggregate: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number } | null }, completed: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number, sum?: { __typename?: 'pipeline_runs_sum_fields', credits_charged?: number | null } | null } | null } };
+export type GetPipelineRunsQuery = { __typename?: 'query_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean, translations: Array<{ __typename?: 'pipeline_translations', locale: string, name?: string | null }> }, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null }>, pipeline_runs_aggregate: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number } | null }, completed: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number, sum?: { __typename?: 'pipeline_runs_sum_fields', credits_charged?: number | null } | null } | null } };
 
 export type GetPipelineRunsBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -5609,6 +7531,11 @@ export type SetRunShareMutationVariables = Exact<{
 
 export type SetRunShareMutation = { __typename?: 'mutation_root', update_pipeline_runs_by_pk?: { __typename?: 'pipeline_runs', id: any, share_token?: any | null, share_watermark: boolean } | null };
 
+export type GetDispatchBlocksQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetDispatchBlocksQuery = { __typename?: 'query_root', dispatch_blocks: Array<{ __typename?: 'dispatch_blocks', id: any, pipeline_slug?: string | null, user_id?: any | null, reason: string, created_at: any }> };
+
 export type GetPlansQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -5619,10 +7546,34 @@ export type GetCreditPacksQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetCreditPacksQuery = { __typename?: 'query_root', credit_packs: Array<{ __typename?: 'credit_packs', id: any, slug: string, name: string, sort_order: number, translations: Array<{ __typename?: 'credit_pack_translations', locale: string, name?: string | null }>, versions: Array<{ __typename?: 'credit_pack_versions', id: any, whop_plan_id?: string | null, price_cents: number, credits: number }> }> };
 
+export type GetLocalizedPricesQueryVariables = Exact<{
+  country: Scalars['String']['input'];
+}>;
+
+
+export type GetLocalizedPricesQuery = { __typename?: 'query_root', localized_product_prices: Array<{ __typename?: 'localized_product_prices', product_kind?: string | null, product_slug?: string | null, country?: string | null, currency?: string | null, usd_price_cents?: number | null, converted_price?: any | null }>, countries: Array<{ __typename?: 'countries', code: string, name: string, currency?: string | null }> };
+
 export type GetSubscriptionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetSubscriptionQuery = { __typename?: 'query_root', subscriptions: Array<{ __typename?: 'subscriptions', id: any, plan_id: any, plan_version_id: any, status: string, period_start: any, period_end: any, cancel_at_period_end: boolean, plan: { __typename?: 'plans', slug: string, name: string, sort_order: number }, plan_version: { __typename?: 'plan_versions', id: any, version: number, monthly_credits: number, price_cents: number, max_storage_bytes: any, max_upload_bytes: any } }> };
+export type GetSubscriptionQuery = { __typename?: 'query_root', subscriptions: Array<{ __typename?: 'subscriptions', id: any, plan_id: any, plan_version_id: any, status: string, period_start: any, period_end: any, cancel_at_period_end: boolean, metadata?: any | null, plan: { __typename?: 'plans', slug: string, name: string, sort_order: number }, plan_version: { __typename?: 'plan_versions', id: any, version: number, monthly_credits: number, price_cents: number, max_storage_bytes: any, max_upload_bytes: any } }> };
+
+export type GetPendingSubscriptionPlanChangeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPendingSubscriptionPlanChangeQuery = { __typename?: 'query_root', subscription_plan_changes: Array<{ __typename?: 'subscription_plan_changes', id: any, kind: string, status: string, effective_at: any, to_plan_version: { __typename?: 'plan_versions', id: any, plan: { __typename?: 'plans', slug: string, name: string, sort_order: number } } }> };
+
+export type ScheduleSubscriptionPlanChangeMutationVariables = Exact<{
+  plan_slug: Scalars['String']['input'];
+}>;
+
+
+export type ScheduleSubscriptionPlanChangeMutation = { __typename?: 'mutation_root', schedule_subscription_plan_change: { __typename?: 'subscription_plan_change_output', success: boolean, change_id: any, status: string, effective_at: any } };
+
+export type CancelSubscriptionPlanChangeMutationVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CancelSubscriptionPlanChangeMutation = { __typename?: 'mutation_root', cancel_subscription_plan_change: { __typename?: 'cancel_subscription_plan_change_output', success: boolean, cancelled: boolean } };
 
 export type CreateCheckoutSessionMutationVariables = Exact<{
   whop_plan_id: Scalars['String']['input'];
@@ -5631,6 +7582,25 @@ export type CreateCheckoutSessionMutationVariables = Exact<{
 
 
 export type CreateCheckoutSessionMutation = { __typename?: 'mutation_root', create_checkout_session: { __typename?: 'create_checkout_session_output', success: boolean, url: string } };
+
+export type CreateSbpPaymentMutationVariables = Exact<{
+  provider: Scalars['String']['input'];
+  attempt_id: Scalars['uuid']['input'];
+  credit_pack_slug?: InputMaybe<Scalars['String']['input']>;
+  plan_slug?: InputMaybe<Scalars['String']['input']>;
+  country?: InputMaybe<Scalars['String']['input']>;
+  recurring_consent?: InputMaybe<Scalars['Boolean']['input']>;
+}>;
+
+
+export type CreateSbpPaymentMutation = { __typename?: 'mutation_root', create_sbp_payment: { __typename?: 'sbp_payment_output', success: boolean, payment_id: string, status: string, payment_uri: string, amount: string, currency: string, credits: number, expires_at: string, detail?: string | null } };
+
+export type GetSbpPaymentQueryVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+
+export type GetSbpPaymentQuery = { __typename?: 'query_root', get_sbp_payment_status: { __typename?: 'sbp_payment_output', success: boolean, payment_id: string, status: string, payment_uri: string, amount: string, currency: string, credits: number, expires_at: string, detail?: string | null } };
 
 export type WatchPipelineRunSubscriptionVariables = Exact<{
   run_id: Scalars['uuid']['input'];
@@ -5650,6 +7620,11 @@ export type WatchNotificationsSubscriptionVariables = Exact<{
 
 
 export type WatchNotificationsSubscription = { __typename?: 'subscription_root', notifications: Array<{ __typename?: 'notifications', id: any, type: string, title: string, body?: string | null, metadata?: any | null, read: boolean, created_at: any }> };
+
+export type WatchBillingUpdatesSubscriptionVariables = Exact<{ [key: string]: never; }>;
+
+
+export type WatchBillingUpdatesSubscription = { __typename?: 'subscription_root', users: Array<{ __typename?: 'users', updated_at: any }> };
 
 export type GetMyApiKeysQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5975,6 +7950,29 @@ export const RegisterDocument = gql`
   }
 }
     `;
+export const CreateAuthHandoffCodeDocument = gql`
+    mutation CreateAuthHandoffCode($redirect_uri: String!, $code_challenge: String!) {
+  create_auth_handoff_code(
+    redirect_uri: $redirect_uri
+    code_challenge: $code_challenge
+  ) {
+    code
+    expires_at
+  }
+}
+    `;
+export const ExchangeAuthHandoffCodeDocument = gql`
+    mutation ExchangeAuthHandoffCode($code: String!, $redirect_uri: String!, $code_verifier: String!) {
+  exchange_auth_handoff_code(
+    code: $code
+    redirect_uri: $redirect_uri
+    code_verifier: $code_verifier
+  ) {
+    token
+    expires_at
+  }
+}
+    `;
 export const LogoutDocument = gql`
     mutation Logout {
   logout {
@@ -6038,6 +8036,94 @@ export const GetCreditHistoryDocument = gql`
   }
 }
     `;
+export const CreateCryptoPaymentDocument = gql`
+    mutation CreateCryptoPayment($provider: String!, $attempt_id: uuid!, $credit_pack_slug: String, $plan_slug: String, $currency_id: String!, $country: String) {
+  create_crypto_payment(
+    provider: $provider
+    attempt_id: $attempt_id
+    credit_pack_slug: $credit_pack_slug
+    plan_slug: $plan_slug
+    currency_id: $currency_id
+    country: $country
+  ) {
+    success
+    payment_id
+    deposit_address
+    expected_usdt
+    credits
+    network
+    currency_id
+    expires_at
+    provider
+    status
+    asset
+    amount
+    remaining_amount
+    payment_uri
+    qr_code_data_url
+    top_up_payment_uri
+    top_up_qr_code_data_url
+    required_confirmations
+    confirmations
+    amount_paid_usdt
+    granted_at
+    tx_hash
+  }
+}
+    `;
+export const GetUserSubscriptionCreditsDocument = gql`
+    query GetUserSubscriptionCredits {
+  user_credit_balance_breakdown {
+    subscription_mc
+    retry_mc
+    expiring_mc
+    next_expiry_at
+  }
+}
+    `;
+export const GetCryptoPaymentCurrenciesDocument = gql`
+    query GetCryptoPaymentCurrencies($provider: String!) {
+  crypto_payment_currencies(
+    where: {enabled: {_eq: true}, provider: {_eq: $provider}}
+    order_by: {sort_order: asc}
+  ) {
+    currency_id
+    network
+    asset
+    label
+    decimals
+    min_usdt
+  }
+}
+    `;
+export const GetCryptoPaymentDocument = gql`
+    query GetCryptoPayment($id: uuid!) {
+  get_crypto_payment_status(payment_id: $id) {
+    success
+    payment_id
+    provider
+    status
+    credits
+    expected_usdt
+    amount_paid_usdt
+    deposit_address
+    currency_id
+    network
+    expires_at
+    granted_at
+    tx_hash
+    asset
+    amount
+    remaining_amount
+    payment_uri
+    qr_code_data_url
+    top_up_payment_uri
+    top_up_qr_code_data_url
+    required_confirmations
+    confirmations
+  }
+}
+    `;
 export const ModelsDocument = gql`
     query Models {
   models(order_by: {sort_order: asc, slug: asc}) {
@@ -6059,6 +8145,8 @@ export const ModelsDocument = gql`
     pipeline_models(order_by: {sort_order: asc}) {
       pipeline_slug
       sort_order
+      input_schema
+      auto_route_order
     }
     translations {
       locale
@@ -6098,6 +8186,22 @@ export const MarkAllNotificationsReadDocument = gql`
     mutation MarkAllNotificationsRead {
   update_notifications(where: {read: {_eq: false}}, _set: {read: true}) {
     affected_rows
+  }
+}
+    `;
+export const GetCheckoutProvidersDocument = gql`
+    query GetCheckoutProviders($country: String!, $platform: String!, $locale: String!) {
+  resolve_payment_providers(
+    args: {p_country: $country, p_platform: $platform, p_locale: $locale}
+  ) {
+    slug
+    kind
+    label
+    description
+    fee_bps
+    price_source
+    sort_order
+    supports_recurring
   }
 }
     `;
@@ -6145,6 +8249,7 @@ export const GetPipelinesDocument = gql`
       model {
         slug
         label
+        public_name
       }
       translations {
         locale
@@ -6178,6 +8283,68 @@ export const GetPipelinesListDocument = gql`
   }
 }
     `;
+export const SearchPipelinesDocument = gql`
+    query SearchPipelines($limit: Int = 20, $offset: Int = 0, $search: String = "%%") {
+  pipelines(
+    where: {_and: [{is_active: {_eq: true}}, {_or: [{name: {_ilike: $search}}, {description: {_ilike: $search}}, {category: {_ilike: $search}}, {translations: {_or: [{name: {_ilike: $search}}, {description: {_ilike: $search}}]}}]}]}
+    order_by: [{sort_order: asc}, {slug: asc}]
+    limit: $limit
+    offset: $offset
+  ) {
+    id
+    slug
+    name
+    description
+    category
+    icon_url
+    preview_url
+    providers
+    models
+    tags
+    hints
+    cancellable
+    translations {
+      locale
+      name
+      description
+    }
+  }
+  pipelines_aggregate(
+    where: {_and: [{is_active: {_eq: true}}, {_or: [{name: {_ilike: $search}}, {description: {_ilike: $search}}, {category: {_ilike: $search}}, {translations: {_or: [{name: {_ilike: $search}}, {description: {_ilike: $search}}]}}]}]}
+  ) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
+export const GetPipelineBySlugDocument = gql`
+    query GetPipelineBySlug($slug: String!) {
+  pipelines(where: {slug: {_eq: $slug}, is_active: {_eq: true}}, limit: 1) {
+    id
+    slug
+    name
+    description
+    category
+    icon_url
+    preview_url
+    providers
+    models
+    input_schema
+    ui_schema
+    output_schema
+    tags
+    hints
+    cancellable
+    translations {
+      locale
+      name
+      description
+      form_i18n
+    }
+  }
+}
+    `;
 export const EstimatePipelineCostDocument = gql`
     query EstimatePipelineCost($pipeline_slug: String!, $input: jsonb!) {
   estimate_pipeline_cost(pipeline_slug: $pipeline_slug, input: $input) {
@@ -6189,7 +8356,7 @@ export const EstimatePipelineCostDocument = gql`
     routed_reason_code
     routed_reason_params
     incompatible_models
-    engine_caps
+    model_input_schema
   }
 }
     `;
@@ -6201,9 +8368,12 @@ export const PipelineModelsDocument = gql`
   ) {
     model_slug
     sort_order
+    input_schema
+    auto_route_order
     model {
       slug
       label
+      public_name
       description
       provider
       translations {
@@ -6259,6 +8429,10 @@ export const GetPipelineRunDocument = gql`
       input_schema
       ui_schema
       cancellable
+      translations {
+        locale
+        name
+      }
     }
     assets {
       id
@@ -6291,6 +8465,10 @@ export const GetPipelineRunsDocument = gql`
       input_schema
       ui_schema
       cancellable
+      translations {
+        locale
+        name
+      }
     }
     status
     input
@@ -6406,6 +8584,17 @@ export const SetRunShareDocument = gql`
   }
 }
     `;
+export const GetDispatchBlocksDocument = gql`
+    query GetDispatchBlocks {
+  dispatch_blocks {
+    id
+    pipeline_slug
+    user_id
+    reason
+    created_at
+  }
+}
+    `;
 export const GetPlansDocument = gql`
     query GetPlans {
   plans(order_by: {sort_order: asc}) {
@@ -6452,9 +8641,26 @@ export const GetCreditPacksDocument = gql`
   }
 }
     `;
+export const GetLocalizedPricesDocument = gql`
+    query GetLocalizedPrices($country: String!) {
+  localized_product_prices(where: {country: {_eq: $country}}) {
+    product_kind
+    product_slug
+    country
+    currency
+    usd_price_cents
+    converted_price
+  }
+  countries(order_by: {name: asc}) {
+    code
+    name
+    currency
+  }
+}
+    `;
 export const GetSubscriptionDocument = gql`
     query GetSubscription {
-  subscriptions {
+  subscriptions(where: {status: {_in: ["active", "past_due"]}}, limit: 1) {
     id
     plan_id
     plan_version_id
@@ -6462,6 +8668,7 @@ export const GetSubscriptionDocument = gql`
     period_start
     period_end
     cancel_at_period_end
+    metadata
     plan {
       slug
       name
@@ -6478,6 +8685,42 @@ export const GetSubscriptionDocument = gql`
   }
 }
     `;
+export const GetPendingSubscriptionPlanChangeDocument = gql`
+    query GetPendingSubscriptionPlanChange {
+  subscription_plan_changes(where: {status: {_eq: "pending"}}, limit: 1) {
+    id
+    kind
+    status
+    effective_at
+    to_plan_version {
+      id
+      plan {
+        slug
+        name
+        sort_order
+      }
+    }
+  }
+}
+    `;
+export const ScheduleSubscriptionPlanChangeDocument = gql`
+    mutation ScheduleSubscriptionPlanChange($plan_slug: String!) {
+  schedule_subscription_plan_change(plan_slug: $plan_slug) {
+    success
+    change_id
+    status
+    effective_at
+  }
+}
+    `;
+export const CancelSubscriptionPlanChangeDocument = gql`
+    mutation CancelSubscriptionPlanChange {
+  cancel_subscription_plan_change {
+    success
+    cancelled
+  }
+}
+    `;
 export const CreateCheckoutSessionDocument = gql`
     mutation CreateCheckoutSession($whop_plan_id: String!, $affiliate_code: String) {
   create_checkout_session(
@@ -6486,6 +8729,43 @@ export const CreateCheckoutSessionDocument = gql`
   ) {
     success
     url
+  }
+}
+    `;
+export const CreateSbpPaymentDocument = gql`
+    mutation CreateSBPPayment($provider: String!, $attempt_id: uuid!, $credit_pack_slug: String, $plan_slug: String, $country: String, $recurring_consent: Boolean) {
+  create_sbp_payment(
+    provider: $provider
+    attempt_id: $attempt_id
+    credit_pack_slug: $credit_pack_slug
+    plan_slug: $plan_slug
+    country: $country
+    recurring_consent: $recurring_consent
+  ) {
+    success
+    payment_id
+    status
+    payment_uri
+    amount
+    currency
+    credits
+    expires_at
+    detail
+  }
+}
+    `;
+export const GetSbpPaymentDocument = gql`
+    query GetSBPPayment($id: uuid!) {
+  get_sbp_payment_status(payment_id: $id) {
+    success
+    payment_id
+    status
+    payment_uri
+    amount
+    currency
+    credits
+    expires_at
+    detail
   }
 }
     `;
@@ -6544,6 +8824,13 @@ export const WatchNotificationsDocument = gql`
     metadata
     read
     created_at
+  }
+}
+    `;
+export const WatchBillingUpdatesDocument = gql`
+    subscription WatchBillingUpdates {
+  users(limit: 1) {
+    updated_at
   }
 }
     `;
@@ -6673,6 +8960,12 @@ export function getSdk<C>(requester: Requester<C>) {
     Register(variables: RegisterMutationVariables, options?: C): Promise<RegisterMutation> {
       return requester<RegisterMutation, RegisterMutationVariables>(RegisterDocument, variables, options) as Promise<RegisterMutation>;
     },
+    CreateAuthHandoffCode(variables: CreateAuthHandoffCodeMutationVariables, options?: C): Promise<CreateAuthHandoffCodeMutation> {
+      return requester<CreateAuthHandoffCodeMutation, CreateAuthHandoffCodeMutationVariables>(CreateAuthHandoffCodeDocument, variables, options) as Promise<CreateAuthHandoffCodeMutation>;
+    },
+    ExchangeAuthHandoffCode(variables: ExchangeAuthHandoffCodeMutationVariables, options?: C): Promise<ExchangeAuthHandoffCodeMutation> {
+      return requester<ExchangeAuthHandoffCodeMutation, ExchangeAuthHandoffCodeMutationVariables>(ExchangeAuthHandoffCodeDocument, variables, options) as Promise<ExchangeAuthHandoffCodeMutation>;
+    },
     Logout(variables?: LogoutMutationVariables, options?: C): Promise<LogoutMutation> {
       return requester<LogoutMutation, LogoutMutationVariables>(LogoutDocument, variables, options) as Promise<LogoutMutation>;
     },
@@ -6694,6 +8987,18 @@ export function getSdk<C>(requester: Requester<C>) {
     GetCreditHistory(variables?: GetCreditHistoryQueryVariables, options?: C): Promise<GetCreditHistoryQuery> {
       return requester<GetCreditHistoryQuery, GetCreditHistoryQueryVariables>(GetCreditHistoryDocument, variables, options) as Promise<GetCreditHistoryQuery>;
     },
+    CreateCryptoPayment(variables: CreateCryptoPaymentMutationVariables, options?: C): Promise<CreateCryptoPaymentMutation> {
+      return requester<CreateCryptoPaymentMutation, CreateCryptoPaymentMutationVariables>(CreateCryptoPaymentDocument, variables, options) as Promise<CreateCryptoPaymentMutation>;
+    },
+    GetUserSubscriptionCredits(variables?: GetUserSubscriptionCreditsQueryVariables, options?: C): Promise<GetUserSubscriptionCreditsQuery> {
+      return requester<GetUserSubscriptionCreditsQuery, GetUserSubscriptionCreditsQueryVariables>(GetUserSubscriptionCreditsDocument, variables, options) as Promise<GetUserSubscriptionCreditsQuery>;
+    },
+    GetCryptoPaymentCurrencies(variables: GetCryptoPaymentCurrenciesQueryVariables, options?: C): Promise<GetCryptoPaymentCurrenciesQuery> {
+      return requester<GetCryptoPaymentCurrenciesQuery, GetCryptoPaymentCurrenciesQueryVariables>(GetCryptoPaymentCurrenciesDocument, variables, options) as Promise<GetCryptoPaymentCurrenciesQuery>;
+    },
+    GetCryptoPayment(variables: GetCryptoPaymentQueryVariables, options?: C): Promise<GetCryptoPaymentQuery> {
+      return requester<GetCryptoPaymentQuery, GetCryptoPaymentQueryVariables>(GetCryptoPaymentDocument, variables, options) as Promise<GetCryptoPaymentQuery>;
+    },
     Models(variables?: ModelsQueryVariables, options?: C): Promise<ModelsQuery> {
       return requester<ModelsQuery, ModelsQueryVariables>(ModelsDocument, variables, options) as Promise<ModelsQuery>;
     },
@@ -6706,11 +9011,20 @@ export function getSdk<C>(requester: Requester<C>) {
     MarkAllNotificationsRead(variables?: MarkAllNotificationsReadMutationVariables, options?: C): Promise<MarkAllNotificationsReadMutation> {
       return requester<MarkAllNotificationsReadMutation, MarkAllNotificationsReadMutationVariables>(MarkAllNotificationsReadDocument, variables, options) as Promise<MarkAllNotificationsReadMutation>;
     },
+    GetCheckoutProviders(variables: GetCheckoutProvidersQueryVariables, options?: C): Promise<GetCheckoutProvidersQuery> {
+      return requester<GetCheckoutProvidersQuery, GetCheckoutProvidersQueryVariables>(GetCheckoutProvidersDocument, variables, options) as Promise<GetCheckoutProvidersQuery>;
+    },
     GetPipelines(variables?: GetPipelinesQueryVariables, options?: C): Promise<GetPipelinesQuery> {
       return requester<GetPipelinesQuery, GetPipelinesQueryVariables>(GetPipelinesDocument, variables, options) as Promise<GetPipelinesQuery>;
     },
     GetPipelinesList(variables?: GetPipelinesListQueryVariables, options?: C): Promise<GetPipelinesListQuery> {
       return requester<GetPipelinesListQuery, GetPipelinesListQueryVariables>(GetPipelinesListDocument, variables, options) as Promise<GetPipelinesListQuery>;
+    },
+    SearchPipelines(variables?: SearchPipelinesQueryVariables, options?: C): Promise<SearchPipelinesQuery> {
+      return requester<SearchPipelinesQuery, SearchPipelinesQueryVariables>(SearchPipelinesDocument, variables, options) as Promise<SearchPipelinesQuery>;
+    },
+    GetPipelineBySlug(variables: GetPipelineBySlugQueryVariables, options?: C): Promise<GetPipelineBySlugQuery> {
+      return requester<GetPipelineBySlugQuery, GetPipelineBySlugQueryVariables>(GetPipelineBySlugDocument, variables, options) as Promise<GetPipelineBySlugQuery>;
     },
     EstimatePipelineCost(variables: EstimatePipelineCostQueryVariables, options?: C): Promise<EstimatePipelineCostQuery> {
       return requester<EstimatePipelineCostQuery, EstimatePipelineCostQueryVariables>(EstimatePipelineCostDocument, variables, options) as Promise<EstimatePipelineCostQuery>;
@@ -6742,17 +9056,38 @@ export function getSdk<C>(requester: Requester<C>) {
     SetRunShare(variables: SetRunShareMutationVariables, options?: C): Promise<SetRunShareMutation> {
       return requester<SetRunShareMutation, SetRunShareMutationVariables>(SetRunShareDocument, variables, options) as Promise<SetRunShareMutation>;
     },
+    GetDispatchBlocks(variables?: GetDispatchBlocksQueryVariables, options?: C): Promise<GetDispatchBlocksQuery> {
+      return requester<GetDispatchBlocksQuery, GetDispatchBlocksQueryVariables>(GetDispatchBlocksDocument, variables, options) as Promise<GetDispatchBlocksQuery>;
+    },
     GetPlans(variables?: GetPlansQueryVariables, options?: C): Promise<GetPlansQuery> {
       return requester<GetPlansQuery, GetPlansQueryVariables>(GetPlansDocument, variables, options) as Promise<GetPlansQuery>;
     },
     GetCreditPacks(variables?: GetCreditPacksQueryVariables, options?: C): Promise<GetCreditPacksQuery> {
       return requester<GetCreditPacksQuery, GetCreditPacksQueryVariables>(GetCreditPacksDocument, variables, options) as Promise<GetCreditPacksQuery>;
     },
+    GetLocalizedPrices(variables: GetLocalizedPricesQueryVariables, options?: C): Promise<GetLocalizedPricesQuery> {
+      return requester<GetLocalizedPricesQuery, GetLocalizedPricesQueryVariables>(GetLocalizedPricesDocument, variables, options) as Promise<GetLocalizedPricesQuery>;
+    },
     GetSubscription(variables?: GetSubscriptionQueryVariables, options?: C): Promise<GetSubscriptionQuery> {
       return requester<GetSubscriptionQuery, GetSubscriptionQueryVariables>(GetSubscriptionDocument, variables, options) as Promise<GetSubscriptionQuery>;
     },
+    GetPendingSubscriptionPlanChange(variables?: GetPendingSubscriptionPlanChangeQueryVariables, options?: C): Promise<GetPendingSubscriptionPlanChangeQuery> {
+      return requester<GetPendingSubscriptionPlanChangeQuery, GetPendingSubscriptionPlanChangeQueryVariables>(GetPendingSubscriptionPlanChangeDocument, variables, options) as Promise<GetPendingSubscriptionPlanChangeQuery>;
+    },
+    ScheduleSubscriptionPlanChange(variables: ScheduleSubscriptionPlanChangeMutationVariables, options?: C): Promise<ScheduleSubscriptionPlanChangeMutation> {
+      return requester<ScheduleSubscriptionPlanChangeMutation, ScheduleSubscriptionPlanChangeMutationVariables>(ScheduleSubscriptionPlanChangeDocument, variables, options) as Promise<ScheduleSubscriptionPlanChangeMutation>;
+    },
+    CancelSubscriptionPlanChange(variables?: CancelSubscriptionPlanChangeMutationVariables, options?: C): Promise<CancelSubscriptionPlanChangeMutation> {
+      return requester<CancelSubscriptionPlanChangeMutation, CancelSubscriptionPlanChangeMutationVariables>(CancelSubscriptionPlanChangeDocument, variables, options) as Promise<CancelSubscriptionPlanChangeMutation>;
+    },
     CreateCheckoutSession(variables: CreateCheckoutSessionMutationVariables, options?: C): Promise<CreateCheckoutSessionMutation> {
       return requester<CreateCheckoutSessionMutation, CreateCheckoutSessionMutationVariables>(CreateCheckoutSessionDocument, variables, options) as Promise<CreateCheckoutSessionMutation>;
+    },
+    CreateSBPPayment(variables: CreateSbpPaymentMutationVariables, options?: C): Promise<CreateSbpPaymentMutation> {
+      return requester<CreateSbpPaymentMutation, CreateSbpPaymentMutationVariables>(CreateSbpPaymentDocument, variables, options) as Promise<CreateSbpPaymentMutation>;
+    },
+    GetSBPPayment(variables: GetSbpPaymentQueryVariables, options?: C): Promise<GetSbpPaymentQuery> {
+      return requester<GetSbpPaymentQuery, GetSbpPaymentQueryVariables>(GetSbpPaymentDocument, variables, options) as Promise<GetSbpPaymentQuery>;
     },
     WatchPipelineRun(variables: WatchPipelineRunSubscriptionVariables, options?: C): AsyncIterable<WatchPipelineRunSubscription> {
       return requester<WatchPipelineRunSubscription, WatchPipelineRunSubscriptionVariables>(WatchPipelineRunDocument, variables, options) as AsyncIterable<WatchPipelineRunSubscription>;
@@ -6762,6 +9097,9 @@ export function getSdk<C>(requester: Requester<C>) {
     },
     WatchNotifications(variables: WatchNotificationsSubscriptionVariables, options?: C): AsyncIterable<WatchNotificationsSubscription> {
       return requester<WatchNotificationsSubscription, WatchNotificationsSubscriptionVariables>(WatchNotificationsDocument, variables, options) as AsyncIterable<WatchNotificationsSubscription>;
+    },
+    WatchBillingUpdates(variables?: WatchBillingUpdatesSubscriptionVariables, options?: C): AsyncIterable<WatchBillingUpdatesSubscription> {
+      return requester<WatchBillingUpdatesSubscription, WatchBillingUpdatesSubscriptionVariables>(WatchBillingUpdatesDocument, variables, options) as AsyncIterable<WatchBillingUpdatesSubscription>;
     },
     GetMyApiKeys(variables?: GetMyApiKeysQueryVariables, options?: C): Promise<GetMyApiKeysQuery> {
       return requester<GetMyApiKeysQuery, GetMyApiKeysQueryVariables>(GetMyApiKeysDocument, variables, options) as Promise<GetMyApiKeysQuery>;
