@@ -310,6 +310,144 @@ export type Affiliates_Stream_Cursor_Value_Input = {
   whop_affiliate_id?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** columns and relationships of "asset_imports" */
+export type Asset_Imports = {
+  __typename?: 'asset_imports';
+  /** An object relationship */
+  asset?: Maybe<Assets>;
+  asset_id?: Maybe<Scalars['uuid']['output']>;
+  bytes: Scalars['bigint']['output'];
+  code?: Maybe<Scalars['String']['output']>;
+  dismissed_at?: Maybe<Scalars['timestamptz']['output']>;
+  error?: Maybe<Scalars['String']['output']>;
+  finished_at?: Maybe<Scalars['timestamptz']['output']>;
+  id: Scalars['uuid']['output'];
+  phase: Scalars['String']['output'];
+  source_url: Scalars['String']['output'];
+  started_at: Scalars['timestamptz']['output'];
+  status: Scalars['String']['output'];
+  total_bytes: Scalars['bigint']['output'];
+  /** An object relationship */
+  user: Users;
+};
+
+/** Boolean expression to filter rows from the table "asset_imports". All fields are combined with a logical 'AND'. */
+export type Asset_Imports_Bool_Exp = {
+  _and?: InputMaybe<Array<Asset_Imports_Bool_Exp>>;
+  _not?: InputMaybe<Asset_Imports_Bool_Exp>;
+  _or?: InputMaybe<Array<Asset_Imports_Bool_Exp>>;
+  asset?: InputMaybe<Assets_Bool_Exp>;
+  asset_id?: InputMaybe<Uuid_Comparison_Exp>;
+  bytes?: InputMaybe<Bigint_Comparison_Exp>;
+  code?: InputMaybe<String_Comparison_Exp>;
+  dismissed_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  error?: InputMaybe<String_Comparison_Exp>;
+  finished_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  id?: InputMaybe<Uuid_Comparison_Exp>;
+  phase?: InputMaybe<String_Comparison_Exp>;
+  source_url?: InputMaybe<String_Comparison_Exp>;
+  started_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  status?: InputMaybe<String_Comparison_Exp>;
+  total_bytes?: InputMaybe<Bigint_Comparison_Exp>;
+  user?: InputMaybe<Users_Bool_Exp>;
+};
+
+/** response of any mutation on the table "asset_imports" */
+export type Asset_Imports_Mutation_Response = {
+  __typename?: 'asset_imports_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int']['output'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Asset_Imports>;
+};
+
+/** Ordering options when selecting data from "asset_imports". */
+export type Asset_Imports_Order_By = {
+  asset?: InputMaybe<Assets_Order_By>;
+  asset_id?: InputMaybe<Order_By>;
+  bytes?: InputMaybe<Order_By>;
+  code?: InputMaybe<Order_By>;
+  dismissed_at?: InputMaybe<Order_By>;
+  error?: InputMaybe<Order_By>;
+  finished_at?: InputMaybe<Order_By>;
+  id?: InputMaybe<Order_By>;
+  phase?: InputMaybe<Order_By>;
+  source_url?: InputMaybe<Order_By>;
+  started_at?: InputMaybe<Order_By>;
+  status?: InputMaybe<Order_By>;
+  total_bytes?: InputMaybe<Order_By>;
+  user?: InputMaybe<Users_Order_By>;
+};
+
+/** primary key columns input for table: asset_imports */
+export type Asset_Imports_Pk_Columns_Input = {
+  id: Scalars['uuid']['input'];
+};
+
+/** select columns of table "asset_imports" */
+export enum Asset_Imports_Select_Column {
+  /** column name */
+  AssetId = 'asset_id',
+  /** column name */
+  Bytes = 'bytes',
+  /** column name */
+  Code = 'code',
+  /** column name */
+  DismissedAt = 'dismissed_at',
+  /** column name */
+  Error = 'error',
+  /** column name */
+  FinishedAt = 'finished_at',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Phase = 'phase',
+  /** column name */
+  SourceUrl = 'source_url',
+  /** column name */
+  StartedAt = 'started_at',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  TotalBytes = 'total_bytes'
+}
+
+/** input type for updating data in table "asset_imports" */
+export type Asset_Imports_Set_Input = {
+  dismissed_at?: InputMaybe<Scalars['timestamptz']['input']>;
+};
+
+/** Streaming cursor of the table "asset_imports" */
+export type Asset_Imports_Stream_Cursor_Input = {
+  /** Stream column input with initial value */
+  initial_value: Asset_Imports_Stream_Cursor_Value_Input;
+  /** cursor ordering */
+  ordering?: InputMaybe<Cursor_Ordering>;
+};
+
+/** Initial value of the column from where the streaming should start */
+export type Asset_Imports_Stream_Cursor_Value_Input = {
+  asset_id?: InputMaybe<Scalars['uuid']['input']>;
+  bytes?: InputMaybe<Scalars['bigint']['input']>;
+  code?: InputMaybe<Scalars['String']['input']>;
+  dismissed_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  error?: InputMaybe<Scalars['String']['input']>;
+  finished_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  id?: InputMaybe<Scalars['uuid']['input']>;
+  phase?: InputMaybe<Scalars['String']['input']>;
+  source_url?: InputMaybe<Scalars['String']['input']>;
+  started_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  status?: InputMaybe<Scalars['String']['input']>;
+  total_bytes?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+export type Asset_Imports_Updates = {
+  /** sets the columns of the filtered rows to the given values */
+  _set?: InputMaybe<Asset_Imports_Set_Input>;
+  /** filter the rows which have to be updated */
+  where: Asset_Imports_Bool_Exp;
+};
+
 /** columns and relationships of "assets" */
 export type Assets = {
   __typename?: 'assets';
@@ -1541,6 +1679,12 @@ export type Get_My_Referrals_Output = {
   total_referrals: Scalars['Int']['output'];
 };
 
+export type Import_Media_Output = {
+  __typename?: 'import_media_output';
+  import_id: Scalars['String']['output'];
+  status: Scalars['String']['output'];
+};
+
 export type Jsonb_Cast_Exp = {
   String?: InputMaybe<String_Comparison_Exp>;
 };
@@ -2046,6 +2190,8 @@ export type Mutation_Root = {
   add_affiliate_code: Add_Affiliate_Code_Output;
   /** Cancel a scheduled account deletion during the grace period. */
   cancel_account_deletion: Cancel_Account_Deletion_Output;
+  /** Stop a running background import */
+  cancel_media_import: Import_Media_Output;
   /** Cancel a running pipeline and refund credits */
   cancel_pipeline_run?: Maybe<Cancel_Pipeline_Run_Output>;
   /** Cancel your subscription at the end of the current billing period */
@@ -2080,6 +2226,8 @@ export type Mutation_Root = {
   ensure_affiliate: Ensure_Affiliate_Output;
   /** Exchange a one-time authentication handoff code */
   exchange_auth_handoff_code: Exchange_Auth_Handoff_Code_Output;
+  /** Start a background import of a remote link */
+  import_media_url: Import_Media_Output;
   /** Begin email verification */
   init_verification_flow: Auth_Flow;
   /** Sign in with email and password */
@@ -2114,6 +2262,12 @@ export type Mutation_Root = {
   update_affiliate_codes_by_pk?: Maybe<Affiliate_Codes>;
   /** update multiples rows of table: "affiliate_codes" */
   update_affiliate_codes_many?: Maybe<Array<Maybe<Affiliate_Codes_Mutation_Response>>>;
+  /** update data of the table: "asset_imports" */
+  update_asset_imports?: Maybe<Asset_Imports_Mutation_Response>;
+  /** update single row of the table: "asset_imports" */
+  update_asset_imports_by_pk?: Maybe<Asset_Imports>;
+  /** update multiples rows of table: "asset_imports" */
+  update_asset_imports_many?: Maybe<Array<Maybe<Asset_Imports_Mutation_Response>>>;
   /** update data of the table: "assets" */
   update_assets?: Maybe<Assets_Mutation_Response>;
   /** update single row of the table: "assets" */
@@ -2146,6 +2300,12 @@ export type Mutation_RootAbort_Multipart_UploadArgs = {
 export type Mutation_RootAdd_Affiliate_CodeArgs = {
   code: Scalars['String']['input'];
   redirect_path?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** mutation root */
+export type Mutation_RootCancel_Media_ImportArgs = {
+  import_id: Scalars['String']['input'];
 };
 
 
@@ -2218,7 +2378,11 @@ export type Mutation_RootCreate_PaymentArgs = {
 
 /** mutation root */
 export type Mutation_RootCreate_Personal_Access_TokenArgs = {
+  credit_limit?: InputMaybe<Scalars['Int']['input']>;
+  expires_in_days?: InputMaybe<Scalars['Int']['input']>;
   name: Scalars['String']['input'];
+  reset_period?: InputMaybe<Scalars['String']['input']>;
+  scopes?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
@@ -2245,6 +2409,13 @@ export type Mutation_RootExchange_Auth_Handoff_CodeArgs = {
   code: Scalars['String']['input'];
   code_verifier: Scalars['String']['input'];
   redirect_uri: Scalars['String']['input'];
+};
+
+
+/** mutation root */
+export type Mutation_RootImport_Media_UrlArgs = {
+  tags?: InputMaybe<Array<Scalars['String']['input']>>;
+  url: Scalars['String']['input'];
 };
 
 
@@ -2353,6 +2524,26 @@ export type Mutation_RootUpdate_Affiliate_Codes_By_PkArgs = {
 /** mutation root */
 export type Mutation_RootUpdate_Affiliate_Codes_ManyArgs = {
   updates: Array<Affiliate_Codes_Updates>;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Asset_ImportsArgs = {
+  _set?: InputMaybe<Asset_Imports_Set_Input>;
+  where: Asset_Imports_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Asset_Imports_By_PkArgs = {
+  _set?: InputMaybe<Asset_Imports_Set_Input>;
+  pk_columns: Asset_Imports_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Asset_Imports_ManyArgs = {
+  updates: Array<Asset_Imports_Updates>;
 };
 
 
@@ -2796,14 +2987,59 @@ export type Payment_Providers_Stream_Cursor_Value_Input = {
 export type Personal_Access_Tokens = {
   __typename?: 'personal_access_tokens';
   created_at: Scalars['timestamptz']['output'];
+  credit_limit_mc?: Maybe<Scalars['bigint']['output']>;
   expires_at: Scalars['timestamptz']['output'];
   id: Scalars['uuid']['output'];
   last_used_at?: Maybe<Scalars['timestamptz']['output']>;
+  lifetime_used_mc: Scalars['bigint']['output'];
   name: Scalars['String']['output'];
+  reset_period: Scalars['String']['output'];
   revoked_at?: Maybe<Scalars['timestamptz']['output']>;
   scopes: Array<Scalars['String']['output']>;
   /** An object relationship */
   user: Users;
+  window_reserved_mc: Scalars['bigint']['output'];
+  window_start?: Maybe<Scalars['timestamptz']['output']>;
+  window_used_mc: Scalars['bigint']['output'];
+};
+
+/** aggregated selection of "personal_access_tokens" */
+export type Personal_Access_Tokens_Aggregate = {
+  __typename?: 'personal_access_tokens_aggregate';
+  aggregate?: Maybe<Personal_Access_Tokens_Aggregate_Fields>;
+  nodes: Array<Personal_Access_Tokens>;
+};
+
+/** aggregate fields of "personal_access_tokens" */
+export type Personal_Access_Tokens_Aggregate_Fields = {
+  __typename?: 'personal_access_tokens_aggregate_fields';
+  avg?: Maybe<Personal_Access_Tokens_Avg_Fields>;
+  count: Scalars['Int']['output'];
+  max?: Maybe<Personal_Access_Tokens_Max_Fields>;
+  min?: Maybe<Personal_Access_Tokens_Min_Fields>;
+  stddev?: Maybe<Personal_Access_Tokens_Stddev_Fields>;
+  stddev_pop?: Maybe<Personal_Access_Tokens_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Personal_Access_Tokens_Stddev_Samp_Fields>;
+  sum?: Maybe<Personal_Access_Tokens_Sum_Fields>;
+  var_pop?: Maybe<Personal_Access_Tokens_Var_Pop_Fields>;
+  var_samp?: Maybe<Personal_Access_Tokens_Var_Samp_Fields>;
+  variance?: Maybe<Personal_Access_Tokens_Variance_Fields>;
+};
+
+
+/** aggregate fields of "personal_access_tokens" */
+export type Personal_Access_Tokens_Aggregate_FieldsCountArgs = {
+  columns?: InputMaybe<Array<Personal_Access_Tokens_Select_Column>>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** aggregate avg on columns */
+export type Personal_Access_Tokens_Avg_Fields = {
+  __typename?: 'personal_access_tokens_avg_fields';
+  credit_limit_mc?: Maybe<Scalars['Float']['output']>;
+  lifetime_used_mc?: Maybe<Scalars['Float']['output']>;
+  window_reserved_mc?: Maybe<Scalars['Float']['output']>;
+  window_used_mc?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Boolean expression to filter rows from the table "personal_access_tokens". All fields are combined with a logical 'AND'. */
@@ -2812,25 +3048,73 @@ export type Personal_Access_Tokens_Bool_Exp = {
   _not?: InputMaybe<Personal_Access_Tokens_Bool_Exp>;
   _or?: InputMaybe<Array<Personal_Access_Tokens_Bool_Exp>>;
   created_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  credit_limit_mc?: InputMaybe<Bigint_Comparison_Exp>;
   expires_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   id?: InputMaybe<Uuid_Comparison_Exp>;
   last_used_at?: InputMaybe<Timestamptz_Comparison_Exp>;
+  lifetime_used_mc?: InputMaybe<Bigint_Comparison_Exp>;
   name?: InputMaybe<String_Comparison_Exp>;
+  reset_period?: InputMaybe<String_Comparison_Exp>;
   revoked_at?: InputMaybe<Timestamptz_Comparison_Exp>;
   scopes?: InputMaybe<String_Array_Comparison_Exp>;
   user?: InputMaybe<Users_Bool_Exp>;
+  window_reserved_mc?: InputMaybe<Bigint_Comparison_Exp>;
+  window_start?: InputMaybe<Timestamptz_Comparison_Exp>;
+  window_used_mc?: InputMaybe<Bigint_Comparison_Exp>;
+};
+
+/** aggregate max on columns */
+export type Personal_Access_Tokens_Max_Fields = {
+  __typename?: 'personal_access_tokens_max_fields';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  credit_limit_mc?: Maybe<Scalars['bigint']['output']>;
+  expires_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  last_used_at?: Maybe<Scalars['timestamptz']['output']>;
+  lifetime_used_mc?: Maybe<Scalars['bigint']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  reset_period?: Maybe<Scalars['String']['output']>;
+  revoked_at?: Maybe<Scalars['timestamptz']['output']>;
+  scopes?: Maybe<Array<Scalars['String']['output']>>;
+  window_reserved_mc?: Maybe<Scalars['bigint']['output']>;
+  window_start?: Maybe<Scalars['timestamptz']['output']>;
+  window_used_mc?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregate min on columns */
+export type Personal_Access_Tokens_Min_Fields = {
+  __typename?: 'personal_access_tokens_min_fields';
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  credit_limit_mc?: Maybe<Scalars['bigint']['output']>;
+  expires_at?: Maybe<Scalars['timestamptz']['output']>;
+  id?: Maybe<Scalars['uuid']['output']>;
+  last_used_at?: Maybe<Scalars['timestamptz']['output']>;
+  lifetime_used_mc?: Maybe<Scalars['bigint']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  reset_period?: Maybe<Scalars['String']['output']>;
+  revoked_at?: Maybe<Scalars['timestamptz']['output']>;
+  scopes?: Maybe<Array<Scalars['String']['output']>>;
+  window_reserved_mc?: Maybe<Scalars['bigint']['output']>;
+  window_start?: Maybe<Scalars['timestamptz']['output']>;
+  window_used_mc?: Maybe<Scalars['bigint']['output']>;
 };
 
 /** Ordering options when selecting data from "personal_access_tokens". */
 export type Personal_Access_Tokens_Order_By = {
   created_at?: InputMaybe<Order_By>;
+  credit_limit_mc?: InputMaybe<Order_By>;
   expires_at?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
   last_used_at?: InputMaybe<Order_By>;
+  lifetime_used_mc?: InputMaybe<Order_By>;
   name?: InputMaybe<Order_By>;
+  reset_period?: InputMaybe<Order_By>;
   revoked_at?: InputMaybe<Order_By>;
   scopes?: InputMaybe<Order_By>;
   user?: InputMaybe<Users_Order_By>;
+  window_reserved_mc?: InputMaybe<Order_By>;
+  window_start?: InputMaybe<Order_By>;
+  window_used_mc?: InputMaybe<Order_By>;
 };
 
 /** select columns of table "personal_access_tokens" */
@@ -2838,18 +3122,57 @@ export enum Personal_Access_Tokens_Select_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  CreditLimitMc = 'credit_limit_mc',
+  /** column name */
   ExpiresAt = 'expires_at',
   /** column name */
   Id = 'id',
   /** column name */
   LastUsedAt = 'last_used_at',
   /** column name */
+  LifetimeUsedMc = 'lifetime_used_mc',
+  /** column name */
   Name = 'name',
+  /** column name */
+  ResetPeriod = 'reset_period',
   /** column name */
   RevokedAt = 'revoked_at',
   /** column name */
-  Scopes = 'scopes'
+  Scopes = 'scopes',
+  /** column name */
+  WindowReservedMc = 'window_reserved_mc',
+  /** column name */
+  WindowStart = 'window_start',
+  /** column name */
+  WindowUsedMc = 'window_used_mc'
 }
+
+/** aggregate stddev on columns */
+export type Personal_Access_Tokens_Stddev_Fields = {
+  __typename?: 'personal_access_tokens_stddev_fields';
+  credit_limit_mc?: Maybe<Scalars['Float']['output']>;
+  lifetime_used_mc?: Maybe<Scalars['Float']['output']>;
+  window_reserved_mc?: Maybe<Scalars['Float']['output']>;
+  window_used_mc?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Personal_Access_Tokens_Stddev_Pop_Fields = {
+  __typename?: 'personal_access_tokens_stddev_pop_fields';
+  credit_limit_mc?: Maybe<Scalars['Float']['output']>;
+  lifetime_used_mc?: Maybe<Scalars['Float']['output']>;
+  window_reserved_mc?: Maybe<Scalars['Float']['output']>;
+  window_used_mc?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Personal_Access_Tokens_Stddev_Samp_Fields = {
+  __typename?: 'personal_access_tokens_stddev_samp_fields';
+  credit_limit_mc?: Maybe<Scalars['Float']['output']>;
+  lifetime_used_mc?: Maybe<Scalars['Float']['output']>;
+  window_reserved_mc?: Maybe<Scalars['Float']['output']>;
+  window_used_mc?: Maybe<Scalars['Float']['output']>;
+};
 
 /** Streaming cursor of the table "personal_access_tokens" */
 export type Personal_Access_Tokens_Stream_Cursor_Input = {
@@ -2862,12 +3185,54 @@ export type Personal_Access_Tokens_Stream_Cursor_Input = {
 /** Initial value of the column from where the streaming should start */
 export type Personal_Access_Tokens_Stream_Cursor_Value_Input = {
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  credit_limit_mc?: InputMaybe<Scalars['bigint']['input']>;
   expires_at?: InputMaybe<Scalars['timestamptz']['input']>;
   id?: InputMaybe<Scalars['uuid']['input']>;
   last_used_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  lifetime_used_mc?: InputMaybe<Scalars['bigint']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  reset_period?: InputMaybe<Scalars['String']['input']>;
   revoked_at?: InputMaybe<Scalars['timestamptz']['input']>;
   scopes?: InputMaybe<Array<Scalars['String']['input']>>;
+  window_reserved_mc?: InputMaybe<Scalars['bigint']['input']>;
+  window_start?: InputMaybe<Scalars['timestamptz']['input']>;
+  window_used_mc?: InputMaybe<Scalars['bigint']['input']>;
+};
+
+/** aggregate sum on columns */
+export type Personal_Access_Tokens_Sum_Fields = {
+  __typename?: 'personal_access_tokens_sum_fields';
+  credit_limit_mc?: Maybe<Scalars['bigint']['output']>;
+  lifetime_used_mc?: Maybe<Scalars['bigint']['output']>;
+  window_reserved_mc?: Maybe<Scalars['bigint']['output']>;
+  window_used_mc?: Maybe<Scalars['bigint']['output']>;
+};
+
+/** aggregate var_pop on columns */
+export type Personal_Access_Tokens_Var_Pop_Fields = {
+  __typename?: 'personal_access_tokens_var_pop_fields';
+  credit_limit_mc?: Maybe<Scalars['Float']['output']>;
+  lifetime_used_mc?: Maybe<Scalars['Float']['output']>;
+  window_reserved_mc?: Maybe<Scalars['Float']['output']>;
+  window_used_mc?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate var_samp on columns */
+export type Personal_Access_Tokens_Var_Samp_Fields = {
+  __typename?: 'personal_access_tokens_var_samp_fields';
+  credit_limit_mc?: Maybe<Scalars['Float']['output']>;
+  lifetime_used_mc?: Maybe<Scalars['Float']['output']>;
+  window_reserved_mc?: Maybe<Scalars['Float']['output']>;
+  window_used_mc?: Maybe<Scalars['Float']['output']>;
+};
+
+/** aggregate variance on columns */
+export type Personal_Access_Tokens_Variance_Fields = {
+  __typename?: 'personal_access_tokens_variance_fields';
+  credit_limit_mc?: Maybe<Scalars['Float']['output']>;
+  lifetime_used_mc?: Maybe<Scalars['Float']['output']>;
+  window_reserved_mc?: Maybe<Scalars['Float']['output']>;
+  window_used_mc?: Maybe<Scalars['Float']['output']>;
 };
 
 /** columns and relationships of "pipeline_examples" */
@@ -3374,6 +3739,7 @@ export type Pipeline_Pricing_Row = {
 /** columns and relationships of "pipeline_runs" */
 export type Pipeline_Runs = {
   __typename?: 'pipeline_runs';
+  agent_actual_credits_mc?: Maybe<Scalars['Int']['output']>;
   /** An array relationship */
   assets: Array<Assets>;
   /** An aggregate relationship */
@@ -3385,6 +3751,7 @@ export type Pipeline_Runs = {
   id: Scalars['uuid']['output'];
   input: Scalars['jsonb']['output'];
   output?: Maybe<Scalars['jsonb']['output']>;
+  parent_run_id?: Maybe<Scalars['uuid']['output']>;
   /** An object relationship */
   pipeline: Pipelines;
   pipeline_id: Scalars['uuid']['output'];
@@ -3463,6 +3830,7 @@ export type Pipeline_Runs_Aggregate_FieldsCountArgs = {
 /** aggregate avg on columns */
 export type Pipeline_Runs_Avg_Fields = {
   __typename?: 'pipeline_runs_avg_fields';
+  agent_actual_credits_mc?: Maybe<Scalars['Float']['output']>;
   credits_charged?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -3471,6 +3839,7 @@ export type Pipeline_Runs_Bool_Exp = {
   _and?: InputMaybe<Array<Pipeline_Runs_Bool_Exp>>;
   _not?: InputMaybe<Pipeline_Runs_Bool_Exp>;
   _or?: InputMaybe<Array<Pipeline_Runs_Bool_Exp>>;
+  agent_actual_credits_mc?: InputMaybe<Int_Comparison_Exp>;
   assets?: InputMaybe<Assets_Bool_Exp>;
   assets_aggregate?: InputMaybe<Assets_Aggregate_Bool_Exp>;
   completed_at?: InputMaybe<Timestamptz_Comparison_Exp>;
@@ -3480,6 +3849,7 @@ export type Pipeline_Runs_Bool_Exp = {
   id?: InputMaybe<Uuid_Comparison_Exp>;
   input?: InputMaybe<Jsonb_Comparison_Exp>;
   output?: InputMaybe<Jsonb_Comparison_Exp>;
+  parent_run_id?: InputMaybe<Uuid_Comparison_Exp>;
   pipeline?: InputMaybe<Pipelines_Bool_Exp>;
   pipeline_id?: InputMaybe<Uuid_Comparison_Exp>;
   share_token?: InputMaybe<Uuid_Comparison_Exp>;
@@ -3493,11 +3863,13 @@ export type Pipeline_Runs_Bool_Exp = {
 /** aggregate max on columns */
 export type Pipeline_Runs_Max_Fields = {
   __typename?: 'pipeline_runs_max_fields';
+  agent_actual_credits_mc?: Maybe<Scalars['Int']['output']>;
   completed_at?: Maybe<Scalars['timestamptz']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   credits_charged?: Maybe<Scalars['Int']['output']>;
   error_message?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  parent_run_id?: Maybe<Scalars['uuid']['output']>;
   pipeline_id?: Maybe<Scalars['uuid']['output']>;
   share_token?: Maybe<Scalars['uuid']['output']>;
   started_at?: Maybe<Scalars['timestamptz']['output']>;
@@ -3508,11 +3880,13 @@ export type Pipeline_Runs_Max_Fields = {
 /** aggregate min on columns */
 export type Pipeline_Runs_Min_Fields = {
   __typename?: 'pipeline_runs_min_fields';
+  agent_actual_credits_mc?: Maybe<Scalars['Int']['output']>;
   completed_at?: Maybe<Scalars['timestamptz']['output']>;
   created_at?: Maybe<Scalars['timestamptz']['output']>;
   credits_charged?: Maybe<Scalars['Int']['output']>;
   error_message?: Maybe<Scalars['String']['output']>;
   id?: Maybe<Scalars['uuid']['output']>;
+  parent_run_id?: Maybe<Scalars['uuid']['output']>;
   pipeline_id?: Maybe<Scalars['uuid']['output']>;
   share_token?: Maybe<Scalars['uuid']['output']>;
   started_at?: Maybe<Scalars['timestamptz']['output']>;
@@ -3531,6 +3905,7 @@ export type Pipeline_Runs_Mutation_Response = {
 
 /** Ordering options when selecting data from "pipeline_runs". */
 export type Pipeline_Runs_Order_By = {
+  agent_actual_credits_mc?: InputMaybe<Order_By>;
   assets_aggregate?: InputMaybe<Assets_Aggregate_Order_By>;
   completed_at?: InputMaybe<Order_By>;
   created_at?: InputMaybe<Order_By>;
@@ -3539,6 +3914,7 @@ export type Pipeline_Runs_Order_By = {
   id?: InputMaybe<Order_By>;
   input?: InputMaybe<Order_By>;
   output?: InputMaybe<Order_By>;
+  parent_run_id?: InputMaybe<Order_By>;
   pipeline?: InputMaybe<Pipelines_Order_By>;
   pipeline_id?: InputMaybe<Order_By>;
   share_token?: InputMaybe<Order_By>;
@@ -3557,6 +3933,8 @@ export type Pipeline_Runs_Pk_Columns_Input = {
 /** select columns of table "pipeline_runs" */
 export enum Pipeline_Runs_Select_Column {
   /** column name */
+  AgentActualCreditsMc = 'agent_actual_credits_mc',
+  /** column name */
   CompletedAt = 'completed_at',
   /** column name */
   CreatedAt = 'created_at',
@@ -3570,6 +3948,8 @@ export enum Pipeline_Runs_Select_Column {
   Input = 'input',
   /** column name */
   Output = 'output',
+  /** column name */
+  ParentRunId = 'parent_run_id',
   /** column name */
   PipelineId = 'pipeline_id',
   /** column name */
@@ -3593,18 +3973,21 @@ export type Pipeline_Runs_Set_Input = {
 /** aggregate stddev on columns */
 export type Pipeline_Runs_Stddev_Fields = {
   __typename?: 'pipeline_runs_stddev_fields';
+  agent_actual_credits_mc?: Maybe<Scalars['Float']['output']>;
   credits_charged?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type Pipeline_Runs_Stddev_Pop_Fields = {
   __typename?: 'pipeline_runs_stddev_pop_fields';
+  agent_actual_credits_mc?: Maybe<Scalars['Float']['output']>;
   credits_charged?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type Pipeline_Runs_Stddev_Samp_Fields = {
   __typename?: 'pipeline_runs_stddev_samp_fields';
+  agent_actual_credits_mc?: Maybe<Scalars['Float']['output']>;
   credits_charged?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -3618,6 +4001,7 @@ export type Pipeline_Runs_Stream_Cursor_Input = {
 
 /** Initial value of the column from where the streaming should start */
 export type Pipeline_Runs_Stream_Cursor_Value_Input = {
+  agent_actual_credits_mc?: InputMaybe<Scalars['Int']['input']>;
   completed_at?: InputMaybe<Scalars['timestamptz']['input']>;
   created_at?: InputMaybe<Scalars['timestamptz']['input']>;
   credits_charged?: InputMaybe<Scalars['Int']['input']>;
@@ -3625,6 +4009,7 @@ export type Pipeline_Runs_Stream_Cursor_Value_Input = {
   id?: InputMaybe<Scalars['uuid']['input']>;
   input?: InputMaybe<Scalars['jsonb']['input']>;
   output?: InputMaybe<Scalars['jsonb']['input']>;
+  parent_run_id?: InputMaybe<Scalars['uuid']['input']>;
   pipeline_id?: InputMaybe<Scalars['uuid']['input']>;
   share_token?: InputMaybe<Scalars['uuid']['input']>;
   share_watermark?: InputMaybe<Scalars['Boolean']['input']>;
@@ -3636,6 +4021,7 @@ export type Pipeline_Runs_Stream_Cursor_Value_Input = {
 /** aggregate sum on columns */
 export type Pipeline_Runs_Sum_Fields = {
   __typename?: 'pipeline_runs_sum_fields';
+  agent_actual_credits_mc?: Maybe<Scalars['Int']['output']>;
   credits_charged?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -3649,18 +4035,21 @@ export type Pipeline_Runs_Updates = {
 /** aggregate var_pop on columns */
 export type Pipeline_Runs_Var_Pop_Fields = {
   __typename?: 'pipeline_runs_var_pop_fields';
+  agent_actual_credits_mc?: Maybe<Scalars['Float']['output']>;
   credits_charged?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate var_samp on columns */
 export type Pipeline_Runs_Var_Samp_Fields = {
   __typename?: 'pipeline_runs_var_samp_fields';
+  agent_actual_credits_mc?: Maybe<Scalars['Float']['output']>;
   credits_charged?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate variance on columns */
 export type Pipeline_Runs_Variance_Fields = {
   __typename?: 'pipeline_runs_variance_fields';
+  agent_actual_credits_mc?: Maybe<Scalars['Float']['output']>;
   credits_charged?: Maybe<Scalars['Float']['output']>;
 };
 
@@ -4627,6 +5016,10 @@ export type Query_Root = {
   affiliates: Array<Affiliates>;
   /** fetch data from the table: "affiliates" using primary key columns */
   affiliates_by_pk?: Maybe<Affiliates>;
+  /** fetch data from the table: "asset_imports" */
+  asset_imports: Array<Asset_Imports>;
+  /** fetch data from the table: "asset_imports" using primary key columns */
+  asset_imports_by_pk?: Maybe<Asset_Imports>;
   /** An array relationship */
   assets: Array<Assets>;
   /** An aggregate relationship */
@@ -4711,6 +5104,8 @@ export type Query_Root = {
   payments: Array<Payment_Output>;
   /** fetch data from the table: "personal_access_tokens" */
   personal_access_tokens: Array<Personal_Access_Tokens>;
+  /** fetch aggregated fields from the table: "personal_access_tokens" */
+  personal_access_tokens_aggregate: Personal_Access_Tokens_Aggregate;
   /** fetch data from the table: "personal_access_tokens" using primary key columns */
   personal_access_tokens_by_pk?: Maybe<Personal_Access_Tokens>;
   /** fetch data from the table: "pipeline_examples" */
@@ -4802,6 +5197,20 @@ export type Query_RootAffiliatesArgs = {
 
 
 export type Query_RootAffiliates_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Query_RootAsset_ImportsArgs = {
+  distinct_on?: InputMaybe<Array<Asset_Imports_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Asset_Imports_Order_By>>;
+  where?: InputMaybe<Asset_Imports_Bool_Exp>;
+};
+
+
+export type Query_RootAsset_Imports_By_PkArgs = {
   id: Scalars['uuid']['input'];
 };
 
@@ -5074,6 +5483,15 @@ export type Query_RootPaymentsArgs = {
 
 
 export type Query_RootPersonal_Access_TokensArgs = {
+  distinct_on?: InputMaybe<Array<Personal_Access_Tokens_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personal_Access_Tokens_Order_By>>;
+  where?: InputMaybe<Personal_Access_Tokens_Bool_Exp>;
+};
+
+
+export type Query_RootPersonal_Access_Tokens_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Personal_Access_Tokens_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -5487,6 +5905,12 @@ export type Subscription_Root = {
   affiliates_by_pk?: Maybe<Affiliates>;
   /** fetch data from the table in a streaming manner: "affiliates" */
   affiliates_stream: Array<Affiliates>;
+  /** fetch data from the table: "asset_imports" */
+  asset_imports: Array<Asset_Imports>;
+  /** fetch data from the table: "asset_imports" using primary key columns */
+  asset_imports_by_pk?: Maybe<Asset_Imports>;
+  /** fetch data from the table in a streaming manner: "asset_imports" */
+  asset_imports_stream: Array<Asset_Imports>;
   /** An array relationship */
   assets: Array<Assets>;
   /** An aggregate relationship */
@@ -5591,6 +6015,8 @@ export type Subscription_Root = {
   payment_providers_stream: Array<Payment_Providers>;
   /** fetch data from the table: "personal_access_tokens" */
   personal_access_tokens: Array<Personal_Access_Tokens>;
+  /** fetch aggregated fields from the table: "personal_access_tokens" */
+  personal_access_tokens_aggregate: Personal_Access_Tokens_Aggregate;
   /** fetch data from the table: "personal_access_tokens" using primary key columns */
   personal_access_tokens_by_pk?: Maybe<Personal_Access_Tokens>;
   /** fetch data from the table in a streaming manner: "personal_access_tokens" */
@@ -5727,6 +6153,27 @@ export type Subscription_RootAffiliates_StreamArgs = {
   batch_size: Scalars['Int']['input'];
   cursor: Array<InputMaybe<Affiliates_Stream_Cursor_Input>>;
   where?: InputMaybe<Affiliates_Bool_Exp>;
+};
+
+
+export type Subscription_RootAsset_ImportsArgs = {
+  distinct_on?: InputMaybe<Array<Asset_Imports_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Asset_Imports_Order_By>>;
+  where?: InputMaybe<Asset_Imports_Bool_Exp>;
+};
+
+
+export type Subscription_RootAsset_Imports_By_PkArgs = {
+  id: Scalars['uuid']['input'];
+};
+
+
+export type Subscription_RootAsset_Imports_StreamArgs = {
+  batch_size: Scalars['Int']['input'];
+  cursor: Array<InputMaybe<Asset_Imports_Stream_Cursor_Input>>;
+  where?: InputMaybe<Asset_Imports_Bool_Exp>;
 };
 
 
@@ -6099,6 +6546,15 @@ export type Subscription_RootPayment_Providers_StreamArgs = {
 
 
 export type Subscription_RootPersonal_Access_TokensArgs = {
+  distinct_on?: InputMaybe<Array<Personal_Access_Tokens_Select_Column>>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  order_by?: InputMaybe<Array<Personal_Access_Tokens_Order_By>>;
+  where?: InputMaybe<Personal_Access_Tokens_Bool_Exp>;
+};
+
+
+export type Subscription_RootPersonal_Access_Tokens_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Personal_Access_Tokens_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -6903,6 +7359,43 @@ export type CreateAssetMutationVariables = Exact<{
 
 export type CreateAssetMutation = { __typename?: 'mutation_root', create_asset: { __typename?: 'create_asset_output', id: string, type: string, url: string, tags: Array<string>, created_at: string } };
 
+export type ImportMediaUrlMutationVariables = Exact<{
+  url: Scalars['String']['input'];
+  tags?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+}>;
+
+
+export type ImportMediaUrlMutation = { __typename?: 'mutation_root', import_media_url: { __typename?: 'import_media_output', import_id: string, status: string } };
+
+export type CancelMediaImportMutationVariables = Exact<{
+  importId: Scalars['String']['input'];
+}>;
+
+
+export type CancelMediaImportMutation = { __typename?: 'mutation_root', cancel_media_import: { __typename?: 'import_media_output', import_id: string, status: string } };
+
+export type DismissAssetImportMutationVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+
+export type DismissAssetImportMutation = { __typename?: 'mutation_root', update_asset_imports?: { __typename?: 'asset_imports_mutation_response', affected_rows: number } | null };
+
+export type AssetImportStatusQueryVariables = Exact<{
+  id: Scalars['uuid']['input'];
+}>;
+
+
+export type AssetImportStatusQuery = { __typename?: 'query_root', asset_imports_by_pk?: { __typename?: 'asset_imports', id: any, status: string, phase: string, bytes: any, total_bytes: any, code?: string | null, error?: string | null, asset_id?: any | null, finished_at?: any | null } | null };
+
+export type UserAssetImportsQueryVariables = Exact<{
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  failedSince: Scalars['timestamptz']['input'];
+}>;
+
+
+export type UserAssetImportsQuery = { __typename?: 'query_root', asset_imports: Array<{ __typename?: 'asset_imports', id: any, source_url: string, status: string, phase: string, bytes: any, total_bytes: any, code?: string | null, error?: string | null, asset_id?: any | null, started_at: any, finished_at?: any | null }> };
+
 export type DeleteAssetActionMutationVariables = Exact<{
   id: Scalars['uuid']['input'];
 }>;
@@ -7119,7 +7612,7 @@ export type PipelineModelsQueryVariables = Exact<{
 }>;
 
 
-export type PipelineModelsQuery = { __typename?: 'query_root', pipeline_models: Array<{ __typename?: 'pipeline_models', model_slug: string, sort_order: number, input_schema: any, auto_route_order?: number | null, model: { __typename?: 'models', slug: string, label: string, public_name?: string | null, description: string, provider: string, translations: Array<{ __typename?: 'model_translations', locale: string, description?: string | null }> } }> };
+export type PipelineModelsQuery = { __typename?: 'query_root', pipeline_models: Array<{ __typename?: 'pipeline_models', model_slug: string, sort_order: number, input_schema: any, auto_route_order?: number | null, model: { __typename?: 'models', slug: string, label: string, public_name?: string | null, description: string, provider: string, icon_url?: string | null, provider_info: { __typename?: 'providers', label?: string | null }, translations: Array<{ __typename?: 'model_translations', locale: string, description?: string | null }> } }> };
 
 export type PipelinePricingQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -7146,7 +7639,7 @@ export type GetPipelineRunQueryVariables = Exact<{
 }>;
 
 
-export type GetPipelineRunQuery = { __typename?: 'query_root', pipeline_runs_by_pk?: { __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean, translations: Array<{ __typename?: 'pipeline_translations', locale: string, name?: string | null }> }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null, created_at: any }>, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null } | null };
+export type GetPipelineRunQuery = { __typename?: 'query_root', pipeline_runs_by_pk?: { __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, parent_run_id?: any | null, agent_actual_credits_mc?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean, translations: Array<{ __typename?: 'pipeline_translations', locale: string, name?: string | null }> }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null, created_at: any }>, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null } | null };
 
 export type GetPipelineRunsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -7155,7 +7648,7 @@ export type GetPipelineRunsQueryVariables = Exact<{
 }>;
 
 
-export type GetPipelineRunsQuery = { __typename?: 'query_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean, translations: Array<{ __typename?: 'pipeline_translations', locale: string, name?: string | null }> }, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null }>, pipeline_runs_aggregate: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number } | null }, completed: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number, sum?: { __typename?: 'pipeline_runs_sum_fields', credits_charged?: number | null } | null } | null } };
+export type GetPipelineRunsQuery = { __typename?: 'query_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, parent_run_id?: any | null, agent_actual_credits_mc?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean, translations: Array<{ __typename?: 'pipeline_translations', locale: string, name?: string | null }> }, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null }>, pipeline_runs_aggregate: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number } | null }, completed: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number, sum?: { __typename?: 'pipeline_runs_sum_fields', credits_charged?: number | null } | null } | null } };
 
 export type GetPipelineRunsBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -7164,7 +7657,7 @@ export type GetPipelineRunsBySlugQueryVariables = Exact<{
 }>;
 
 
-export type GetPipelineRunsBySlugQuery = { __typename?: 'query_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null }>, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null }>, pipeline_runs_aggregate: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number } | null } };
+export type GetPipelineRunsBySlugQuery = { __typename?: 'query_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, parent_run_id?: any | null, agent_actual_credits_mc?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null }>, workflow_execution?: { __typename?: 'executions_visibility', status: number, start_time: any, close_time?: any | null } | null }>, pipeline_runs_aggregate: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number } | null } };
 
 export type GetActivePipelineRunsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -7229,12 +7722,28 @@ export type WatchPipelineRunSubscriptionVariables = Exact<{
 }>;
 
 
-export type WatchPipelineRunSubscription = { __typename?: 'subscription_root', pipeline_runs_by_pk?: { __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null }> } | null };
+export type WatchPipelineRunSubscription = { __typename?: 'subscription_root', pipeline_runs_by_pk?: { __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, parent_run_id?: any | null, agent_actual_credits_mc?: number | null, created_at: any, completed_at?: any | null, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null }> } | null };
 
 export type WatchActivePipelineRunsSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
 
 export type WatchActivePipelineRunsSubscription = { __typename?: 'subscription_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, created_at: any, pipeline: { __typename?: 'pipelines', name: string, slug: string } }> };
+
+export type WatchPipelineRunsBySlugSubscriptionVariables = Exact<{
+  slug: Scalars['String']['input'];
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+
+export type WatchPipelineRunsBySlugSubscription = { __typename?: 'subscription_root', pipeline_runs: Array<{ __typename?: 'pipeline_runs', id: any, status: string, input: any, output?: any | null, error_message?: string | null, credits_charged?: number | null, created_at: any, completed_at?: any | null, share_token?: any | null, share_watermark: boolean, pipeline: { __typename?: 'pipelines', name: string, slug: string, output_schema: any, input_schema: any, ui_schema: any, cancellable: boolean }, assets: Array<{ __typename?: 'assets', id: any, type: string, url: string, thumbnail_url?: string | null }> }> };
+
+export type WatchPipelineRunCountBySlugSubscriptionVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type WatchPipelineRunCountBySlugSubscription = { __typename?: 'subscription_root', pipeline_runs_aggregate: { __typename?: 'pipeline_runs_aggregate', aggregate?: { __typename?: 'pipeline_runs_aggregate_fields', count: number } | null } };
 
 export type WatchNotificationsSubscriptionVariables = Exact<{
   limit: Scalars['Int']['input'];
@@ -7248,13 +7757,20 @@ export type WatchBillingUpdatesSubscriptionVariables = Exact<{ [key: string]: ne
 
 export type WatchBillingUpdatesSubscription = { __typename?: 'subscription_root', users: Array<{ __typename?: 'users', updated_at: any }> };
 
-export type GetMyApiKeysQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetMyApiKeysQueryVariables = Exact<{
+  limit: Scalars['Int']['input'];
+  offset: Scalars['Int']['input'];
+}>;
 
 
-export type GetMyApiKeysQuery = { __typename?: 'query_root', personal_access_tokens: Array<{ __typename?: 'personal_access_tokens', id: any, name: string, scopes: Array<string>, last_used_at?: any | null, created_at: any, expires_at: any, revoked_at?: any | null }> };
+export type GetMyApiKeysQuery = { __typename?: 'query_root', personal_access_tokens: Array<{ __typename?: 'personal_access_tokens', id: any, name: string, scopes: Array<string>, last_used_at?: any | null, created_at: any, expires_at: any, revoked_at?: any | null, credit_limit_mc?: any | null, reset_period: string, window_start?: any | null, window_used_mc: any, window_reserved_mc: any, lifetime_used_mc: any }>, personal_access_tokens_aggregate: { __typename?: 'personal_access_tokens_aggregate', aggregate?: { __typename?: 'personal_access_tokens_aggregate_fields', count: number } | null } };
 
 export type CreatePersonalAccessTokenMutationVariables = Exact<{
   name: Scalars['String']['input'];
+  scopes?: InputMaybe<Array<Scalars['String']['input']> | Scalars['String']['input']>;
+  creditLimit?: InputMaybe<Scalars['Int']['input']>;
+  resetPeriod?: InputMaybe<Scalars['String']['input']>;
+  expiresInDays?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
 
@@ -7529,6 +8045,65 @@ export const CreateAssetDocument = gql`
     url
     tags
     created_at
+  }
+}
+    `;
+export const ImportMediaUrlDocument = gql`
+    mutation ImportMediaURL($url: String!, $tags: [String!] = []) {
+  import_media_url(url: $url, tags: $tags) {
+    import_id
+    status
+  }
+}
+    `;
+export const CancelMediaImportDocument = gql`
+    mutation CancelMediaImport($importId: String!) {
+  cancel_media_import(import_id: $importId) {
+    import_id
+    status
+  }
+}
+    `;
+export const DismissAssetImportDocument = gql`
+    mutation DismissAssetImport($id: uuid!) {
+  update_asset_imports(where: {id: {_eq: $id}}, _set: {dismissed_at: "now()"}) {
+    affected_rows
+  }
+}
+    `;
+export const AssetImportStatusDocument = gql`
+    query AssetImportStatus($id: uuid!) {
+  asset_imports_by_pk(id: $id) {
+    id
+    status
+    phase
+    bytes
+    total_bytes
+    code
+    error
+    asset_id
+    finished_at
+  }
+}
+    `;
+export const UserAssetImportsDocument = gql`
+    query UserAssetImports($limit: Int = 10, $failedSince: timestamptz!) {
+  asset_imports(
+    where: {_or: [{finished_at: {_is_null: true}}, {status: {_eq: "failed"}, finished_at: {_gte: $failedSince}, dismissed_at: {_is_null: true}}]}
+    order_by: {started_at: desc}
+    limit: $limit
+  ) {
+    id
+    source_url
+    status
+    phase
+    bytes
+    total_bytes
+    code
+    error
+    asset_id
+    started_at
+    finished_at
   }
 }
     `;
@@ -8023,6 +8598,10 @@ export const PipelineModelsDocument = gql`
       public_name
       description
       provider
+      provider_info {
+        label
+      }
+      icon_url
       translations {
         locale
         description
@@ -8065,6 +8644,8 @@ export const GetPipelineRunDocument = gql`
     output
     error_message
     credits_charged
+    parent_run_id
+    agent_actual_credits_mc
     created_at
     completed_at
     share_token
@@ -8122,6 +8703,8 @@ export const GetPipelineRunsDocument = gql`
     output
     error_message
     credits_charged
+    parent_run_id
+    agent_actual_credits_mc
     created_at
     completed_at
     share_token
@@ -8171,6 +8754,8 @@ export const GetPipelineRunsBySlugDocument = gql`
     output
     error_message
     credits_charged
+    parent_run_id
+    agent_actual_credits_mc
     created_at
     completed_at
     share_token
@@ -8377,6 +8962,8 @@ export const WatchPipelineRunDocument = gql`
     output
     error_message
     credits_charged
+    parent_run_id
+    agent_actual_credits_mc
     created_at
     completed_at
     pipeline {
@@ -8413,6 +9000,50 @@ export const WatchActivePipelineRunsDocument = gql`
   }
 }
     `;
+export const WatchPipelineRunsBySlugDocument = gql`
+    subscription WatchPipelineRunsBySlug($slug: String!, $limit: Int = 10, $offset: Int = 0) {
+  pipeline_runs(
+    where: {pipeline: {slug: {_eq: $slug}}}
+    order_by: {created_at: desc}
+    limit: $limit
+    offset: $offset
+  ) {
+    id
+    status
+    pipeline {
+      name
+      slug
+      output_schema
+      input_schema
+      ui_schema
+      cancellable
+    }
+    input
+    output
+    error_message
+    credits_charged
+    created_at
+    completed_at
+    share_token
+    share_watermark
+    assets {
+      id
+      type
+      url
+      thumbnail_url
+    }
+  }
+}
+    `;
+export const WatchPipelineRunCountBySlugDocument = gql`
+    subscription WatchPipelineRunCountBySlug($slug: String!) {
+  pipeline_runs_aggregate(where: {pipeline: {slug: {_eq: $slug}}}) {
+    aggregate {
+      count
+    }
+  }
+}
+    `;
 export const WatchNotificationsDocument = gql`
     subscription WatchNotifications($limit: Int!) {
   notifications(order_by: {created_at: desc}, limit: $limit) {
@@ -8434,8 +9065,12 @@ export const WatchBillingUpdatesDocument = gql`
 }
     `;
 export const GetMyApiKeysDocument = gql`
-    query GetMyApiKeys {
-  personal_access_tokens(order_by: {created_at: desc}) {
+    query GetMyApiKeys($limit: Int!, $offset: Int!) {
+  personal_access_tokens(
+    order_by: [{created_at: desc}, {id: desc}]
+    limit: $limit
+    offset: $offset
+  ) {
     id
     name
     scopes
@@ -8443,12 +9078,29 @@ export const GetMyApiKeysDocument = gql`
     created_at
     expires_at
     revoked_at
+    credit_limit_mc
+    reset_period
+    window_start
+    window_used_mc
+    window_reserved_mc
+    lifetime_used_mc
+  }
+  personal_access_tokens_aggregate {
+    aggregate {
+      count
+    }
   }
 }
     `;
 export const CreatePersonalAccessTokenDocument = gql`
-    mutation CreatePersonalAccessToken($name: String!) {
-  create_personal_access_token(name: $name) {
+    mutation CreatePersonalAccessToken($name: String!, $scopes: [String!], $creditLimit: Int, $resetPeriod: String, $expiresInDays: Int) {
+  create_personal_access_token(
+    name: $name
+    scopes: $scopes
+    credit_limit: $creditLimit
+    reset_period: $resetPeriod
+    expires_in_days: $expiresInDays
+  ) {
     success
     id
     token
@@ -8546,6 +9198,21 @@ export function getSdk<C>(requester: Requester<C>) {
     },
     CreateAsset(variables: CreateAssetMutationVariables, options?: C): Promise<CreateAssetMutation> {
       return requester<CreateAssetMutation, CreateAssetMutationVariables>(CreateAssetDocument, variables, options) as Promise<CreateAssetMutation>;
+    },
+    ImportMediaURL(variables: ImportMediaUrlMutationVariables, options?: C): Promise<ImportMediaUrlMutation> {
+      return requester<ImportMediaUrlMutation, ImportMediaUrlMutationVariables>(ImportMediaUrlDocument, variables, options) as Promise<ImportMediaUrlMutation>;
+    },
+    CancelMediaImport(variables: CancelMediaImportMutationVariables, options?: C): Promise<CancelMediaImportMutation> {
+      return requester<CancelMediaImportMutation, CancelMediaImportMutationVariables>(CancelMediaImportDocument, variables, options) as Promise<CancelMediaImportMutation>;
+    },
+    DismissAssetImport(variables: DismissAssetImportMutationVariables, options?: C): Promise<DismissAssetImportMutation> {
+      return requester<DismissAssetImportMutation, DismissAssetImportMutationVariables>(DismissAssetImportDocument, variables, options) as Promise<DismissAssetImportMutation>;
+    },
+    AssetImportStatus(variables: AssetImportStatusQueryVariables, options?: C): Promise<AssetImportStatusQuery> {
+      return requester<AssetImportStatusQuery, AssetImportStatusQueryVariables>(AssetImportStatusDocument, variables, options) as Promise<AssetImportStatusQuery>;
+    },
+    UserAssetImports(variables: UserAssetImportsQueryVariables, options?: C): Promise<UserAssetImportsQuery> {
+      return requester<UserAssetImportsQuery, UserAssetImportsQueryVariables>(UserAssetImportsDocument, variables, options) as Promise<UserAssetImportsQuery>;
     },
     DeleteAssetAction(variables: DeleteAssetActionMutationVariables, options?: C): Promise<DeleteAssetActionMutation> {
       return requester<DeleteAssetActionMutation, DeleteAssetActionMutationVariables>(DeleteAssetActionDocument, variables, options) as Promise<DeleteAssetActionMutation>;
@@ -8688,13 +9355,19 @@ export function getSdk<C>(requester: Requester<C>) {
     WatchActivePipelineRuns(variables?: WatchActivePipelineRunsSubscriptionVariables, options?: C): AsyncIterable<WatchActivePipelineRunsSubscription> {
       return requester<WatchActivePipelineRunsSubscription, WatchActivePipelineRunsSubscriptionVariables>(WatchActivePipelineRunsDocument, variables, options) as AsyncIterable<WatchActivePipelineRunsSubscription>;
     },
+    WatchPipelineRunsBySlug(variables: WatchPipelineRunsBySlugSubscriptionVariables, options?: C): AsyncIterable<WatchPipelineRunsBySlugSubscription> {
+      return requester<WatchPipelineRunsBySlugSubscription, WatchPipelineRunsBySlugSubscriptionVariables>(WatchPipelineRunsBySlugDocument, variables, options) as AsyncIterable<WatchPipelineRunsBySlugSubscription>;
+    },
+    WatchPipelineRunCountBySlug(variables: WatchPipelineRunCountBySlugSubscriptionVariables, options?: C): AsyncIterable<WatchPipelineRunCountBySlugSubscription> {
+      return requester<WatchPipelineRunCountBySlugSubscription, WatchPipelineRunCountBySlugSubscriptionVariables>(WatchPipelineRunCountBySlugDocument, variables, options) as AsyncIterable<WatchPipelineRunCountBySlugSubscription>;
+    },
     WatchNotifications(variables: WatchNotificationsSubscriptionVariables, options?: C): AsyncIterable<WatchNotificationsSubscription> {
       return requester<WatchNotificationsSubscription, WatchNotificationsSubscriptionVariables>(WatchNotificationsDocument, variables, options) as AsyncIterable<WatchNotificationsSubscription>;
     },
     WatchBillingUpdates(variables?: WatchBillingUpdatesSubscriptionVariables, options?: C): AsyncIterable<WatchBillingUpdatesSubscription> {
       return requester<WatchBillingUpdatesSubscription, WatchBillingUpdatesSubscriptionVariables>(WatchBillingUpdatesDocument, variables, options) as AsyncIterable<WatchBillingUpdatesSubscription>;
     },
-    GetMyApiKeys(variables?: GetMyApiKeysQueryVariables, options?: C): Promise<GetMyApiKeysQuery> {
+    GetMyApiKeys(variables: GetMyApiKeysQueryVariables, options?: C): Promise<GetMyApiKeysQuery> {
       return requester<GetMyApiKeysQuery, GetMyApiKeysQueryVariables>(GetMyApiKeysDocument, variables, options) as Promise<GetMyApiKeysQuery>;
     },
     CreatePersonalAccessToken(variables: CreatePersonalAccessTokenMutationVariables, options?: C): Promise<CreatePersonalAccessTokenMutation> {
