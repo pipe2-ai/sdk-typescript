@@ -7386,7 +7386,7 @@ export type AssetImportStatusQueryVariables = Exact<{
 }>;
 
 
-export type AssetImportStatusQuery = { __typename?: 'query_root', asset_imports_by_pk?: { __typename?: 'asset_imports', id: any, status: string, phase: string, bytes: any, total_bytes: any, code?: string | null, error?: string | null, asset_id?: any | null, finished_at?: any | null } | null };
+export type AssetImportStatusQuery = { __typename?: 'query_root', asset_imports_by_pk?: { __typename?: 'asset_imports', id: any, status: string, phase: string, bytes: any, total_bytes: any, code?: string | null, error?: string | null, asset_id?: any | null, finished_at?: any | null, asset?: { __typename?: 'assets', url: string } | null } | null };
 
 export type UserAssetImportsQueryVariables = Exact<{
   limit?: InputMaybe<Scalars['Int']['input']>;
@@ -8082,6 +8082,9 @@ export const AssetImportStatusDocument = gql`
     code
     error
     asset_id
+    asset {
+      url
+    }
     finished_at
   }
 }
